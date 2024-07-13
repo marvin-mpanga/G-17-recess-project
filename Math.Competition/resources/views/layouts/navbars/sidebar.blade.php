@@ -82,6 +82,7 @@ Tip 2: you can also add an image using data-image tag
                     <p>{{ __("Upgrade to PRO") }}</p>
                 </a>
             </li>
+
         </ul>
     </div>
 </div>
