@@ -133,7 +133,12 @@ Tip 2: you can also add an image using data-image tag
                     <i class="nc-icon nc-alien-33"></i>
                     <p>{{ __("Upgrade to PRO") }}</p>
                 </a>
+<<<<<<< HEAD
             </li> -->
+=======
+            </li>
+
+>>>>>>> origin/laravel-project
         </ul>
     </div>
 </div>

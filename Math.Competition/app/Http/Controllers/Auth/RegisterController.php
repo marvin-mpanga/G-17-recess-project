@@ -70,4 +70,74 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    /**
+     * Show the administrator registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showadminRegisterForm()
+    {
+        return view('auth.admin_register');
+    }
+
+    /**
+     * Handle administrator registration.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function adminRegister(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $admin = $this->create($request->all());
+        return redirect()->route('admin.dashboard');
+    }
+
+    /**
+     * Show the pupil registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showpupilRegisterForm()
+    {
+        return view('auth.pupil_register');
+    }
+
+    /**
+     * Handle pupil registration.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function pupilRegister(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $pupil = $this->create($request->all());
+        return redirect()->route('pupil.dashboard');
+    }
+
+    /**
+     * Show the representative registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showrepRegisterForm()
+    {
+        return view('auth.rep_register');
+    }
+
+    /**
+     * Handle representative registration.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function repRegister(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $rep = $this->create($request->all());
+        return redirect()->route('rep.dashboard');
+    }
 }
+
