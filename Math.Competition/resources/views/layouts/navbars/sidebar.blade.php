@@ -1,9 +1,5 @@
 <div class="sidebar" data-image="{{ asset('light-bootstrap/img/sidebar-5.jpg') }}">
-    <!--
-Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-
-Tip 2: you can also add an image using data-image tag
--->
+  
     <div class="sidebar-wrapper">
         <div class="logo">
             <a href="http://www.creative-tim.com" class="simple-text">
@@ -68,6 +64,51 @@ Tip 2: you can also add an image using data-image tag
         </ul>
     </div>
 </li>
+                <ul class="nav">
+                <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#adminDashboard" @if($activeButton == 'adminDashboard') aria-expanded="true" @endif>
+                    <i class="nc-icon nc-circle-09"></i>
+                    <p>
+                        {{ __('Admin Dashboard') }}
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse @if($activeButton == 'adminDashboard') show @endif" id="adminDashboard">
+                <ul class="nav">
+                        <li class="nav-item @if($activePage == 'overview') active @endif">
+                            <a class="nav-link" href="{{ url('admin/overview') }}">
+                                <p>{{ __("Overview") }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($activePage == 'schools') active @endif">
+                            <a class="nav-link" href="{{ url('admin/schools') }}">
+                                <p>{{ __("Manage Schools") }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($activePage == 'questions') active @endif">
+                            <a class="nav-link" href="{{ url('admin/questions') }}">
+                                <p>{{ __("Manage Questions") }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($activePage == 'answers') active @endif">
+                            <a class="nav-link" href="{{ url('admin/answers') }}">
+                                <p>{{ __("Manage Answers") }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($activePage == 'uploads') active @endif">
+                            <a class="nav-link" href="{{ url('admin/uploads') }}">
+                                <p>{{ __("Manage Uploads") }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($activePage == 'statistics') active @endif">
+                            <a class="nav-link" href="{{ url('admin/statistics') }}">
+                                <p>{{ __("View Statistics") }}</p>
+                            </a>
+                        </li> 
+                        </ul>  
+                        </div>
+                        </li>
+                            
 
 
             <!-- <li class="nav-item">
@@ -121,7 +162,7 @@ Tip 2: you can also add an image using data-image tag
                     <i class="nc-icon nc-pin-3"></i>
                     <p>{{ __("Maps") }}</p> -->
                 <!-- </a> -->
-            </li>
+            
             <li class="nav-item @if($activePage == 'notifications') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'notifications')}}">
                     <i class="nc-icon nc-bell-55"></i>
@@ -133,12 +174,7 @@ Tip 2: you can also add an image using data-image tag
                     <i class="nc-icon nc-alien-33"></i>
                     <p>{{ __("Upgrade to PRO") }}</p>
                 </a>
-<<<<<<< HEAD
             </li> -->
-=======
-            </li>
-
->>>>>>> origin/laravel-project
         </ul>
     </div>
 </div>
