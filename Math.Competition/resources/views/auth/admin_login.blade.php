@@ -1,5 +1,3 @@
-Here is the modified code:
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

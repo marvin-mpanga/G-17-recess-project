@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'maps', 'title' => 'National Mathematics Competition', 'navName' => 'Submissions', 'activeButton' => 'laravel'])
+@extends('layouts.app', ['activePage' => 'submissions', 'title' => 'National Mathematics Competition', 'navName' => 'Submissions', 'activeButton' => 'laravel'])
 @section('content')
 <div class="content">
     <div class="container-fluid">

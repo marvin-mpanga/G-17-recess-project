@@ -23,7 +23,7 @@
                 <script>
                     document.write(new Date().getFullYear())
                 </script>
-                <a href="http://www.creative-tim.com">{{ __('math olympiad') }}</a> &amp; <a href="https://www.education.go.ug/">{{ __('Ministry Of Education') }}</a> {{ __(', join the excitement') }}
+                <a href="http://www.creative-tim.com">{{ __('math competitions') }}</a> &amp; <a href="https://www.education.go.ug/">{{ __('Ministry Of Education') }}</a> {{ __(', join the excitement') }}
             </p>
         </nav>
     </div>
