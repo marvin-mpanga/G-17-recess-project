@@ -1,118 +1,110 @@
 <?php
+namespace App\Mail;
 
-return [
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 
-    /*
-    |--------------------------------------------------------------------------
-    | Default Mailer
-    |--------------------------------------------------------------------------
-    |
-    | This option controls the default mailer that is used to send any email
-    | messages sent by your application. Alternative mailers may be setup
-    | and used as needed; however, this mailer will be used by default.
-    |
-    */
+class PupilNotification extends Mailable
+{
+    use Queueable, SerializesModels;
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    public $messageContent;
 
-    /*
-    |--------------------------------------------------------------------------
-    | Mailer Configurations
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure all of the mailers used by your application plus
-    | their respective settings. Several examples have been configured for
-    | you and you are free to add your own as your application requires.
-    |
-    | Laravel supports a variety of mail "transport" drivers to be used while
-    | sending an e-mail. You will specify which one you are using for your
-    | mailers below. You are free to add additional mailers as required.
-    |
-    | Supported: "smtp", "sendmail", "mailgun", "ses",
-    |            "postmark", "log", "array", "failover"
-    |
-    */
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct($messageContent)
+    {
+        $this->messageContent = $messageContent;
+    }
 
-    'mailers' => [
-        'smtp' => [
-            'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
-            'auth_mode' => null,
-        ],
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->view('emails.pupil_notification')
+                    ->with([
+                        'messageContent' => $this->messageContent,
+                    ]);
+    }
+}
 
-        'ses' => [
-            'transport' => 'ses',
-        ],
 
-        'mailgun' => [
-            'transport' => 'mailgun',
-        ],
+// return [
 
-        'postmark' => [
-            'transport' => 'postmark',
-        ],
+   
+//     'default' => env('MAIL_MAILER', 'smtp'),
 
-        'sendmail' => [
-            'transport' => 'sendmail',
-            'path' => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -t -i'),
-        ],
+   
 
-        'log' => [
-            'transport' => 'log',
-            'channel' => env('MAIL_LOG_CHANNEL'),
-        ],
+//     'mailers' => [
+//         'smtp' => [
+//             'transport' => 'smtp',
+//             'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+//             'port' => env('MAIL_PORT', 587),
+//             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+//             'username' => env('MAIL_USERNAME'),
+//             'password' => env('MAIL_PASSWORD'),
+//             'timeout' => null,
+//             'auth_mode' => null,
+//         ],
 
-        'array' => [
-            'transport' => 'array',
-        ],
+//         'ses' => [
+//             'transport' => 'ses',
+//         ],
 
-        'failover' => [
-            'transport' => 'failover',
-            'mailers' => [
-                'smtp',
-                'log',
-            ],
-        ],
-    ],
+//         'mailgun' => [
+//             'transport' => 'mailgun',
+//         ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Global "From" Address
-    |--------------------------------------------------------------------------
-    |
-    | You may wish for all e-mails sent by your application to be sent from
-    | the same address. Here, you may specify a name and address that is
-    | used globally for all e-mails that are sent by your application.
-    |
-    */
+//         'postmark' => [
+//             'transport' => 'postmark',
+//         ],
 
-    'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
-    ],
+//         'sendmail' => [
+//             'transport' => 'sendmail',
+//             'path' => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -t -i'),
+//         ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Markdown Mail Settings
-    |--------------------------------------------------------------------------
-    |
-    | If you are using Markdown based email rendering, you may configure your
-    | theme and component paths here, allowing you to customize the design
-    | of the emails. Or, you may simply stick with the Laravel defaults!
-    |
-    */
+//         'log' => [
+//             'transport' => 'log',
+//             'channel' => env('MAIL_LOG_CHANNEL'),
+//         ],
 
-    'markdown' => [
-        'theme' => 'default',
+//         'array' => [
+//             'transport' => 'array',
+//         ],
 
-        'paths' => [
-            resource_path('views/vendor/mail'),
-        ],
-    ],
+//         'failover' => [
+//             'transport' => 'failover',
+//             'mailers' => [
+//                 'smtp',
+//                 'log',
+//             ],
+//         ],
+//     ],
 
-];
+   
+
+//     'from' => [
+//         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+//         'name' => env('MAIL_FROM_NAME', 'Example'),
+//     ],
+
+
+
+//     'markdown' => [
+//         'theme' => 'default',
+
+//         'paths' => [
+//             resource_path('views/vendor/mail'),
+//         ],
+//     ],
+
+// ];

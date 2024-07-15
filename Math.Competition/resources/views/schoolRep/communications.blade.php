@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'school-rep-communications', 'title' => 'Communications', 'navName' => 'Communications', 'activeButton' => 'SchoolRepDashboard'])
+@extends('layouts.app', ['activePage' => 'school-rep-communications', 'title' => 'Communications', 'navName' => 'Communications', 'activeButton' => 'schoolRepDashboard'])
 
 @section('content')
 <div class="content">
@@ -11,7 +11,7 @@
                         <p class="card-category">{{ __('Send messages to pupils') }}</p>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('school-rep.communications.send') }}">
+                        <form method="post" action="{{ route('school-rep/communications') }}">
                             @csrf
                             <div class="form-group">
                                 <label for="pupil_id">{{ __('Select Pupil') }}</label>

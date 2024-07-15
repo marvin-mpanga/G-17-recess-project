@@ -108,51 +108,47 @@
  </ul>  
 </div>
  </li>
-                <ul class="nav">
-                <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#schoolRepDashboard" @if($activeButton == 'schoolRepDashboard') aria-expanded="true" @endif>
-                    <i class="nc-icon nc-bank"></i>
-                    <p>
-                        {{ __('School Representative Dashboard') }}
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse @if($activeButton == 'schoolRepDashboard') show @endif" id="schoolRepDashboard">
-                    <ul class="nav">
-                    <li class="nav-item @if($activePage == 'Rep profile') active @endif">
-                            <a class="nav-link" href="{{ url('school-rep/Rep profile') }}">
-                                <p>{{ __("Rep profile") }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item @if($activePage == 'view-applicants') active @endif">
-                            <a class="nav-link" href="{{ url('school-rep/view-applicants') }}">
-                                <p>{{ __("View Applicants") }}</p>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-item @if($activePage == 'communications') active @endif">
-                            <a class="nav-link" href="{{ url('school-rep/communications') }}">
-                                <p>{{ __("Communications") }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item @if($activePage == 'events') active @endif">
-                            <a class="nav-link" href="{{ url('school-rep/events') }}">
-                                <p>{{ __("Event Management") }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item @if($activePage == 'analytics') active @endif">
-                            <a class="nav-link" href="{{ url('school-rep/analytics') }}">
-                                <p>{{ __("Performance Analytics") }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item @if($activePage == 'resources') active @endif">
-                            <a class="nav-link" href="{{ url('school-rep/resources') }}">
-                                <p>{{ __("Resource Management") }}</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+ <ul class="nav">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#schoolRepDashboard" @if($activeButton == 'schoolRepDashboard') aria-expanded="true" @endif>
+            <i class="nc-icon nc-bank"></i>
+            <p>
+                {{ __('School Representative Dashboard') }}
+                <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse @if($activeButton == 'schoolRepDashboard') show @endif" id="schoolRepDashboard">
+            <ul class="nav">
+                <li class="nav-item @if($activePage == 'rep_profile') active @endif">
+                    <a class="nav-link" href="{{ url('school-rep/rep_profile') }}">
+                        <p>{{ __("Rep Profile") }}</p>
+                    </a>
+                </li>
+                <li class="nav-item @if($activePage == 'viewApplicants') active @endif">
+                    <a class="nav-link" href="{{ url('school-rep/viewApplicants') }}">
+                        <p>{{ __("View Applicants") }}</p>
+                    </a>
+                </li>
+                <li class="nav-item @if($activePage == 'communications') active @endif">
+                    <a class="nav-link" href="{{ url('school-rep/communications') }}">
+                        <p>{{ __("Communications") }}</p>
+                    </a>
+                </li>
+                <li class="nav-item @if($activePage == 'analytics') active @endif">
+                    <a class="nav-link" href="{{ url('school-rep/analytics') }}">
+                        <p>{{ __("Performance Analytics") }}</p>
+                    </a>
+                </li>
+                <li class="nav-item @if($activePage == 'resources') active @endif">
+                    <a class="nav-link" href="{{ url('school-rep/resources') }}">
+                        <p>{{ __("Resources") }}</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+</ul>
+
             
             <li class="nav-item @if($activePage == 'notifications') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'notifications')}}">

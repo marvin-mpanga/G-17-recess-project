@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'view Applicants', 'title' => 'Applicants', 'navName' => 'view Applicants'])
+@extends('layouts.app', ['activePage' => 'view Applicants', 'title' => 'Applicants', 'navName' => 'view Applicants', 'activeButton' => 'schoolRepDashboard'])
 
 @section('content')
 <div class="content">
@@ -28,7 +28,7 @@
                                         <td>{{ $pupil->registration_number }}</td>
                                         <td>{{ $pupil->confirmed ? 'Confirmed' : 'Pending' }}</td>
                                         <td>
-                                            <form method="post" action="{{ route('school-rep.pupil.confirm', $pupil->id) }}">
+                                            <form method="post" action="{{ route('school-rep.viewApplicants.confirm', $pupil->id) }}">
                                                 @csrf
                                                 <div class="btn-group" role="group" aria-label="Confirm Actions">
                                                     <button type="submit" name="confirm" value="yes" class="btn btn-success btn-sm">{{ __('Yes') }}</button>

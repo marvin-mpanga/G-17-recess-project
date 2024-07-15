@@ -139,5 +139,9 @@ class RegisterController extends Controller
         $rep = $this->create($request->all());
         return redirect()->route('rep.dashboard');
     }
+    
+    public function schoolRepCreate(){
+    return view('schooRepDashboard');
+    }
 }
 
