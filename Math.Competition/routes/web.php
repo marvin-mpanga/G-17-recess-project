@@ -36,8 +36,8 @@ Route::get('login/pupil', 'App\Http\Controllers\Auth\LoginController@showPupilLo
 Route::get('login/rep', 'App\Http\Controllers\Auth\LoginController@showRepLoginForm')->name('rep.login');
 
 Route::post('login/admin', 'App\Http\Controllers\Auth\LoginController@adminLogin')->name('admin.login.submit');
-Route::post('login/pupil', 'App\Http\ControllersAuth\LoginController@pupilLogin')->name('pupil.login.submit');
-Route::post('login/rep', 'App\Http\ControllersAuth\LoginController@repLogin')->name('rep.login.submit');
+Route::post('login/pupil', 'App\Http\Controllers\Auth\LoginController@pupilLogin')->name('pupil.login.submit');
+Route::post('login/rep', 'App\Http\Controllers\Auth\LoginController@repLogin')->name('rep.login.submit');
 
 // added routes for register 
 Route::get('register/admin', 'App\Http\Controllers\Auth\RegisterController@showAdminRegisterForm')->name('admin.register');
@@ -45,5 +45,8 @@ Route::get('register/pupil', 'App\Http\Controllers\Auth\RegisterController@showP
 Route::get('register/rep', 'App\Http\Controllers\Auth\RegisterController@showRepRegisterForm')->name('rep.register');
 
 Route::post('lregister/admin', 'App\Http\Controllers\Auth\RegisterController@adminRegister')->name('admin.register.submit');
-Route::post('register/pupil', 'App\Http\ControllersAuth\RegisterController@pupilRegister')->name('pupil.register.submit');
-Route::post('register/rep', 'App\Http\ControllersAuth\RegisterController@repRegister')->name('rep.register.submit');
+Route::post('register/pupil', 'App\Http\Controllers\Auth\RegisterController@pupilRegister')->name('pupil.register.submit');
+Route::post('register/rep', 'App\Http\Controllers\Auth\RegisterController@repRegister')->name('rep.register.submit');
+
+Route::get('/about-us', 'App\Http\Controllers\Auth\loginController@aboutUs')->name('about-us');
+

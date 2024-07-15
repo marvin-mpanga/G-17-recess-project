@@ -32,5 +32,10 @@ class LoginController extends Controller
     {
         return view('auth.rep_login');
     }
+    public function aboutUs()
+    {
+        return view('pages.about-us');
+    }
+    
 }
 

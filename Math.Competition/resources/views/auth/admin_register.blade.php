@@ -1,11 +1,9 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Register</title>
+    <title>Admin login</title>
     <style>
         /* Add a background image to the body tag */
         body {
@@ -23,7 +21,7 @@
     padding: 20px;
     border: 1px solid #888;
     width: 500px; /* Increased width */
-    height: 400px; /* Increased height */
+    height: 320px; /* Increased height */
     position: fixed;
     top: 50%;
     left: 50%;
@@ -33,6 +31,14 @@
 .card {
     margin: 20px;
 }
+.form-control {
+            height: 40px;
+            width: 400px;
+            font-size: 18px;
+        }
+        .form-control::placeholder {
+            color: #666;
+                opacity: 0.6;}
 
     </style>
 </head>
@@ -40,12 +46,12 @@
     <!-- Create a popup register form in the middle of the screen -->
 <div class="register-popup">
     <div class="card">
-        <div class="card-header">{{ __('Admin Register') }}</div>
+        <div class="card-header">{{ __('New Account?') }}</div><br>
         <div class="card-body">
             <form method="POST" action="{{ route('admin.register.submit') }}">
                 @csrf
                 <div class="form-group row">
-                    <label for="adminId" class="col-md-4 col-form-label text-md-right">{{ __('Admin ID') }}</label>
+                    <label for="adminId" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
                     <div class="col-md-6">
                         <input id="adminId" type="text" class="form-control @error('adminId') is-invalid @enderror" name="adminId" value="{{ old('adminId') }}" required autocomplete="adminId" autofocus placeholder="Please enter your Admin ID">
                         @error('adminId')
@@ -54,9 +60,9 @@
                             </span>
                         @enderror
                     </div>
-                </div>
+                </div><br>
                 <div class="form-group row">
-                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
                     <div class="col-md-6">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Please enter your name">
                         @error('name')
@@ -65,9 +71,9 @@
                             </span>
                         @enderror
                     </div>
-                </div>
+                </div><br>
                 <div class="form-group row">
-                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
                     <div class="col-md-6">
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Please enter your password">
                         @error('password')
@@ -76,13 +82,13 @@
                             </span>
                         @enderror
                     </div>
-                </div>
+                </div><br>
                 <div class="form-group row">
-                    <label for="password_confirmation" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                    <label for="password_confirmation" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
                     <div class="col-md-6">
                         <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Please confirm your password">
                     </div>
-                </div>
+                </div><br>
                 <div class="form-group row mb-0">
                     <div class="col-md-8 offset-md-4">
                         <button type="submit" class="btn btn-primary"> {{ __('Register') }} </button>

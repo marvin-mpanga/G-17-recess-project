@@ -1,5 +1,3 @@
-Here is the modified code:
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,19 +15,30 @@ Here is the modified code:
             justify-content: center;
             align-items: center;
         }
-        /* Style the popup login form */
+        /* Style the popup register form */
         .login-popup {
             background-color: white;
             padding: 20px;
             border: 1px solid #888;
-            width: 300px;
-            height: 250px;
+            width: 500px; /* Increased width */
+            height: 300px; /* Increased height */
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
         }
+         .card {
+             margin: 20px;
+        }
+        .form-control {
+            height: 30px;
+            width: 400px;
+            font-size: 18px;
+        }
+        .form-control::placeholder {
+            color: #666;
+                opacity: 0.6;}
     </style>
 </head>
 <body>

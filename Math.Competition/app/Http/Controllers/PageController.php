@@ -18,4 +18,10 @@ class PageController extends Controller
         }
         return abort(404);
     }
+    public function aboutUs()
+{
+    return view('pages.about-us');
 }
+
+   
+}       
