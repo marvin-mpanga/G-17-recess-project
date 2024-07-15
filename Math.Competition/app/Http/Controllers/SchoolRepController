@@ -1,0 +1,76 @@
+<?php
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Pupil;
+use App\Models\representative;
+use Illuminate\Support\Facades\Mail;
+
+class SchoolRepController extends Controller
+{
+    public function index()
+    {
+        return view('school-rep.dashboard');
+    }
+
+    public function listPupils()
+    {
+        $pupils = Pupil::all(); // Fetch all pupils
+        return view('school-rep.pupils', compact('pupils'));
+    }
+
+    public function confirmPupil($id, Request $request)
+    {
+        $pupil = Pupil::findOrFail($id);
+        $pupil->confirmed = $request->input('confirm') === 'yes';
+        $pupil->save();
+        return redirect()->route('school-rep.pupils')->with('success', 'Pupil status updated.');
+    }
+
+    public function rep_profile()
+    {
+        $rep = auth()->user(); // Assuming the representative is authenticated
+        return view('rep_profile', compact('rep'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $rep = auth()->user();
+        $rep->update($request->all());
+        return redirect()->route('school-rep.profile')->with('success', 'Profile updated successfully.');
+    }
+
+    public function communications()
+    {
+        return view('school-rep.communications');
+    }
+
+    public function sendMessage(Request $request)
+    {
+        $validated = $request->validate([
+            'pupil_id' => 'required|exists:pupils,id',
+            'message' => 'required|string',
+        ]);
+
+        $pupil = Pupil::find($validated['pupil_id']);
+
+        Mail::raw($validated['message'], function($message) use ($pupil) {
+            $message->to($pupil->email)
+                    ->subject('Message from School Representative');
+        });
+
+        return redirect()->route('school-rep.communications')->with('success', 'Message sent successfully.');
+    }
+
+
+    public function analytics()
+{
+    $totalPupils = Pupil::count();
+    $totalConfirmedPupils = Pupil::where('confirmed', true)->count();
+    $averageScore = Pupil::average('score');
+    $topScorer = Pupil::orderBy('score', 'desc')->first();
+
+    return view('school-rep.analytics', compact('totalPupils', 'totalConfirmedPupils', 'averageScore', 'topScorer'));
+}
+
+    }
