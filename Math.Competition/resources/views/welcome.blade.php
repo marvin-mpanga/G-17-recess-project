@@ -17,8 +17,7 @@
                             <h4 class="card-title">{{ __('What is the National Math Olympiad?') }}</h4>
                         </div>
                         <div class="card-body">
-                            <p>The National Math Olympiad is an annual competition that brings together the brightest minds from schools across the country. Participants engage in challenging math problems, fostering a love for mathematics and encouraging critical thinking.</p>
-                            <!-- <a href="{{ route('login') }}" class="btn btn-primary btn-round">{{ __('Login Now') }}</a> -->
+                            {{ __('Login Now') }}</a> -->
                         </div>
                     </div>
                     <div class="card card-warning text-center mt-4">

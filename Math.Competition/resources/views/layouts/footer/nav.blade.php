@@ -12,7 +12,7 @@
                     <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">{{ __('Blog') }}</a>
                 </li>
                 <li>
-                    <a href="{{ route('about-us') }}" class="nav-link" target="_blank">{{ __('About Us') }}</a>
+                    <a href="http://blog.creative-tim.com" class="nav-link">{{ __('About Us') }}</a>
                  </li>
                 <li>
                     <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">{{ __('Get Help') }}</a>
