@@ -1,23 +1,17 @@
 package SERVER;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 
 public class AttemptChallenge {
     private static final String QUESTION_QUERY = "SELECT * FROM question, answer WHERE question.questionID = answer.questionID AND question.challengeID = ?";
     private static final String ATTEMPT_QUERY = "SELECT COUNT(*) as attemptCount FROM Attempt WHERE participantID = ? AND challengeID = ?";
     private static final String INSERT_ATTEMPT = "INSERT INTO Attempt (participantID, challengeID, attemptNumber, score) VALUES (?, ?, ?, ?)";
+    private static final String UPDATE_ATTEMPT_SCORE = "UPDATE Attempt SET score = ? WHERE attemptID = ?";
     private static final String BEST_SCORE_QUERY = "SELECT MAX(score) as bestScore FROM Attempt WHERE participantID = ? AND challengeID = ?";
+    private static final String UPDATE_CHALLENGE_PROGRESS = "INSERT INTO ChallengeProgress (participantID, challengeID, status) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE status = ?";
+    private static final String INSERT_QUESTION_RESPONSE = "INSERT INTO QuestionResponse (attemptID, questionID, isCorrect, timeTaken) VALUES (?, ?, ?, ?)";
 
     public static void startQuiz(Connection connection, PrintWriter writer, BufferedReader reader, String challengeID, String participantID, TimeManager timeManager) {
         try {
@@ -25,6 +19,8 @@ public class AttemptChallenge {
                 writer.println("Error: Participant not found.");
                 return;
             }
+            updateChallengeProgress(connection, participantID, challengeID, "incomplete");
+            
             boolean continueAttempting = true;
             while (continueAttempting) {
                 int attemptNumber = getAttemptNumber(connection, participantID, challengeID);
@@ -41,15 +37,19 @@ public class AttemptChallenge {
                     return;
                 }
         
+                // Insert attempt before starting the quiz
+                int attemptID = insertAttempt(connection, participantID, challengeID, attemptNumber, 0);
+        
                 int score;
                 try {
-                    score = conductQuiz(writer, reader, questions, timeManager);
+                    score = conductQuiz(connection, writer, reader, questions, timeManager, attemptID);
                 } catch (IOException e) {
                     writer.println("Error during quiz: " + e.getMessage());
                     return;
                 }
         
-                insertAttempt(connection, participantID, challengeID, attemptNumber, score);
+                // Update the attempt with the final score
+                updateAttemptScore(connection, attemptID, score);
         
                 int bestScore = getBestScore(connection, participantID, challengeID);
         
@@ -71,6 +71,8 @@ public class AttemptChallenge {
                 }
             }
 
+            updateChallengeProgress(connection, participantID, challengeID, "complete");
+
             writer.println("Would you like to try other challenges? (yes/no)");
             String response = reader.readLine().trim().toLowerCase();
             if (response.equals("yes")) {
@@ -84,6 +86,7 @@ public class AttemptChallenge {
             e.printStackTrace();
         }
     }
+
     private static boolean participantExists(Connection connection, String participantID) throws SQLException {
         String query = "SELECT 1 FROM participant WHERE ParticipantID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -91,6 +94,16 @@ public class AttemptChallenge {
             try (ResultSet rs = stmt.executeQuery()) {
                 return rs.next();
             }
+        }
+    }
+
+    private static void updateChallengeProgress(Connection connection, String participantID, String challengeID, String status) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_CHALLENGE_PROGRESS)) {
+            statement.setString(1, participantID);
+            statement.setString(2, challengeID);
+            statement.setString(3, status);
+            statement.setString(4, status);
+            statement.executeUpdate();
         }
     }
 
@@ -122,7 +135,7 @@ public class AttemptChallenge {
         return questions;
     }
 
-    private static int conductQuiz(PrintWriter writer, BufferedReader reader, List<Map<String, String>> questions, TimeManager timeManager) throws IOException {
+    private static int conductQuiz(Connection connection, PrintWriter writer, BufferedReader reader, List<Map<String, String>> questions, TimeManager timeManager, int attemptID) throws IOException, SQLException {
         Collections.shuffle(questions);
         int numQuestions = Math.min(10, questions.size());
         int score = 0;
@@ -155,13 +168,19 @@ public class AttemptChallenge {
             writer.print("Your answer: ");
             writer.flush();
 
+            long startTime = System.currentTimeMillis();
             String userAnswer = getUserAnswerWithTimeout(reader, timeManager);
+            long endTime = System.currentTimeMillis();
+            int timeTaken = (int) ((endTime - startTime) / 1000); // Convert to seconds
+
             if (userAnswer == null) {
                 writer.println("Time's up! Moving to the next question.");
+                insertQuestionResponse(connection, attemptID, question.get("id"), false, timeTaken);
                 continue;
             }
 
             String correctAnswer = question.get("answer");
+            boolean isCorrect = false;
 
             if (userAnswer.equals("-")) {
                 writer.println("-----------------------------------------------------------------------------------------------");
@@ -169,6 +188,7 @@ public class AttemptChallenge {
                 writer.println("-----------------------------------------------------------------------------------------------");
             } else if (userAnswer.equalsIgnoreCase(correctAnswer)) {
                 score += 3;
+                isCorrect = true;
                 writer.println("-----------------------------------------------------------------------------------------------");
                 writer.println("|                                   Correct! You earned 3 marks.                                 |");
                 writer.println("-----------------------------------------------------------------------------------------------");
@@ -180,8 +200,11 @@ public class AttemptChallenge {
                 writer.println("-----------------------------------------------------------------------------------------------");
             }
             writer.println("|                                     Your current score: " + score + "                                      |");
+            writer.println("|                                     Time taken: " + timeTaken + " seconds                                 |");
             writer.println("-----------------------------------------------------------------------------------------------");
             writer.flush();
+
+            insertQuestionResponse(connection, attemptID, question.get("id"), isCorrect, timeTaken);
         }
 
         return score;
@@ -205,15 +228,31 @@ public class AttemptChallenge {
         return null; // Timeout occurred
     }
 
-    private static void insertAttempt(Connection connection, String participantID, String challengeID, int attemptNumber, int score) throws SQLException {
+    private static int insertAttempt(Connection connection, String participantID, String challengeID, int attemptNumber, int score) throws SQLException {
         if (!participantExists(connection, participantID)) {
             throw new SQLException("Participant with ID " + participantID + " does not exist.");
         }
-        try (PreparedStatement statement = connection.prepareStatement(INSERT_ATTEMPT)) {
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_ATTEMPT, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, participantID);
             statement.setString(2, challengeID);
             statement.setInt(3, attemptNumber);
             statement.setInt(4, score);
+            statement.executeUpdate();
+            
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating attempt failed, no ID obtained.");
+                }
+            }
+        }
+    }
+
+    private static void updateAttemptScore(Connection connection, int attemptID, int score) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_ATTEMPT_SCORE)) {
+            statement.setInt(1, score);
+            statement.setInt(2, attemptID);
             statement.executeUpdate();
         }
     }
@@ -228,5 +267,15 @@ public class AttemptChallenge {
             }
         }
         return 0;
+    }
+
+    private static void insertQuestionResponse(Connection connection, int attemptID, String questionID, boolean isCorrect, int timeTaken) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(INSERT_QUESTION_RESPONSE)) {
+            statement.setInt(1, attemptID);
+            statement.setString(2, questionID);
+            statement.setBoolean(3, isCorrect);
+            statement.setInt(4, timeTaken);
+            statement.executeUpdate();
+        }
     }
 }
