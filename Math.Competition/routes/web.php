@@ -48,5 +48,5 @@ Route::post('lregister/admin', 'App\Http\Controllers\Auth\RegisterController@adm
 Route::post('register/pupil', 'App\Http\Controllers\Auth\RegisterController@pupilRegister')->name('pupil.register.submit');
 Route::post('register/rep', 'App\Http\Controllers\Auth\RegisterController@repRegister')->name('rep.register.submit');
 
-Route::get('/about-us', 'App\Http\Controllers\Auth\loginController@aboutUs')->name('about-us');
+
 

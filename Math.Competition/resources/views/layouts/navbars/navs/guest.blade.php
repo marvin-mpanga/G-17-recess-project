@@ -1,15 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute">
     <div class="container">
+        <img src="maths.jpg" style=" position: fixed; height: auto; left:10px; width:250px;">
     <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">
-            <h1 class="logo" style="text-indent: -999999px; background: url('/light-bootsrap/img/maths.jpg');">logo here</h1>
+  <a class="navbar-brand" href="#pablo">
+  </a>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-bar burger-lines"></span>
+    <span class="navbar-toggler-bar burger-lines"></span>
+    <span class="navbar-toggler-bar burger-lines"></span>
+  </button>
+</div>
 
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-bar burger-lines"></span>
-                <span class="navbar-toggler-bar burger-lines"></span>
-                <span class="navbar-toggler-bar burger-lines"></span>
-            </button>
-        </div> 
 
 
         <div class="collapse navbar-collapse justify-content-end" id="navbar">
