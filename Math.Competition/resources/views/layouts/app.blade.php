@@ -31,6 +31,8 @@
                 @yield('content')
                 @include('layouts.footer.nav')
             </div>
+            
+
 
         </div>
        
