@@ -11,6 +11,10 @@ class RepresentativeController extends Controller
     {
         $this->middleware('auth');
     }
+    public function index()
+    {
+    return view('school_rep.dashboard');
+    }
 
     public function listPupils()
     {

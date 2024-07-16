@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg " color-on-scroll="500">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"> {{ $navName }} </a>
+        <a class="navbar-brand" href="#"> {{ $navName ?? 'National Maths Competition' }} </a>
         <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar burger-lines"></span>
             <span class="navbar-toggler-bar burger-lines"></span>
@@ -23,7 +23,7 @@
                     <ul class="dropdown-menu">
                         <a class="dropdown-item" href="#">{{ __('Notification 1') }}</a>
                         <a class="dropdown-item" href="#">{{ __('Notification 2') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Notification 3') }}3</a>
+                        <a class="dropdown-item" href="#">{{ __('Notification 3') }}</a>
                         <a class="dropdown-item" href="#">{{ __('Notification 4') }}</a>
                         <a class="dropdown-item" href="#">{{ __('Another notification') }}</a>
                     </ul>
@@ -35,9 +35,9 @@
                     </a>
                 </li>
             </ul>
-            <ul class="navbar-nav   d-flex align-items-center">
+            <ul class="navbar-nav d-flex align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link" href=" {{route('profile.edit') }} ">
+                    <a class="nav-link" href="{{ route('profile.edit') }}">
                         <span class="no-icon">{{ __('Account') }}</span>
                     </a>
                 </li>

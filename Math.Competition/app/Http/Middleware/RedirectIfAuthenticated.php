@@ -1,8 +1,6 @@
 <?php
-
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,10 +21,18 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                if ($guard === 'admin') {
+                    return redirect()->route('admin.dashboard');
+                } elseif ($guard === 'pupil') {
+                    return redirect()->route('pupil.dashboard');
+                } elseif ($guard === 'rep') {
+                    return redirect()->route('schoolRep.dashboard');
+                }
             }
         }
 
         return $next($request);
     }
 }
+
+

@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Pupil extends Model
+class Pupil extends Authenticatable
 {
+    use Notifiable;
+
     protected $table = 'pupil';
     protected $primaryKey = 'pupilID';
+
     protected $fillable = [
         'userName',
         'firstName',
@@ -15,5 +19,11 @@ class Pupil extends Model
         'email',
         'D_O_B',
         'schoolRegNo',
+        'password', 
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 }

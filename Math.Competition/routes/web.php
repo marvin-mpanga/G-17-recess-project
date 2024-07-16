@@ -1,42 +1,40 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PupilController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RepresentativeController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-
-
+// Authentication Routes
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('dashboard');
-
+// Protect routes for authenticated users
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
-    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
-    Route::patch('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
-    Route::patch('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
-});
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
+    Route::resource('user', UserController::class, ['except' => ['show']]);
+    Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('profile/password', [ProfileController::class, 'password'])->name('profile.password');
+    Route::get('{page}', [PageController::class, 'index'])->name('page.index');
 });
 
 // Added routes for login dropdown menu
-Route::get('login/admin', 'App\Http\Controllers\Auth\LoginController@showAdminLoginForm')->name('admin.login');
-Route::get('login/pupil', 'App\Http\Controllers\Auth\LoginController@showPupilLoginForm')->name('pupil.login');
-Route::get('login/rep', 'App\Http\Controllers\Auth\LoginController@showRepLoginForm')->name('rep.login');
+Route::get('login/admin', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');
+Route::get('login/pupil', [LoginController::class, 'showPupilLoginForm'])->name('pupil.login');
+Route::get('login/rep', [LoginController::class, 'showRepLoginForm'])->name('rep.login');
 
+<<<<<<< Updated upstream
 Route::post('login/admin', 'App\Http\Controllers\Auth\LoginController@adminLogin')->name('admin.login.submit');
 Route::post('login/pupil', 'App\Http\Controllers\Auth\LoginController@pupilLogin')->name('pupil.login.submit');
 Route::post('login/rep', 'App\Http\Controllers\Auth\LoginController@repLogin')->name('rep.login.submit');
