@@ -8,40 +8,45 @@
     <style>
         /* Add a background image to the body tag */
         body {
-            background-image: url('/light-bootstrap/img/math-olympiad-one.png');
+            background-image: url('/light-bootstrap/img/math-olympiad-2.jpg');
             background-size: cover;
             background-position: center;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(5px);
         }
-        .btn-primary {
-             padding: 10px 10px; /* Increase the padding of the button */
-             font-size: 22px; /* Increase the font size of the button text */
-             width: 150px;
-        }
+        
+        
 
         /* Style the popup login form */
         .login-popup {
             background-color: white;
-            padding: 40px;
+            padding: 20px;
             border: 1px solid #888;
-            width: 500px;
-            height: 400px;
+            border-radius: 30px;
+            width: 350px;
+            /* Increased width */
+            height: 300px;
+            /* Increased height */
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
-        }
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3)
+        }  
+        .card {
+            border-radius: 30px;
+            margin: 20px;
+        }      
         .form-control {
-            height: 40px;
-            width: 400px;
-            font-size: 18px;
-        }
+            
         .form-control::placeholder {
-            color: #666;
+            color: #666;height: 30px;
+            width: 300px;
+            font-size: 13px;
+        }
             opacity: 0.6;
         }
     </style>
@@ -102,7 +107,9 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-8 offset-md-4">
-                            <p>Don't have an account? <a href="{{ route('pupil.register') }}" class="btn btn-link">Register!</a></p>
+                        <p><a href="{{ route('pupil.register') }}" class="btn btn-link">Register</a> | <a  class="btn btn-link">Forgot Password?</a></p>
+
+
                         </div>
                     </div>
                 </form>
