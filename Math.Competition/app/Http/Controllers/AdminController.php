@@ -41,9 +41,14 @@ class AdminController extends Controller
     public function viewStatistics() {
         return view('stats');
     }
-    public function index(){
+    public function index()
+{
+    if (!Auth::check()) {
+        return redirect()->route('login');
+    }
+
     // Display both the dashboard and sidebar
-    return view('admin.dashboard');
+    return view('dashboard.sidebar');
 }
 
 

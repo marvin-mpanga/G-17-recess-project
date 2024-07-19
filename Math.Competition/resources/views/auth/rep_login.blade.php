@@ -1,75 +1,59 @@
-     <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Rep Login</title>
     <style>
         /* Add a background image to the body tag */
         body {
-            background-image: url('/light-bootstrap/img/math-olympiad-2.jpg');
+            background-image: url('/light-bootstrap/img/math-olympiad-one.png');
             background-size: cover;
             background-position: center;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(5px);
         }
         /* Style the popup login form */
         .login-popup {
             background-color: white;
             padding: 20px;
             border: 1px solid #888;
-            border-radius: 30px;
-            width: 350px;
-            /* Increased width */
-            height: 300px;
-            /* Increased height */
+            width: 300px;
+            height: 250px;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
         }
-        .form-control {
-            height: 30px;
-            width: 300px;
-            font-size: 13px;
-        }
-        .form-control::placeholder {
-            color: #666;
-            opacity: 0.6;
-        }
-        .card{
-        border-radius: 30px;
-        margin: 20px;
-    }
     </style>
 </head>
 <body>
     <!-- Create a popup login form in the middle of the screen -->
     <div class="login-popup">
-        <div class="card"><br><br>
-            <div class="card-header">{{ __('') }}</div>
+        <div class="card">
+            <div class="card-header">{{ __('Rep Login') }}</div>
             <div class="card-body">
                 <form method="POST" action="{{ route('rep.login.submit') }}">
                     @csrf
                     <div class="form-group row">
-                        <label for="repId" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
+                        <label for="repId" class="col-md-4 col-form-label text-md-right">{{ __('Rep ID') }}</label>
                         <div class="col-md-6">
-                            <input id="repId" type="text" class="form-control @error('repId') is-invalid @enderror" name="repId" value="{{ old('repId') }}" required autocomplete="repId" autofocus placeholder="Enter Rep ID">
+                            <input id="repId" type="text" class="form-control @error('repId') is-invalid @enderror" name="repId" value="{{ old('repId') }}" required autocomplete="repId" autofocus>
                             @error('repId')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
-                    </div><br>
+                    </div>
                     <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
+                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
                         <div class="col-md-6">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Enter Password">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -86,7 +70,7 @@
                                 </label>
                             </div>
                         </div>
-                    </div><br>
+                    </div>
                     <div class="form-group row mb-0">
                         <div class="col-md-8 offset-md-4">
                             <button type="submit" class="btn btn-primary">
@@ -95,10 +79,8 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                    <div class="col-md-8 offset-md-4">
-                        <p><a href="{{ route('rep.register') }}" class="btn btn-link">Register</a> | <a  class="btn btn-link">Forgot Password?</a></p>
-
-
+                        <div class="col-md-8 offset-md-4">
+                            <p>Don't have an account? <a href="{{ route('rep.register') }}" class="btn btn-link">Register!</a></p>
                         </div>
                     </div>
                 </form>

@@ -39,11 +39,6 @@ Route::post('login/admin', 'App\Http\Controllers\Auth\LoginController@adminLogin
 Route::post('login/pupil', 'App\Http\Controllers\Auth\LoginController@pupilLogin')->name('pupil.login.submit');
 Route::post('login/rep', 'App\Http\Controllers\Auth\LoginController@repLogin')->name('rep.login.submit');
 
-Route::get('/contact', 'App\Http\Controllers\ContactController@index')->name('contact');
-Route::get('/aboutUs', 'App\Http\Controllers\AboutUsController@index')->name('aboutUs');
-
-
-
 // added routes for register 
 Route::get('register/admin', 'App\Http\Controllers\Auth\RegisterController@showAdminRegisterForm')->name('admin.register');
 Route::get('register/pupil', 'App\Http\Controllers\Auth\RegisterController@showPupilRegisterForm')->name('pupil.register');
@@ -54,7 +49,6 @@ Route::post('register/pupil', 'App\Http\ControllersAuth\RegisterController@pupil
 Route::post('register/rep', 'App\Http\ControllersAuth\RegisterController@repRegister')->name('rep.register.submit');
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
-
 Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('/overview', 'App\Http\Controllers\AdminController@overview')->name('overview');
 Route::get('/schools', 'App\Http\Controllers\AdminController@manageSchools')->name('schools');
@@ -78,4 +72,4 @@ Route::prefix('school-rep')->name('school-rep.')->group(function () {
     Route::get('/analytics', [App\Http\Controllers\SchoolRepController::class, 'analytics'])->name('analytics');
    
 });
-
+Route::get('/index.php', 'HomeController@index')->name('index');

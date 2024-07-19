@@ -1,10 +1,8 @@
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-absolute">
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute">
     <div class="container">
-        
+        <img src="maths.jpg" style=" position: fixed; height: auto; left:10px; width:250px;">
     <div class="navbar-wrapper">
-  <a class="navbar-brand"><h1 class="logo" style="text-indent: -999999px; background: url('img/maths.png';">logo here</h1>
-
+  <a class="navbar-brand" href="#pablo">
   </a>
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-bar burger-lines"></span>
@@ -18,23 +16,14 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbar">
             <ul class="navbar-nav">
             <li class="nav-item @if($activePage == 'welcome') active @endif">
-                    <a href="{{ route('welcome') }}" class="nav-link" style="color:white;">
+                    <a href="{{ route('welcome') }}" class="nav-link">
                         <i class="fa-solid fa-house"></i> {{ __('Home') }}
                     </a>
                 </li>
-                <li class="nav-item @if($activePage == 'contact') active @endif">
-                <a href="{{ route('contact') }}" class="nav-link" style="color:white;">
-                        {{ __('Contact') }}
-                    </a>
-                    </li>
-                    <li class="nav-item @if($activePage == 'aboutUs') active @endif">
-                <a href="{{ route('aboutUs') }}" class="nav-link" style="color:white;">
-                        {{ __('About us') }}
-                    </a>
-</li>
+                
                 <li class="nav-item dropdown @if($activePage == 'login') active @endif">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">
-        {{ __('Login') }}
+        <i class="nc-icon nc-mobile"></i> {{ __('Login') }}
     </a>
     <ul class="dropdown-menu">
         <li class="nav-item">
@@ -46,11 +35,14 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('rep.login') }}" style="color: #000000;">Representative</a>
         </li>
-         
     </ul>
-    </li>
-        
-                
 </li>
 
+
+   
+   
+
+            </ul>
+        </div>
+    </div>
 </nav>
