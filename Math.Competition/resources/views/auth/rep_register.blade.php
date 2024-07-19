@@ -8,26 +8,45 @@
     <style>
         /* Add a background image to the body tag */
         body {
-            background-image: url('/light-bootstrap/img/math-olympiad-one.png');
+            background-image: url('/light-bootstrap/img/math-olympiad-2.jpg');
             background-size: cover;
             background-position: center;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(5px);
         }
         .register-popup {
-    background-color: white;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 200px; /* Increased width */
-    height: 400px; /* Increased height */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 30px;
+            width: 350px;
+            /* Increased width */
+            height: 480px;
+            /* Increased height */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
 }
+.card {
+            border-radius: 30px;
+            margin: 20px;
+        }
+        
+        .form-control {
+            height: 30px;
+            width: 300px;
+            font-size: 13px;
+        }
+        
+        .form-control::placeholder {
+            color: #666;
+            opacity: 0.6;
+        }
 
 
     </style>
