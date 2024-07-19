@@ -1,11 +1,2 @@
-
-LLL,LLLL,LLLL,LLLL,21/S/6751,EEE
-EE,EEE,EEE,EEE,21/S/6751,EEE
-bro,kate,wisley,3/33/333,23/U/2222,FFF
-come,eee,eeeeee,eeeee,21/S/6751,wwww
-win,dd,ddddd,dddd,23/U/2222,www
-koo,john,osinya,22/22/2222,23/U/2222,WWWWW
-need,fam,weni,2/22/222,23/U/2222,WW.COM
-myles,ben,weakatfifa,33/333/3333,23/U/2222,wwww
-clean,man,has,come,23/U/2222,wwww
-MARVIN,andrew,tumukunde,2/22/222,23/U/2222,wwwwww
+akanga,peter,james,peter@gmail.com,11/22/2002,23/U/2222,peter.png
+jim,hooper,will,hooper@gmail.com,11/11/2003,22/M/4441,hooper.png
