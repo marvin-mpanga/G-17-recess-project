@@ -38,13 +38,13 @@
     </a>
     <ul class="dropdown-menu">
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.login') }}" style="color: #000000;">Administrator</a>
+            <a class="nav-link" href="{{ route('admin_login') }}" style="color: #000000;">Administrator</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('pupil.login') }}" style="color: #000000;">Pupil</a>
+            <a class="nav-link" href="{{ route('pupil_login') }}" style="color: #000000;">Pupil</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('rep.login') }}" style="color: #000000;">Representative</a>
+            <a class="nav-link" href="{{ route('representative_login') }}" style="color: #000000;">Representative</a>
         </li>
          
     </ul>

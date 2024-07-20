@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body">
                             <!-- Add School Form -->
-                            <form method="POST" action="{{ route('admin.schools') }}">
+                            <form method="POST" action="{{ route('upload_schools') }}">
                                 @csrf
                                 <div class="form-group">
                                     <label for="schoolName">{{ __('School Name') }}</label>

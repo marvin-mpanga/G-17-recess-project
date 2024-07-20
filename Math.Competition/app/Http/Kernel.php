@@ -44,8 +44,9 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'auth.pupil' => \App\Http\Middleware\RedirectIfNotPupil::class,
-        'auth.admin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
-        'auth.rep' => \App\Http\Middleware\RedirectIfNotRep::class,
+        'admin' => \App\Http\Middleware\EnsureAdmin::class,
+        'pupil' => \App\Http\Middleware\EnsurePupil::class,
+        'representative' => \App\Http\Middleware\EnsureRepresentative::class,
+
     ];
 }

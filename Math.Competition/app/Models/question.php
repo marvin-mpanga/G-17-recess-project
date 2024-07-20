@@ -12,6 +12,8 @@ class Question extends Model
     protected $fillable = [
         'questionNo',
         'challengeId',
+        'answerID',
+        'description',
     ];
 
     public function challenge(): BelongsTo

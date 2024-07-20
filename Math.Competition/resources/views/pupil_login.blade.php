@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +56,7 @@
         <div class="card">
             <div class="card-header">{{ __('') }}</div>
             <div class="card-body">
-                <form method="POST" action="{{ route('pupil.login.submit') }}" id="loginForm">
+                <form method="POST" action="{{ route('pupil_login.submit') }}" id="loginForm">
                     @csrf
                     <div class="form-group row">
                         <label for="schoolRegNo" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
@@ -107,7 +106,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-8 offset-md-4">
-                        <p><a href="{{ route('pupil.register') }}" class="btn btn-link">Register</a> | <a  class="btn btn-link">Forgot Password?</a></p>
+                        <p><a href="{{ route('pupil_register') }}" class="btn btn-link">Register</a> | <a  class="btn btn-link">Forgot Password?</a></p>
 
 
                         </div>

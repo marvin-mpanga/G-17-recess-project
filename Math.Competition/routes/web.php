@@ -1,15 +1,12 @@
 <?php 
 
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\PupilController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\RepresentativeController;
+use Illuminate\App\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,7 +15,7 @@ Route::get('/', function () {
 // Authentication Routes
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Protect routes for authenticated users
 Route::group(['middleware' => 'auth'], function () {
@@ -30,14 +27,13 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // Added routes for login dropdown menu
-Route::get('login/admin', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');
-Route::get('login/pupil', [LoginController::class, 'showPupilLoginForm'])->name('pupil.login');
-Route::get('login/rep', [LoginController::class, 'showRepLoginForm'])->name('rep.login');
+Route::get('login/admin', 'App\Http\Controllers\Auth\LoginController@showAdminLoginForm')->name('admin_login');
+Route::get('login/pupil', 'App\Http\Controllers\Auth\LoginController@showPupilLoginForm')->name('pupil_login');
+Route::get('login/rep', 'App\Http\Controllers\Auth\LoginController@showRepLoginForm')->name('representative_login');
 
-<<<<<<< Updated upstream
-Route::post('login/admin', 'App\Http\Controllers\Auth\LoginController@adminLogin')->name('admin.login.submit');
-Route::post('login/pupil', 'App\Http\Controllers\Auth\LoginController@pupilLogin')->name('pupil.login.submit');
-Route::post('login/rep', 'App\Http\Controllers\Auth\LoginController@repLogin')->name('rep.login.submit');
+Route::post('login/admin', 'App\Http\Controllers\Auth\LoginController@adminLogin')->name('admin_login.submit')->middleware('guest');
+Route::post('login/pupil', 'App\Http\Controllers\Auth\LoginController@pupilLogin')->name('pupil_login.submit');
+Route::post('login/rep', 'App\Http\Controllers\Auth\LoginController@repLogin')->name('representative_login.submit');
 
 Route::get('/contact', 'App\Http\Controllers\ContactController@index')->name('contact');
 Route::get('/aboutUs', 'App\Http\Controllers\AboutUsController@index')->name('aboutUs');
@@ -45,37 +41,37 @@ Route::get('/aboutUs', 'App\Http\Controllers\AboutUsController@index')->name('ab
 
 
 // added routes for register 
-Route::get('register/admin', 'App\Http\Controllers\Auth\RegisterController@showAdminRegisterForm')->name('admin.register');
-Route::get('register/pupil', 'App\Http\Controllers\Auth\RegisterController@showPupilRegisterForm')->name('pupil.register');
-Route::get('register/rep', 'App\Http\Controllers\Auth\RegisterController@showRepRegisterForm')->name('rep.register');
+Route::get('register/admin', 'App\Http\Controllers\Auth\RegisterController@showAdminRegisterForm')->name('admin_register');
+Route::get('register/pupil', 'App\Http\Controllers\Auth\RegisterController@showPupilRegisterForm')->name('pupil_register');
+Route::get('register/representative', 'App\Http\Controllers\Auth\RegisterController@showRepRegisterForm')->name('representative_register');
 
-Route::post('register/admin', 'App\Http\Controllers\Auth\RegisterController@adminRegister')->name('admin.register.submit');
-Route::post('register/pupil', 'App\Http\ControllersAuth\RegisterController@pupilRegister')->name('pupil.register.submit');
-Route::post('register/rep', 'App\Http\ControllersAuth\RegisterController@repRegister')->name('rep.register.submit');
+Route::post('register/admin', 'App\Http\Controllers\AdminController@adminRegister')->name('admin.register.submit');
+Route::post('register/pupil', 'App\Http\Controllers\PupilController@pupilRegister')->name('pupil.register.submit');
+Route::post('register/representative', 'App\Http\ControllersAuth\RegisterController@repRegister')->name('rep_register.submit');
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+//admin routes
+Route::get('/admin/dashboard', 'App\Http\Controllers\AdminController@showAdminDashboard')->name('admin.dashboard');
+Route::get('/admin/overview', 'App\Http\Controllers\AdminController@adminOverview')->name('admin_overview');
+Route::get('/upload/schools', 'App\Http\Controllers\AdminController@uploadSchools')->name('upload_schools');
+Route::get('/upload/questions', 'App\Http\Controllers\AdminController@showUpLoadForm')->name('upload_questions');
+//upload of qtn
+Route::get('/upload/questions', 'App\Http\Controllers\AdminController@showUploadForm')->name('uploadQuestionsForm');
+Route::post('/upload/questions', 'App\Http\Controllers\AdminController@uploadQuestions')->name('upload_questions');
 
-Route::prefix('admin')->name('admin.')->group(function () {
-Route::get('/overview', 'App\Http\Controllers\AdminController@overview')->name('overview');
-Route::get('/schools', 'App\Http\Controllers\AdminController@manageSchools')->name('schools');
-Route::get('/questions', 'App\Http\Controllers\AdminController@manageQuestions')->name('questions');
-Route::get('/answers', 'App\Http\Controllers\AdminController@manageAnswers')->name('answers');
-Route::get('/uploads', 'App\Http\Controllers\AdminController@manageUploads')->name('uploads');
-Route::get('/statistics', 'App\Http\Controllers\AdminController@viewStatistics')->name('stats');
+Route::get('/upload/answers', 'App\Http\Controllers\AdminController@uploadAnswers')->name('upload_answers');
+Route::get('/admin/profile', 'App\Http\Controllers\AdminController@adminProfile')->name('admin_profile');
+Route::get('/overallstats', 'App\Http\Controllers\AdminController@overallStats')->name('overall_stats');
+Route::get('/upload/docs', 'App\Http\Controllers\AdminController@uploadDocs')->name('upload_docs');
+
+
+//pupil routes
+Route::middleware(['auth', 'pupil'])->group(function () {
+    Route::get('/pupil/dashboard', 'APP\Http\Controllers\PupilController@dashboard')->name('pupil.dashboard')->middleware('auth', 'pupil');
+    // Other pupil routes
 });
 
-
-
-// School Representative Routes
-Route::prefix('school-rep')->name('school-rep.')->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\SchoolRepController::class, 'index'])->name('dashboard');
-    Route::get('/pupils', [App\Http\Controllers\SchoolRepController::class, 'listPupils'])->name('pupils');
-    Route::post('/pupils/{id}/confirm', [App\Http\Controllers\SchoolRepController::class, 'confirmPupil'])->name('pupil.confirm');
-    Route::get('/rep_profile', [App\Http\Controllers\SchoolRepController::class, 'rep_profile'])->name('rep_profile');
-    Route::post('rep_profile/update', [App\Http\Controllers\SchoolRepController::class, 'updateProfile'])->name('profile.update');
-    Route::get('/communications', [App\Http\Controllers\SchoolRepController::class, 'communications'])->name('communications');
-    Route::post('/communications/send', [App\Http\Controllers\SchoolRepController::class, 'sendMessage'])->name('communications.send');
-    Route::get('/analytics', [App\Http\Controllers\SchoolRepController::class, 'analytics'])->name('analytics');
-   
+//representative routes
+Route::middleware(['auth', 'representative'])->group(function () {
+    Route::get('/representative/dashboard', [RepresentativeController::class, 'dashboard']);
+    // Other representative routes
 });
-

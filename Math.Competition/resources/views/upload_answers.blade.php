@@ -13,7 +13,18 @@
                         </div>
                         <div class="card-body">
                             <!-- Add Answer Form -->
-                            <form method="POST" action="{{ route('admin.answers') }}">
+                            <form method="POST" action="{{ route('upload_answers') }}">
+                           @csrf
+                        <select name="question_id">
+                          @foreach($questions as $question)
+                           <option value="{{ $question->id }}">{{ $question->title }}</option>
+                          @endforeach
+                             </select>
+                         <textarea name="answer" placeholder="Answer"></textarea>
+                                             <button type="submit">Upload Answer</button>
+                                </form>
+
+                            <!-- <form method="POST" action="{{ route('admin.upload_answers') }}">
                                 @csrf
                                 <div class="form-group">
                                     <label for="question_id">{{ __('Question ID') }}</label>
@@ -24,7 +35,7 @@
                                     <textarea class="form-control" id="answer" name="answer" rows="3" required></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary">{{ __('Add Answer') }}</button>
-                            </form>
+                            </form> -->
 
                             <!-- List of Answers -->
                             <div class="mt-4">

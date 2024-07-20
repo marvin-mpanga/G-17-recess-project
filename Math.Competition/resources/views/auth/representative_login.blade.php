@@ -53,8 +53,9 @@
         <div class="card"><br><br>
             <div class="card-header">{{ __('') }}</div>
             <div class="card-body">
-                <form method="POST" action="{{ route('rep.login.submit') }}">
+                <form method="POST" action="{{ route('representative_login.submit') }}">
                     @csrf
+                    </form>
                     <div class="form-group row">
                         <label for="repId" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
                         <div class="col-md-6">
@@ -96,7 +97,7 @@
                     </div>
                     <div class="form-group row">
                     <div class="col-md-8 offset-md-4">
-                        <p><a href="{{ route('rep.register') }}" class="btn btn-link">Register</a> | <a  class="btn btn-link">Forgot Password?</a></p>
+                        <p><a href="{{ route('representative_register') }}" class="btn btn-link">Register</a> | <a  class="btn btn-link">Forgot Password?</a></p>
 
 
                         </div>

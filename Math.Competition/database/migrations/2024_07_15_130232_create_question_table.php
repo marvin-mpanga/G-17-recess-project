@@ -13,13 +13,16 @@ class CreateQuestionTable extends Migration
      */
     public function up()
     {
-        Schema::create('answer', function (Blueprint $table) {
-            $table->string('questionID', 25)->primary();
+        Schema::create('question', function (Blueprint $table) {
+            $table->increments('id')->primary();
+            $table->string('answerID', 25)->foreign();
             $table->string('questionNo', 5);
             $table->string('challengeId', 12)->foreign();
+            $table->text('description');
+            $table->timestamps();
+
         });
     }
-
     /**
      * Reverse the migrations.
      *

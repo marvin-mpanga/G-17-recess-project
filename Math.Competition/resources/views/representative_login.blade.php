@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pupil Login</title>
+    <title></title>
     <style>
         /* Add a background image to the body tag */
         body {
@@ -17,9 +16,6 @@
             align-items: center;
             backdrop-filter: blur(5px);
         }
-        
-        
-
         /* Style the popup login form */
         .login-popup {
             background-color: white;
@@ -34,61 +30,47 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.3)
-        }  
-        .card {
-            border-radius: 30px;
-            margin: 20px;
-        }      
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+        }
         .form-control {
-            
-        .form-control::placeholder {
-            color: #666;height: 30px;
+            height: 30px;
             width: 300px;
             font-size: 13px;
         }
+        .form-control::placeholder {
+            color: #666;
             opacity: 0.6;
         }
+        .card{
+        border-radius: 30px;
+        margin: 20px;
+    }
     </style>
 </head>
 <body>
     <!-- Create a popup login form in the middle of the screen -->
     <div class="login-popup">
-        <div class="card">
+        <div class="card"><br><br>
             <div class="card-header">{{ __('') }}</div>
             <div class="card-body">
-                <form method="POST" action="{{ route('pupil.login.submit') }}" id="loginForm">
+                <form method="POST" action="{{ route('representative_login.submit') }}">
                     @csrf
+                    </form>
                     <div class="form-group row">
-                        <label for="schoolRegNo" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
+                        <label for="repId" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
                         <div class="col-md-6">
-                            <input id="schoolRegNo" type="text" class="form-control @error('schoolRegNo') is-invalid @enderror" name="schoolRegNo" value="{{ old('schoolRegNo') }}" required autocomplete="schoolRegNo" autofocus placeholder="Please enter your school registration number">
-                            @error('schoolRegNo')
+                            <input id="repId" type="text" class="form-control @error('repId') is-invalid @enderror" name="repId" value="{{ old('repId') }}" required autocomplete="repId" autofocus placeholder="Enter Rep ID">
+                            @error('repId')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
-                    </div>
-                    <br>
-                    <br>
+                    </div><br>
                     <div class="form-group row">
-                        <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
+                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
                         <div class="col-md-6">
-                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" placeholder="Please enter your username">
-                            @error('username')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
-                        <div class="col-md-6">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Please enter your password">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Enter Password">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -96,18 +78,26 @@
                             @enderror
                         </div>
                     </div>
-                    <br>
-                    <br>
+                    <div class="form-group row">
+                        <div class="col-md-6 offset-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="remember">
+                                    {{ __('Remember Me') }}
+                                </label>
+                            </div>
+                        </div>
+                    </div><br>
                     <div class="form-group row mb-0">
                         <div class="col-md-8 offset-md-4">
-                            <button type="submit" class="btn btn-primary" id="loginBtn">
+                            <button type="submit" class="btn btn-primary">
                                 {{ __('Login') }}
                             </button>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-8 offset-md-4">
-                        <p><a href="{{ route('pupil.register') }}" class="btn btn-link">Register</a> | <a  class="btn btn-link">Forgot Password?</a></p>
+                    <div class="col-md-8 offset-md-4">
+                        <p><a href="{{ route('representative_register') }}" class="btn btn-link">Register</a> | <a  class="btn btn-link">Forgot Password?</a></p>
 
 
                         </div>
@@ -116,5 +106,5 @@
             </div>
         </div>
     </div>
-   </body>
-   </html>
+</body>
+</html>

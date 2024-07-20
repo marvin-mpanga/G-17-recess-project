@@ -1,11 +1,74 @@
-@extends('layouts.app', ['activePage' => 'user', 'title' => 'National Mathematics Competition', 'navName' => 'Profile', 'activeButton' => 'laravel'])
+@extends('layouts.app', ['activePage' => 'profile', 'title' => 'Profile', 'navName'=> 'profile', 'activeButton' => 'pupilDashboard'])
+
+@section('content')
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">{{ __('Profile') }}</h4>
+                    </div>
+                    <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                        <form method="POST" action="{{ route('pupil.profile.update') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="username">{{ __('Username') }}</label>
+                                <input type="text" class="form-control" id="username" name="username" value="{{ $pupil->username }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="first_name">{{ __('First Name') }}</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ $pupil->first_name }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">{{ __('Last Name') }}</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ $pupil->last_name }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">{{ __('Email') }}</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ $pupil->email }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">{{ __('Date of Birth (dd/mm/yyyy)') }}</label>
+                                <input type="text" class="form-control" id="dob" name="dob" value="{{ \Carbon\Carbon::parse($pupil->dob)->format('d/m/Y') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="school_reg_no">{{ __('School Registration Number') }}</label>
+                                <input type="text" class="form-control" id="school_reg_no" name="school_reg_no" value="{{ $pupil->school_reg_no }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="image">{{ __('Profile Image') }}</label>
+                                <input type="file" class="form-control" id="image" name="image">
+                                @if($pupil->image)
+                                    <img src="{{ asset('storage/' . $pupil->image) }}" alt="Profile Image" class="img-thumbnail mt-2" width="150">
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="password">{{ __('Password') }}</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">{{ __('Update Profile') }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+<!-- @extends('layouts.app', ['activePage' => 'user', 'title' => 'National Mathematics Competition', 'navName' => 'Profile', 'activeButton' => 'laravel'])
 
 @section('content')
     <div class="content">
         <div class="container-fluid">
             <div class="section-image">
                 <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
-                <div class="row">
+                <!-- <div class="row">
 
                     <div class="card col-md-8">
                         <div class="card-header">
@@ -127,4 +190,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection --> -->

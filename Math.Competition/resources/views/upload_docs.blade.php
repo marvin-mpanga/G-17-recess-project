@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body">
                             <!-- Upload Form -->
-                            <form method="POST" action="{{ route('admin.uploads') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('upload_docs') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="excel1">{{ __('Upload Excel Document 1') }}</label>
@@ -34,8 +34,8 @@
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Example File 1
                                         <span>
-                                            <a href="{{ url('admin/uploads/download/1') }}" class="btn btn-sm btn-info">Download</a>
-                                            <a href="{{ url('admin/uploads/delete/1') }}" class="btn btn-sm btn-danger">Delete</a>
+                                            <a href="{{ url('upload_docs/download/1') }}" class="btn btn-sm btn-info">Download</a>
+                                            <a href="{{ url('uploads_docs/delete/1') }}" class="btn btn-sm btn-danger">Delete</a>
                                         </span>
                                     </li>
                                     <!-- Add more file items dynamically -->

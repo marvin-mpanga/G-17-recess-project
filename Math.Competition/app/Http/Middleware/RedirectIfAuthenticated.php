@@ -5,8 +5,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
-{
+class RedirectIfAuthenticated {
     /**
      * Handle an incoming request.
      *
@@ -15,23 +14,28 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ...$guards)
+    
+    public function handle(Request $request, Closure $next, $guard = null)
     {
-        $guards = empty($guards) ? [null] : $guards;
-
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                if ($guard === 'admin') {
-                    return redirect()->route('admin.dashboard');
-                } elseif ($guard === 'pupil') {
-                    return redirect()->route('pupil.dashboard');
-                } elseif ($guard === 'rep') {
-                    return redirect()->route('schoolRep.dashboard');
-                }
-            }
+        if (Auth::guard($guard)->check()) {
+            return redirect()->route($this->redirectTo($guard));
         }
 
         return $next($request);
+    }
+
+    protected function redirectTo($guard)
+    {
+        switch ($guard) {
+            case 'admin':
+                return 'admin.dashboard';
+            case 'pupil':
+                return 'pupil.dashboard';
+            case 'representative':
+                return 'schoolRep.dashboard';
+            default:
+                return 'home';
+        }
     }
 }
 

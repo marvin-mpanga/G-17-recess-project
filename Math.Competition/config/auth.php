@@ -19,9 +19,9 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-        'rep' => [
+        'representative' => [
             'driver' => 'session',
-            'provider' => 'reps',
+            'provider' => 'representatives',
         ],
     ],
 
@@ -38,7 +38,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Administrator::class,
         ],
-        'reps' => [
+        'representatives' => [
             'driver' => 'eloquent',
             'model' => App\Models\Representative::class,
         ],
@@ -64,7 +64,7 @@ return [
             'throttle' => 60,
         ],
         'representatives' => [
-            'provider' => 'reps',
+            'provider' => 'represantatives',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

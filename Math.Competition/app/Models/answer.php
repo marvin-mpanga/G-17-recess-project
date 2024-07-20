@@ -11,5 +11,7 @@ class Answer extends Model
     protected $fillable = [
         'answerNo',
         'challengeId',
+        'questionID',
+        'correctAnswer',
     ];
 }

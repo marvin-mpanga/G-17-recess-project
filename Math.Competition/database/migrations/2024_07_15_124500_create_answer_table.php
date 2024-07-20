@@ -17,6 +17,8 @@ class CreateAnswerTable extends Migration
             $table->string('answerID', 25)->primary();
             $table->string('answerNo', 5);
             $table->string('challengeId', 12)->foreign();
+            $table->string('correctAnswer', 'created_at')->nullable();
+            $table->string('questionID', 25)->foreign();
         });
     }
 
