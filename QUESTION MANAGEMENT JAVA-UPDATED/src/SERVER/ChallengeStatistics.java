@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.util.*;
 
 public class ChallengeStatistics {
-    private static final String INCOMPLETE_CHALLENGES_QUERY = "SELECT p.userName, c.challengeName FROM ChallengeProgress cp JOIN Participant p ON cp.participantID = p.participantID JOIN Challenge c ON cp.challengeID = c.challengeID WHERE cp.status = 'incomplete'";
+    private static final String INCOMPLETE_CHALLENGES_QUERY = "SELECT p.userName, c.challengeName FROM Challengepprogress cp JOIN Participant p ON cp.participantID = p.participantID JOIN Challenge c ON cp.challengeID = c.challengeID WHERE cp.status = 'incomplete'";
     private static final String MOST_CORRECT_QUESTION_QUERY = "SELECT q.questionTxt, COUNT(*) as correct_count FROM QuestionResponse qr JOIN Question q ON qr.questionID = q.questionID WHERE q.challengeID = ? AND qr.isCorrect = true GROUP BY qr.questionID ORDER BY correct_count DESC LIMIT 1";
     private static final String QUESTION_REPETITION_QUERY = "SELECT questionID, COUNT(*) as repetition_count FROM QuestionResponse qr JOIN Attempt a ON qr.attemptID = a.attemptID WHERE a.participantID = ? AND a.challengeID = ? GROUP BY questionID";
 

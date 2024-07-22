@@ -9,7 +9,7 @@ import java.util.*;
 public class ChooseChallenge {
     private static final String CHALLENGE_QUERY = "SELECT challengeID, challengeName, challengeDate, startTime, endTime FROM challenge WHERE ? BETWEEN CONCAT(challengeDate, ' ', startTime) AND CONCAT(challengeDate, ' ', endTime)";
 
-    public static void viewChallenges(Connection connection, PrintWriter writer, BufferedReader reader, String participantID) {
+    public static void viewChallenges(Connection connection, PrintWriter writer, BufferedReader reader, String participantID) throws SQLException {
         Map<String, ChallengeInfo> challengeMap = new HashMap<>();
 
         try {

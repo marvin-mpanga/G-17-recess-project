@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="guicedee.services.jakarta.activation" type="repository">
+    <properties maven-id="com.guicedee.services:jakarta.activation:1.2.2.1" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.activation-1.2.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

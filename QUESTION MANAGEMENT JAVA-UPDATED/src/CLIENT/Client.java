@@ -9,17 +9,14 @@ import java.net.Socket;
 public class Client {
     private static Socket socket;
     private static BufferedReader consoleReader;
-    private static BufferedReader socketReader;
     private static PrintWriter socketWriter;
 
     public static void main(String[] args) {
         try {
             socket = new Socket("localhost", 1234);
-            System.out.println("################################################################");
-            System.out.println("ENTER COMMAND 'login' TO LOG-IN");
-            System.out.println("################################################################");
 
-            socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            BufferedReader socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             consoleReader = new BufferedReader(new InputStreamReader(System.in));
             socketWriter = new PrintWriter(socket.getOutputStream(), true);
 

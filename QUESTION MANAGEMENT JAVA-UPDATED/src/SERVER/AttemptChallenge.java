@@ -4,64 +4,59 @@ import java.io.*;
 import java.sql.*;
 import java.util.*;
 
+import org.fusesource.jansi.Ansi;
+
 public class AttemptChallenge {
     private static final String QUESTION_QUERY = "SELECT * FROM question, answer WHERE question.questionID = answer.questionID AND question.challengeID = ?";
     private static final String ATTEMPT_QUERY = "SELECT COUNT(*) as attemptCount FROM Attempt WHERE participantID = ? AND challengeID = ?";
     private static final String INSERT_ATTEMPT = "INSERT INTO Attempt (participantID, challengeID, attemptNumber, score) VALUES (?, ?, ?, ?)";
     private static final String UPDATE_ATTEMPT_SCORE = "UPDATE Attempt SET score = ? WHERE attemptID = ?";
     private static final String BEST_SCORE_QUERY = "SELECT MAX(score) as bestScore FROM Attempt WHERE participantID = ? AND challengeID = ?";
-    private static final String UPDATE_CHALLENGE_PROGRESS = "INSERT INTO ChallengeProgress (participantID, challengeID, status) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE status = ?";
+    private static final String UPDATE_CHALLENGE_PROGRESS = "INSERT INTO challengeprogress (participantID, challengeID, status) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE status = ?";
     private static final String INSERT_QUESTION_RESPONSE = "INSERT INTO QuestionResponse (attemptID, questionID, isCorrect, timeTaken) VALUES (?, ?, ?, ?)";
 
     public static void startQuiz(Connection connection, PrintWriter writer, BufferedReader reader, String challengeID, String participantID, TimeManager timeManager) {
         try {
             if (!participantExists(connection, participantID)) {
-                writer.println("Error: Participant not found.");
+                printError(writer, "Error: Participant not found.");
                 return;
             }
             updateChallengeProgress(connection, participantID, challengeID, "incomplete");
-            
+
             boolean continueAttempting = true;
             while (continueAttempting) {
                 int attemptNumber = getAttemptNumber(connection, participantID, challengeID);
-                
+
                 if (attemptNumber > 3) {
-                    writer.println("You have already attempted this challenge 3 times. No more attempts allowed.");
+                    printWarning(writer, "You have already attempted this challenge 3 times. No more attempts allowed.");
                     return;
                 }
-        
+
                 List<Map<String, String>> questions = getQuestions(connection, challengeID);
-        
+
                 if (questions.isEmpty()) {
-                    writer.println("No questions found for this challenge.");
+                    printError(writer, "No questions found for this challenge.");
                     return;
                 }
-        
-                // Insert attempt before starting the quiz
+
                 int attemptID = insertAttempt(connection, participantID, challengeID, attemptNumber, 0);
-        
+
                 int score;
                 try {
                     score = conductQuiz(connection, writer, reader, questions, timeManager, attemptID);
                 } catch (IOException e) {
-                    writer.println("Error during quiz: " + e.getMessage());
+                    printError(writer, "Error during quiz: " + e.getMessage());
                     return;
                 }
-        
-                // Update the attempt with the final score
+
                 updateAttemptScore(connection, attemptID, score);
-        
+
                 int bestScore = getBestScore(connection, participantID, challengeID);
-        
-                writer.println("\nQuiz completed!");
-                writer.println("Your score for this attempt: " + score);
-                writer.println("Your best score for this challenge: " + bestScore);
-                writer.println("Time taken: " + timeManager.getElapsedTimeFormatted());
-                writer.println("You have " + (3 - attemptNumber) + " attempts remaining.");
-                writer.flush();
+
+                printResults(writer, score, bestScore, timeManager.getElapsedTimeFormatted(), 3 - attemptNumber);
 
                 if (attemptNumber < 3 && !timeManager.isTimeUp()) {
-                    writer.println("Would you like to try this challenge again? (yes/no)");
+                    printQuestion(writer, "Would you like to try this challenge again? (yes/no)");
                     String response = reader.readLine().trim().toLowerCase();
                     if (!response.equals("yes")) {
                         continueAttempting = false;
@@ -72,17 +67,10 @@ public class AttemptChallenge {
             }
 
             updateChallengeProgress(connection, participantID, challengeID, "complete");
-
-            writer.println("Would you like to try other challenges? (yes/no)");
-            String response = reader.readLine().trim().toLowerCase();
-            if (response.equals("yes")) {
-                ChooseChallenge.viewChallenges(connection, writer, reader, participantID);
-            } else {
-                ReportGenerator.generateReport(connection, writer, participantID);
-            }
+            printInfo(writer, "Challenge completed. Type 'viewchallenges' to see more challenges or 'logout' to end your session.");
 
         } catch (SQLException | IOException e) {
-            writer.println("Error during quiz: " + e.getMessage());
+            printError(writer, "Error during quiz: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -128,7 +116,7 @@ public class AttemptChallenge {
                 Map<String, String> question = new HashMap<>();
                 question.put("id", resultSet.getString("questionID"));
                 question.put("text", resultSet.getString("questionTxt"));
-                question.put("answer", resultSet.getString("answerText"));
+                question.put("answer", resultSet.getString("answerTxt"));
                 questions.add(question);
             }
         }
@@ -140,76 +128,48 @@ public class AttemptChallenge {
         int numQuestions = Math.min(10, questions.size());
         int score = 0;
 
-        writer.println("-----------------------------------------------------------------------------------------------");
-        writer.println("|                                          Quiz Starting                                       |");
-        writer.println("-----------------------------------------------------------------------------------------------");
-        writer.println("You will be asked " + numQuestions + " questions.");
-        writer.println("Instructions:");
-        writer.println("A correct answer will earn you 3 marks.");
-        writer.println("An incorrect answer will deduct 3 marks.");
-        writer.println("If you're not sure, enter '-' to skip the question (no marks awarded or deducted).");
-        writer.println("Good luck!");
-        writer.println("-----------------------------------------------------------------------------------------------");
-        writer.flush();
+        printHeader(writer, "Quiz Starting");
+        printInfo(writer, "You will be asked " + numQuestions + " questions.");
+        printInstructions(writer);
 
         for (int i = 0; i < numQuestions; i++) {
             if (timeManager.isTimeUp()) {
-                writer.println("-----------------------------------------------------------------------------------------------");
-                writer.println("|                                      Time's up! The challenge has ended.                    |");
-                writer.println("-----------------------------------------------------------------------------------------------");
+                printWarning(writer, "Time's up! The challenge has ended.");
                 break;
             }
 
             Map<String, String> question = questions.get(i);
-            writer.println("-----------------------------------------------------------------------------------------------");
-            writer.println("|                                  Remaining time: " + timeManager.getRemainingTimeFormatted() + "                                  |");
-            writer.println("-----------------------------------------------------------------------------------------------");
-            writer.println("\nQuestion " + (i + 1) + ": " + question.get("text"));
-            writer.print("Your answer: ");
-            writer.flush();
+            displayQuestionHeader(writer, timeManager, i + 1);
+            printQuestion(writer, question.get("text"));
 
             long startTime = System.currentTimeMillis();
             String userAnswer = getUserAnswerWithTimeout(reader, timeManager);
             long endTime = System.currentTimeMillis();
-            int timeTaken = (int) ((endTime - startTime) / 1000); // Convert to seconds
-
-            if (userAnswer == null) {
-                writer.println("Time's up! Moving to the next question.");
-                insertQuestionResponse(connection, attemptID, question.get("id"), false, timeTaken);
-                continue;
-            }
+            int timeTaken = (int) ((endTime - startTime) / 1000);
 
             String correctAnswer = question.get("answer");
             boolean isCorrect = false;
 
-            if (userAnswer.equals("-")) {
-                writer.println("-----------------------------------------------------------------------------------------------");
-                writer.println("|                                   Question skipped. The correct answer was: " + correctAnswer + "                    |");
-                writer.println("-----------------------------------------------------------------------------------------------");
+            if (userAnswer == null) {
+                printWarning(writer, "Time's up! Moving to the next question.");
+            } else if (userAnswer.equals("-")) {
+                printInfo(writer, "Question skipped. The correct answer was: " + correctAnswer);
             } else if (userAnswer.equalsIgnoreCase(correctAnswer)) {
                 score += 3;
                 isCorrect = true;
-                writer.println("-----------------------------------------------------------------------------------------------");
-                writer.println("|                                   Correct! You earned 3 marks.                                 |");
-                writer.println("-----------------------------------------------------------------------------------------------");
+                printCorrect(writer, "Correct! You earned 3 marks.");
             } else {
                 score -= 3;
-                writer.println("-----------------------------------------------------------------------------------------------");
-                writer.println("|                               Incorrect. The correct answer was: " + correctAnswer + "                        |");
-                writer.println("|                                    You lost 3 marks.                                           |");
-                writer.println("-----------------------------------------------------------------------------------------------");
+                printIncorrect(writer, "Incorrect. The correct answer was: " + correctAnswer);
+                printInfo(writer, "You lost 3 marks.");
             }
-            writer.println("|                                     Your current score: " + score + "                                      |");
-            writer.println("|                                     Time taken: " + timeTaken + " seconds                                 |");
-            writer.println("-----------------------------------------------------------------------------------------------");
-            writer.flush();
 
+            displayQuestionFooter(writer, score, timeTaken);
             insertQuestionResponse(connection, attemptID, question.get("id"), isCorrect, timeTaken);
         }
 
         return score;
     }
-
     private static String getUserAnswerWithTimeout(BufferedReader reader, TimeManager timeManager) throws IOException {
         long startTime = System.currentTimeMillis();
         long timeoutMillis = timeManager.getRemainingTimeInSeconds() * 1000;
@@ -229,16 +189,13 @@ public class AttemptChallenge {
     }
 
     private static int insertAttempt(Connection connection, String participantID, String challengeID, int attemptNumber, int score) throws SQLException {
-        if (!participantExists(connection, participantID)) {
-            throw new SQLException("Participant with ID " + participantID + " does not exist.");
-        }
         try (PreparedStatement statement = connection.prepareStatement(INSERT_ATTEMPT, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, participantID);
             statement.setString(2, challengeID);
             statement.setInt(3, attemptNumber);
             statement.setInt(4, score);
             statement.executeUpdate();
-            
+
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     return generatedKeys.getInt(1);
@@ -278,4 +235,92 @@ public class AttemptChallenge {
             statement.executeUpdate();
         }
     }
+    private static void displayQuestionHeader(PrintWriter writer, TimeManager timeManager, int questionNumber) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("═".repeat(80)).reset());
+        printRemainingTime(writer, timeManager.getRemainingTimeFormatted());
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.GREEN).bold().a("Question " + questionNumber).reset());
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("─".repeat(80)).reset());
+        writer.flush();
+    }
+
+    private static void displayQuestionFooter(PrintWriter writer, int score, int timeTaken) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("─".repeat(80)).reset());
+        printScore(writer, score, timeTaken);
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("═".repeat(80)).reset());
+        writer.flush();
+    }
+
+    private static void printHeader(PrintWriter writer, String message) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("╔═══════════════════════════════════════════════════════════════════════════╗").reset());
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("║ ").fgBright(Ansi.Color.WHITE).bold().a(centerText(message, 75)).fgBright(Ansi.Color.CYAN).a(" ║").reset());
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("╚═══════════════════════════════════════════════════════════════════════════╝").reset());
+        writer.flush();
+    }
+
+    private static void printInfo(PrintWriter writer, String message) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("INFO: ").reset().a(message).reset());
+        writer.flush();
+    }
+
+    private static void printWarning(PrintWriter writer, String message) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.YELLOW).a("WARNING: ").reset().a(message).reset());
+        writer.flush();
+    }
+
+    private static void printError(PrintWriter writer, String message) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.RED).a("ERROR: ").reset().a(message).reset());
+        writer.flush();
+    }
+
+    private static void printQuestion(PrintWriter writer, String message) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.WHITE).bold().a(message).reset());
+        writer.flush();
+    }
+
+    private static void printCorrect(PrintWriter writer, String message) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.GREEN).bold().a("CORRECT: ").reset().a(message).reset());
+        writer.flush();
+    }
+
+    private static void printIncorrect(PrintWriter writer, String message) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.RED).bold().a("INCORRECT: ").reset().a(message).reset());
+        writer.flush();
+    }
+
+    private static void printScore(PrintWriter writer, int score, int timeTaken) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.YELLOW).a("Current score: ").bold().a(score).reset());
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.YELLOW).a("Time taken: ").bold().a(timeTaken + " seconds").reset());
+        writer.flush();
+    }
+
+    private static void printRemainingTime(PrintWriter writer, String remainingTime) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("Remaining time: ").bold().a(remainingTime).reset());
+        writer.flush();
+    }
+
+    private static void printResults(PrintWriter writer, int score, int bestScore, String elapsedTime, int remainingAttempts) {
+        printHeader(writer, "Quiz Completed");
+        printInfo(writer, "Your score for this attempt: " + score);
+        printInfo(writer, "Your best score for this challenge: " + bestScore);
+        printInfo(writer, "Time taken: " + elapsedTime);
+        printInfo(writer, "You have " + remainingAttempts + " attempts remaining.");
+        writer.flush();
+    }
+
+    private static void printInstructions(PrintWriter writer) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("Instructions:").reset());
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.WHITE).a("- A correct answer will earn you 3 marks.").reset());
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.WHITE).a("- An incorrect answer will deduct 3 marks.").reset());
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.WHITE).a("- If you're not sure, enter '-' to skip the question (no marks awarded or deducted).").reset());
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.YELLOW).bold().a("Good luck!").reset());
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("═".repeat(80)).reset());
+        writer.flush();
+    }
+
+    private static String centerText(String text, int width) {
+        int padding = (width - text.length()) / 2;
+        return " ".repeat(padding) + text + " ".repeat(padding);
+    }
+
+
 }
