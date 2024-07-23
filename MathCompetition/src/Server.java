@@ -25,7 +25,7 @@ public class Server {
     }
 }
 
- class ClientHandler extends Thread {
+class ClientHandler extends Thread {
 
     private final Socket socket;
 
@@ -84,7 +84,7 @@ public class Server {
         // Send email to the school representative
         String repEmail = getRepresentativeEmailBySchoolNumber(schoolRegistrationNumber);
         if (repEmail != null) {
-            EmailSender.sendVerificationRequestEmail(repEmail, firstname );
+            EmailSender.sendVerificationRequestEmail(repEmail, firstname);
         }
     }
 
@@ -105,11 +105,10 @@ public class Server {
         while (true) {
             String command = input.readLine();
 
-            if (command==null) break;
+            if (command == null) break;
             else if ("view applicants".equalsIgnoreCase(command)) {
                 viewApplicants(output);
-            }
-            else if (command.startsWith("verify")) {
+            } else if (command.startsWith("verify")) {
                 handleVerify(command, output);
             } else {
                 output.println("Invalid command.");

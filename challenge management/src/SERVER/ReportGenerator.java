@@ -77,6 +77,7 @@ public class ReportGenerator {
         summaryBuilder.append("╚═════════════════════════════════════════════════════════════════════════╝\n");
         return summaryBuilder.toString();
     }
+
     private static void appendChallengeSummary(StringBuilder summaryBuilder, String challengeName, int attemptCount, int bestScore, int overallMark) {
         summaryBuilder.append(String.format("║ %-21s ║ %-13d ║ %-17d ║ %-11d ║\n",
                 truncate(challengeName, 21), attemptCount, bestScore, overallMark));

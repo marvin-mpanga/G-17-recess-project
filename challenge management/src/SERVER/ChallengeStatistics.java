@@ -12,7 +12,7 @@ public class ChallengeStatistics {
     public static void getIncompleteChallengers(Connection connection, PrintWriter writer) {
         try (PreparedStatement statement = connection.prepareStatement(INCOMPLETE_CHALLENGES_QUERY);
              ResultSet resultSet = statement.executeQuery()) {
-            
+
             writer.println("Participants with incomplete challenges:");
             while (resultSet.next()) {
                 String userName = resultSet.getString("userName");
@@ -56,10 +56,10 @@ public class ChallengeStatistics {
                     questionCounts.put(questionID, count);
                     totalQuestions += count;
                 }
-                
+
                 int repeatedQuestions = (int) questionCounts.values().stream().filter(count -> count > 1).count();
                 double repetitionPercentage = (repeatedQuestions * 100.0) / questionCounts.size();
-                
+
                 writer.println("Question repetition statistics:");
                 writer.println("Total unique questions: " + questionCounts.size());
                 writer.println("Total questions answered: " + totalQuestions);

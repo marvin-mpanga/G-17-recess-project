@@ -69,12 +69,12 @@ public class Client {
     public static void Menu() {
         System.out.println("MENU:");
         String menu = """
-               register username firstname lastname email dateOfBirth schoolRegistrationNumber imageFile
-               login username password
-               view applicants
-               verify applicants
-               exit
-                """;
+                register username firstname lastname email dateOfBirth schoolRegistrationNumber imageFile
+                login username password
+                view applicants
+                verify applicants
+                exit
+                 """;
         System.out.println(menu);
     }
 }

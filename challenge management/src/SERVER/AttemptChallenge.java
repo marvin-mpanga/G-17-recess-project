@@ -170,6 +170,7 @@ public class AttemptChallenge {
 
         return score;
     }
+
     private static String getUserAnswerWithTimeout(BufferedReader reader, TimeManager timeManager) throws IOException {
         long startTime = System.currentTimeMillis();
         long timeoutMillis = timeManager.getRemainingTimeInSeconds() * 1000;
@@ -235,6 +236,7 @@ public class AttemptChallenge {
             statement.executeUpdate();
         }
     }
+
     private static void displayQuestionHeader(PrintWriter writer, TimeManager timeManager, int questionNumber) {
         writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("═".repeat(80)).reset());
         printRemainingTime(writer, timeManager.getRemainingTimeFormatted());

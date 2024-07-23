@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class Database {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/math_challenge";
-    private static final String DB_USER="root";
-    private static final String DB_PASSWORD="";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "";
     private static Connection connection;
 
     public static Connection databaseConnection() throws SQLException {

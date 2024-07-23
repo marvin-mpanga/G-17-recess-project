@@ -2,6 +2,7 @@ package SERVER;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+
 import java.util.Properties;
 
 public class EmailSender {
@@ -59,7 +60,6 @@ public class EmailSender {
             // Create a multipart message
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(messageBodyPart);
-
 
 
             // Set the complete message parts

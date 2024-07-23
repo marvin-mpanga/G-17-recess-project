@@ -41,7 +41,7 @@ public class ChooseChallenge {
                 String endTime = challenges.getString("endTime");
 
                 LocalDateTime challengeEndTime = LocalDateTime.parse(challengeDate + " " + endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                
+
                 if (now.isBefore(challengeEndTime)) {
                     ChallengeInfo challengeInfo = new ChallengeInfo(challengeID, challengeDate, startTime, endTime);
                     challengeMap.put(challengeName, challengeInfo);
@@ -67,7 +67,7 @@ public class ChooseChallenge {
                     ChallengeInfo challengeInfo = challengeMap.get(userInput);
                     LocalDateTime now = LocalDateTime.now();
                     LocalDateTime challengeEndTime = LocalDateTime.parse(challengeInfo.challengeDate + " " + challengeInfo.endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                    
+
                     if (now.isBefore(challengeEndTime)) {
                         writer.println("You selected challenge: " + userInput);
                         TimeManager timeManager = new TimeManager(challengeInfo.challengeDate, challengeInfo.startTime, challengeInfo.endTime);

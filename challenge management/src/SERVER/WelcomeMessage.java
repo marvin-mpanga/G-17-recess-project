@@ -4,6 +4,7 @@ import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.PrintWriter;
+
 public class WelcomeMessage {
     public static void displayWelcomeMessage(PrintWriter writer) {
         AnsiConsole.systemInstall();
