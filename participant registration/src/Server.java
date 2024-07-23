@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.*;
 
-public class Server {
+public class  Server {
 
     public static void main(String[] args) {
         int port = 2222; // The port number on which the server listens
