@@ -14,31 +14,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(5px);
         }
         /* Style the popup register form */
         .register-popup {
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #888;
-            border-radius: 30px;
-            width: 350px;
-            /* Increased width */
-            height: 350px;
-            /* Increased height */
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 500px; /* Increased width */
+    height: 320px; /* Increased height */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    border-radius: 10px;
 }
 .card {
     margin: 20px;
 }
 .form-control {
             height: 30px;
-            width: 300px;
-            font-size: 13px;
+            width: 400px;
+            font-size: 15px;
         }
         .form-control::placeholder {
             color: #666;

@@ -14,7 +14,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(5px);
         }
         
         /* Style the popup register form */
@@ -22,33 +21,28 @@
             background-color: white;
             padding: 20px;
             border: 1px solid #888;
-            border-radius: 30px;
-            width: 350px;
-            /* Increased width */
-            height: 300px;
-            /* Increased height */
+            width: 500px; /* Increased width */
+            height: 300px; /* Increased height */
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            
         }
-        
-        .card {
-            border-radius: 30px;
-            margin: 20px;
+         .card {
+             margin: 20px;
         }
-        
         .form-control {
             height: 30px;
-            width: 300px;
-            font-size: 13px;
+            width: 400px;
+            font-size: 15px;
         }
-        
         .form-control::placeholder {
             color: #666;
-            opacity: 0.6;
-        }
+                opacity: 0.6;}
+                
     </style>
 </head>
 <body>
@@ -62,43 +56,48 @@
                     <div class="form-group row">
                         <label for="adminId" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
                         <div class="col-md-6">
-                            <input id="adminId" type="text" class="form-control @error('adminId') is-invalid @enderror" name="adminId" value="{{ old('adminId') }}" required autocomplete="adminId" autofocus placeholder="Admin ID">
+                            <input id="adminId" type="text" class="form-control @error('adminId') is-invalid @enderror" name="adminId" value="{{ old('adminId') }}" required autocomplete="adminId" autofocus placeholder="Enter Admin ID">
                             @error('adminId')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
+                            <span class="text-muted"></span>
                         </div>
                     </div>
                     <br>
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
                         <div class="col-md-6">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Name">
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Enter Name">
                             @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
+                            <span class="text-muted"></span>
                         </div>
                     </div>
                     <br>
                     <div class="form-group row">
                         <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
                         <div class="col-md-6">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Enter Password">
                             @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
+                            <span class="text-muted"></span>
                         </div>
                     </div>
                     <br>
+                    </div>
                     <div class="form-group row mb-0">
-                        <div class="col-md-8 offset-md-4">
+                             <div class="col-md-8 offset-md-4">
                             <button type="submit" class="btn btn-primary">
-                                <a class="btn btn-primary">Login</a>
+                            <a href="{{ url('/index.php') }}" class="btn btn-primary">Login</a>
+
                             </button>
                         </div>
                     </div>
@@ -113,7 +112,3 @@
             </div>
         </div>
     </div>
-</body>
-</html>
-
-

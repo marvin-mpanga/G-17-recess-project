@@ -3,7 +3,7 @@
         <nav>
             <ul class="footer-menu">
                 <li>
-                </p>
+                   <p> </p>
                 </li>
                 <li>
                     <a href="https://www.updivision.com" class="nav-link" target="_blank">{{ __('') }}</a>
