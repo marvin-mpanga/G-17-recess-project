@@ -1,12 +1,13 @@
 <?php 
 
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use Illuminate\App\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,9 +32,9 @@ Route::get('login/admin', 'App\Http\Controllers\Auth\LoginController@showAdminLo
 Route::get('login/pupil', 'App\Http\Controllers\Auth\LoginController@showPupilLoginForm')->name('pupil_login');
 Route::get('login/rep', 'App\Http\Controllers\Auth\LoginController@showRepLoginForm')->name('representative_login');
 
-Route::post('login/admin', 'App\Http\Controllers\Auth\LoginController@adminLogin')->name('admin_login.submit')->middleware('guest');
-Route::post('login/pupil', 'App\Http\Controllers\Auth\LoginController@pupilLogin')->name('pupil_login.submit');
-Route::post('login/rep', 'App\Http\Controllers\Auth\LoginController@repLogin')->name('representative_login.submit');
+Route::post('login/admin', 'App\Http\Controllers\AdminController@adminLogin')->name('admin_login.submit');
+Route::post('login/pupil', 'App\Http\Controllers\AdminController@pupilLogin')->name('pupil_login.submit');
+Route::post('login/rep', 'App\Http\Controllers\RepresentativeController@repLogin')->name('representative_login.submit');
 
 Route::get('/contact', 'App\Http\Controllers\ContactController@index')->name('contact');
 Route::get('/aboutUs', 'App\Http\Controllers\AboutUsController@index')->name('aboutUs');
@@ -60,13 +61,31 @@ Route::post('/upload/questions', 'App\Http\Controllers\AdminController@uploadQue
 
 Route::get('/upload/answers', 'App\Http\Controllers\AdminController@uploadAnswers')->name('upload_answers');
 Route::get('/admin/profile', 'App\Http\Controllers\AdminController@adminProfile')->name('admin_profile');
+Route::get('/admin/edit/info', 'App\Http\Controllers\AdminController@editInfo')->name('editInfo');
+Route::post('/admin/update/info', 'App\Http\Controllers\AdminController@updateInfo')->name('updateInfo');
+
+
 Route::get('/overallstats', 'App\Http\Controllers\AdminController@overallStats')->name('overall_stats');
 Route::get('/upload/docs', 'App\Http\Controllers\AdminController@uploadDocs')->name('upload_docs');
 
+//challenge routes
+Route::get('/challenges', 'App\Http\Controllers\ChallengeController@getRandomQuestions')->name('challenges');
+Route::get('/admin/create-challenge', 'App\Http\Controllers\AdminController@showChallengeForm')->name('challenge_form');
+Route::post('/admin/create-challenge', 'App\Http\Controllers\AdminController@createChallenge')->name('createChallenge');
+Route::post('/challenge/set-params', 'App\Http\Controllers\ChallengeController@setChallengeParams')->name('set.challenge.params');
+
+
+Route::get('/challenge/start', 'App\Http\Controllers\ChallengeController@startChallenge')->name('challenge.start');
+Route::post('/challenge/submit', 'App\Http\Controllers\ChallengeController@submitAnswer')->name('challenge.submit');
+Route::get('/challenge/end', 'App\Http\Controllers\ChallengeController@endChallenge')->name('challenge.end');
+
+//questions routes
+Route::get('/admin/upload-questions', 'App\Http\Controllers\AdminController@showUploadForm')->name('QuestionsForm');
+Route::post('/admin/upload-questions', 'App\Http\Controllers\AdminController@uploadQuestions')->name('upload_questions');
 
 //pupil routes
-Route::middleware(['auth', 'pupil'])->group(function () {
-    Route::get('/pupil/dashboard', 'APP\Http\Controllers\PupilController@dashboard')->name('pupil.dashboard')->middleware('auth', 'pupil');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pupil/dashboard', 'APP\Http\Controllers\PupilController@dashboard')->name('pupil.dashboard');
     // Other pupil routes
 });
 

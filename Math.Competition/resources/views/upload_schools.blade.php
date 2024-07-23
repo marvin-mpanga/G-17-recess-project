@@ -20,11 +20,55 @@
                                     <input type="text" class="form-control" id="schoolName" name="schoolName" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="schoolAddress">{{ __('School Address') }}</label>
-                                    <input type="text" class="form-control" id="schoolAddress" name="schoolAddress" required>
+                                    <label for="schoolDistrict">{{ __('School District') }}</label>
+                                    <input type="text" class="form-control" id="schoolDistrict" name="schoolDistrict" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="schoolRegNo">{{ __('School Reg No') }}</label>
+                                    <input type="text" class="form-control" id="schoolRegNo" name="schoolRegNo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Name of Representative">{{ __('Name Of Representative') }}</label>
+                                    <input type="text" class="form-control" id="Name Of Representative" name="Name Of Representative" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="representativeEmail">{{ __('Representative Email') }}</label>
+                                    <input type="email" class="form-control" id="representativeEmail" name="representativeEmail" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">{{ __('Add School') }}</button>
                             </form>
+<script>
+    $(document).ready(function() {
+        $('#schoolName').on('change', function() {
+            var schoolName = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/check-school-name',
+                data: { schoolName: schoolName },
+                success: function(data) {
+                    if (data.exists) {
+                        alert('School name already exists in our database.');
+                    }
+                }
+            });
+        });
+        $('#representativeEmail').on('change', function() {
+            var representativeEmail = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/check-representative-email',
+                data: { representativeEmail: representativeEmail },
+                success: function(data) {
+                    if (data.exists) {
+                        alert('Representative email already exists in our database.');
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
 
                             <!-- List of Schools -->
                             <div class="mt-4">
@@ -47,4 +91,5 @@
             </div>
         </div>
     </div>
+
 @endsection

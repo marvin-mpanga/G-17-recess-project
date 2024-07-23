@@ -1,24 +1,36 @@
 <?php
 
-namespace App\Models;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
-class Question extends Model
+class CreateQuestionsTable extends Migration
 {
-    protected $table = 'question';
-    protected $primaryKey = 'questionID';
-    protected $fillable = [
-        'questionNo',
-        'challengeId',
-        'answerID',
-        'description',
-    ];
-
-    public function challenge(): BelongsTo
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
     {
-        return $this->belongsTo(Challenge::class, 'challengeId');
+        Schema::create('questions', function (Blueprint $table) {
+            $table->id('question_id');
+            $table->unsignedBigInteger('answer_id')->nullable();
+            $table->integer('marks');
+            $table->timestamps();
+
+            $table->foreign('answer_id')->references('answer_id')->on('answers')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('questions');
     }
 }
 

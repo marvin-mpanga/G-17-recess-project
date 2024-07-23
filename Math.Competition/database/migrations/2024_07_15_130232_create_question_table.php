@@ -15,10 +15,8 @@ class CreateQuestionTable extends Migration
     {
         Schema::create('question', function (Blueprint $table) {
             $table->increments('id')->primary();
-            $table->string('answerID', 25)->foreign();
-            $table->string('questionNo', 5);
-            $table->string('challengeId', 12)->foreign();
-            $table->text('description');
+            $table->string('answerID', 25)->foreign();         
+            $table->text('question text');
             $table->timestamps();
 
         });

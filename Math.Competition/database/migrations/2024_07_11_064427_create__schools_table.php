@@ -17,6 +17,10 @@ class CreateSchoolsTable extends Migration
             $table->string('schoolRegNo', 20)->primary();
             $table->string('schoolName', 35);
             $table->string('district', 25);
+            $table->string('repName', 25);
+            $table->string('repEmail', 30);
+
+           
         });
     }
 
