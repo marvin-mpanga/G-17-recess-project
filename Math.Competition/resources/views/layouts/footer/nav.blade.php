@@ -3,19 +3,19 @@
         <nav>
             <ul class="footer-menu">
                 <li>
-                   <p> The National Math Olympiad in<br> collaboration with the Ministry</p>
+                   <p> </p>
                 </li>
                 <li>
-                    <a href="https://www.updivision.com" class="nav-link" target="_blank">{{ __('Explore Resources') }}</a>
+                    <a href="https://www.updivision.com" class="nav-link" target="_blank">{{ __('') }}</a>
                </li>
                 <li>
-                    <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">{{ __('Blog') }}</a>
+                    <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">{{ __('') }}</a>
                 </li>
                 <li>
-                    <a href="http://blog.creative-tim.com" class="nav-link">{{ __('About Us') }}</a>
+                    <a href="http://blog.creative-tim.com" class="nav-link">{{ __('') }}</a>
                  </li>
                 <li>
-                    <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">{{ __('Get Help') }}</a>
+                    <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">{{ __('') }}</a>
                 </li>
             </ul>
             <p class="copyright text-center">

@@ -143,5 +143,6 @@ class RegisterController extends Controller
     public function schoolRepCreate(){
     return view('schooRepDashboard');
     }
+   
 }
 

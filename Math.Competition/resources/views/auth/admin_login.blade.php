@@ -7,7 +7,7 @@
     <style>
         /* Add a background image to the body tag */
         body {
-            background-image: url('/light-bootstrap/img/math-olympiad-one.png');
+            background-image: url('/light-bootstrap/img/math-olympiad-2.jpg');
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -15,6 +15,7 @@
             justify-content: center;
             align-items: center;
         }
+        
         /* Style the popup register form */
         .login-popup {
             background-color: white;
@@ -27,6 +28,8 @@
             left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            
         }
          .card {
              margin: 20px;
@@ -34,11 +37,12 @@
         .form-control {
             height: 30px;
             width: 400px;
-            font-size: 18px;
+            font-size: 15px;
         }
         .form-control::placeholder {
             color: #666;
                 opacity: 0.6;}
+                
     </style>
 </head>
 <body>
@@ -50,9 +54,9 @@
                 <form method="POST" action="{{ route('admin.login.submit') }}">
                     @csrf
                     <div class="form-group row">
-                        <label for="adminId" class="col-md-4 col-form-label text-md-right">{{ __('Admin ID') }} <span class="text-danger">*</span></label>
+                        <label for="adminId" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
                         <div class="col-md-6">
-                            <input id="adminId" type="text" class="form-control @error('adminId') is-invalid @enderror" name="adminId" value="{{ old('adminId') }}" required autocomplete="adminId" autofocus>
+                            <input id="adminId" type="text" class="form-control @error('adminId') is-invalid @enderror" name="adminId" value="{{ old('adminId') }}" required autocomplete="adminId" autofocus placeholder="Enter Admin ID">
                             @error('adminId')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -63,9 +67,9 @@
                     </div>
                     <br>
                     <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }} <span class="text-danger">*</span></label>
+                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
                         <div class="col-md-6">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name">
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Enter Name">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -76,9 +80,9 @@
                     </div>
                     <br>
                     <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }} <span class="text-danger">*</span></label>
+                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
                         <div class="col-md-6">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Enter Password">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -98,9 +102,13 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-8 offset-md-4">
-                            <p>Don't have an account? <a href="{{ route('admin.register') }}" class="btn btn-link">Register!</a></p>
-                        </div>
+                        
+                     <div class="col-md-8 offset-md-4">
+                          <div class="d-flex justify-content-between">
+                             <p><a href="{{ route('admin.register') }}" class="btn btn-link">Register!</a> | Forgot password?</p>
+                            </div>
+                      </div>
+
                     </div>
                 </form>
             </div>

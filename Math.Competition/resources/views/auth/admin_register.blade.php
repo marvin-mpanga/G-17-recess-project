@@ -7,7 +7,7 @@
     <style>
         /* Add a background image to the body tag */
         body {
-            background-image: url('/light-bootstrap/img/math-olympiad-one.png');
+            background-image: url('/light-bootstrap/img/math-olympiad-2.jpg');
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -27,14 +27,15 @@
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    border-radius: 10px;
 }
 .card {
     margin: 20px;
 }
 .form-control {
-            height: 40px;
+            height: 30px;
             width: 400px;
-            font-size: 18px;
+            font-size: 15px;
         }
         .form-control::placeholder {
             color: #666;

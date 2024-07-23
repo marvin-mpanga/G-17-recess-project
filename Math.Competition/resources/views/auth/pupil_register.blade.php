@@ -162,7 +162,10 @@
     <div class="
 
 <div class="form-group row mb-0"> 
-    <div class="col-md-8 offset-md-4" style="display: flex; justify-content: center;"> 
-        <button type="submit" class="btn btn-primary"> {{ __('Register') }} </button> 
-    </div> 
+<div class="col-md-8 offset-md-4" style="display: flex; justify-content: center;">
+    <a href="{{ route('pupil.register.submit') }}">
+        <button type="submit" class="btn btn-primary" > {{ __('Register') }} </button>
+    </a>
+</div>
+
 </div>

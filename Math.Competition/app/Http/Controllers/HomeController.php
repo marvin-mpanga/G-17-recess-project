@@ -11,8 +11,13 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function showAboutUs()
     {
-        return view('/index');
+        return view('/aboutUs');
+    }
+
+    public function showContact()
+    {
+        return view('/contact');
     }
 }

@@ -20,7 +20,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-// Protect routes for authenticated users
+// Protect routes for authenticated userscAAAAAaaAAAAAAAA
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('user', UserController::class, ['except' => ['show']]);
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -30,14 +30,13 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // Added routes for login dropdown menu
-Route::get('login/admin', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');
-Route::get('login/pupil', [LoginController::class, 'showPupilLoginForm'])->name('pupil.login');
-Route::get('login/rep', [LoginController::class, 'showRepLoginForm'])->name('rep.login');
+Route::get('login/admin', 'App\Http\Controllers\Auth\LoginController@showAdminLoginForm')->name('admin.login');
+Route::get('login/pupil', 'App\Http\Controllers\Auth\LoginController@showPupilLoginForm')->name('pupil.login');
+Route::get('login/rep', 'App\Http\Controllers\Auth\LoginController@showRepLoginForm')->name('rep.login');
 
-<<<<<<< Updated upstream
-Route::post('login/admin', 'App\Http\Controllers\Auth\LoginController@adminLogin')->name('admin.login.submit');
-Route::post('login/pupil', 'App\Http\Controllers\Auth\LoginController@pupilLogin')->name('pupil.login.submit');
-Route::post('login/rep', 'App\Http\Controllers\Auth\LoginController@repLogin')->name('rep.login.submit');
+Route::post('login/admin', 'App\Http\Controllers\Auth\LoginController@showAdminLoginForm')->name('admin.login.submit');
+Route::post('login/pupil', 'App\Http\Controllers\Auth\LoginController@showPupilLoginForm')->name('pupil.login.submit');
+Route::post('login/rep', 'App\Http\Controllers\Auth\LoginController@showRepLoginForm')->name('rep.login.submit');
 
 // added routes for register 
 Route::get('register/admin', 'App\Http\Controllers\Auth\RegisterController@showAdminRegisterForm')->name('admin.register');
@@ -45,8 +44,19 @@ Route::get('register/pupil', 'App\Http\Controllers\Auth\RegisterController@showP
 Route::get('register/rep', 'App\Http\Controllers\Auth\RegisterController@showRepRegisterForm')->name('rep.register');
 
 Route::post('register/admin', 'App\Http\Controllers\Auth\RegisterController@adminRegister')->name('admin.register.submit');
-Route::post('register/pupil', 'App\Http\ControllersAuth\RegisterController@pupilRegister')->name('pupil.register.submit');
+Route::post('register/pupil', 'App\Http\Controllers\PupilController@pupilRegister')->name('pupil.register.submit');
 Route::post('register/rep', 'App\Http\ControllersAuth\RegisterController@repRegister')->name('rep.register.submit');
+
+
+
+// pupil routes
+
+Route::get('/pupil/dashboard', 'App\Http\Controllers\PupilController@showPupilDashboard')->name('pupil.dashboard');
+Route::get('/pupil/challenge', 'App\Http\Controllers\PupilController@showChallenges')->name('pupil.challenges');
+Route::get('/pupil/progress', 'App\Http\Controllers\PupilController@showProgress')->name('pupil.progress');
+Route::get('/pupil/profile', 'App\Http\Controllers\PupilController@showProfile')->name('pupil.profile');
+Route::get('/pupil/settings', 'App\Http\Controllers\PupilController@showSettings')->name('pupil.settings');
+Route::get('/pupil/help', 'App\Http\Controllers\PupilController@showHelp')->name('pupil.help');
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -72,4 +82,8 @@ Route::prefix('school-rep')->name('school-rep.')->group(function () {
     Route::get('/analytics', [App\Http\Controllers\SchoolRepController::class, 'analytics'])->name('analytics');
    
 });
-Route::get('/index.php', 'HomeController@index')->name('index');
+
+Route::get('/aboutUs', 'App\Http\Controllers\HomeController@showAboutUs')->name('aboutUs');
+Route::get('/contact', 'App\Http\Controllers\HomeController@showContact')->name('contact');
+
+

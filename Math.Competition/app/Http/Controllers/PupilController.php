@@ -11,58 +11,49 @@ use Illuminate\Support\Facades\Auth;
 
 class PupilController extends Controller
 {
-    public function index()
+    public function pupilRegister(Request $request)
     {
-        return view('pupil.dashboard');
+        // Registration logic here
+        return redirect()->route('pupil.dashboard');
+    }
+    public function showPupilDashboard()
+    {
+        return view('auth.pupil_dashboard');
+    }
+    public function showChallenges()
+    {
+        
+        return view('auth.pupil.challenges');
     }
 
-    public function challenges()
+    public function showProgress()
     {
-        $challenges = Challenge::all();
-        return view('pupil.challenges', compact('challenges'));
+        
+        return view('auth.pupil.progress');
     }
 
-    public function progress()
+    public function showSubmissions()
     {
-        $pupilId = Auth::id();
-        $answers = Answers::where('pupil_id', $pupilId)->get();
-        $submissions = Submission::where('pupil_id', $pupilId)->get();
-        return view('pupil.progress', compact('answersw', 'submissions'));
+        
+        return view('auth.pupil.submissions');
     }
 
-    public function submissions()
+    public function showProfile()
     {
-        $pupilId = Auth::id();
-        $submissions = Submission::where('pupil_id', $pupilId)->get();
-        return view('pupil.submissions', compact('submissions'));
+        return view('auth.pupil.profile');
     }
 
-    public function profile()
+   
+
+    public function showSettings()
     {
-        $pupil = Auth::user();
-        return view('pupil.profile', compact('pupil'));
+        return view('auth.pupil.settings');
     }
 
-    public function updateProfile(Request $request)
+    public function showHelp()
     {
-        $pupil = Auth::user();
-        $pupil->name = $request->input('name');
-        $pupil->email = $request->input('email');
-        if ($request->has('password') && $request->input('password') != '') {
-            $pupil->password = bcrypt($request->input('password'));
-        }
-        $pupil->save();
-
-        return redirect()->route('pupil.profile')->with('status', 'Profile updated!');
+        return view('auth.pupil.help');
     }
+    
 
-    public function settings()
-    {
-        return view('pupil.settings');
-    }
-
-    public function help()
-    {
-        return view('pupil.help');
-    }
 }
