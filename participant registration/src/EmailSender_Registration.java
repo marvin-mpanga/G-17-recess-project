@@ -3,7 +3,7 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.Properties;
 
-public class EmailSender {
+public class EmailSender_Registration {
 
     private static final String SMTP_SERVER = "smtp.gmail.com";
     private static final String USERNAME = "tumukundeandrew07@gmail.com";

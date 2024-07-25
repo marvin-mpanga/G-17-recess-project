@@ -1,14 +1,8 @@
 package SERVER;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ClientHandler implements Runnable {
     private final Socket socket;
@@ -18,7 +12,7 @@ public class ClientHandler implements Runnable {
     private String loggedInUsername = null;
     private String participantID = null;
     private String userEmail = null;
-    public static final String USER_ID = "SELECT participantID, email FROM participant WHERE userName=?";
+    private static final String USER_ID = "SELECT participantID, email FROM participant WHERE userName=?";
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
@@ -35,57 +29,113 @@ public class ClientHandler implements Runnable {
 
             String command;
             while ((command = reader.readLine()) != null) {
-                switch (command.toLowerCase().trim()) {
-                    case "register":
-                        Register.register(connection,writer,reader);
-                        break;
-                    case "loginrepresentative":
-                        loggedInUsername=Representative.login(connection,writer,reader);
-                        if(!loggedInUsername.isEmpty()) {
-                            Representative.confirmParticipant();
-                        }else{
-                            writer.println("you must login first");
-                        }
-                        break;
-
-                    case "loginparticipant":
-                        loggedInUsername = Login.login(connection, writer, reader);
-                        if (loggedInUsername != null) {
-                            setParticipantIDAndEmail();
-                            writer.println("Type 'viewchallenges' to see available challenges.");
-                        }
-                        break;
-                    case "viewchallenges":
-                        if (loggedInUsername != null) {
-                            ChooseChallenge.viewChallenges(connection, writer, reader, participantID);
-                        } else {
-                            writer.println("You must login first.");
-                        }
-                        break;
-                    case "logoutrepresentative":
-                        logoutRepresentative();
-                        break;
-                    case "logoutparticipant":
-                        logoutParticipant();
-                        break;
-                    case "exitparticipant":
-                        logoutParticipant();
-                        return;
-                    default:
-                        writer.println("Invalid command. Available commands: login, viewchallenges, logout, exit");
-                        break;
+                try {
+                    handleCommand(command);
+                } catch (SQLException e) {
+                    System.err.println("Database error while handling command: " + command);
+                    e.printStackTrace();
+                    writer.println("An error occurred. Please try again later.");
+                } catch (IOException e) {
+                    System.err.println("I/O error while handling command: " + command);
+                    e.printStackTrace();
+                    break;  // Break the loop on I/O error as the connection might be compromised
                 }
             }
         } catch (IOException | SQLException e) {
             System.err.println("Error in ClientHandler: " + e.getMessage());
+            e.printStackTrace();
         } finally {
             cleanup();
         }
     }
 
-    private void logoutParticipant() {
+    private void handleCommand(String command) throws IOException, SQLException {
+        switch (command.toLowerCase().trim()) {
+            case "register":
+                Registration.register(connection, writer, reader);
+                break;
+            case "loginrepresentative":
+                handleRepresentativeLogin();
+                break;
+            case "loginparticipant":
+                handleParticipantLogin();
+                break;
+            case "viewchallenges":
+                handleViewChallenges();
+                break;
+            case "logoutrepresentative":
+            case "logoutparticipant":
+                logout();
+                break;
+            case "exitparticipant":
+                logout();
+                throw new IOException("Client requested exit");
+            default:
+                writer.println("Invalid command. Available commands: register, loginrepresentative, loginparticipant, viewchallenges, logout, exit");
+                break;
+        }
+    }
+
+    private void handleRepresentativeLogin() throws IOException {
+        writer.println("Enter: username password");
+        String[] loginDetails = reader.readLine().split("\\s+");
+        if (loginDetails.length != 2) {
+            writer.println("Invalid login format.");
+            return;
+        }
+        if (Registration.isValidRepresentative(loginDetails[0], loginDetails[1], connection)) {
+            writer.println("Login successful");
+            loggedInUsername = loginDetails[0];
+            handleViewApplicants();
+        } else {
+            writer.println("Login failed: Invalid name or password.");
+        }
+    }
+
+    private void handleViewApplicants() throws IOException {
+        writer.println("Enter 'viewApplicants' to view the applicants");
+        if (reader.readLine().equalsIgnoreCase("viewApplicants")) {
+            Registration.viewApplicants(writer);
+            handleVerification();
+        } else {
+            writer.println("Invalid command.");
+        }
+    }
+
+    private void handleVerification() throws IOException {
+        String command;
+        while ((command = reader.readLine()) != null) {
+            if (command.startsWith("verify")) {
+                Registration.handleVerify(command, writer, connection);
+            } else if (command.equalsIgnoreCase("exit")) {
+                break;
+            } else {
+                writer.println("Invalid command. Use 'verify YES/NO username' or 'exit'.");
+            }
+        }
+    }
+
+    private void handleParticipantLogin() throws SQLException {
+        loggedInUsername = Login.login(connection, writer, reader);
         if (loggedInUsername != null) {
-            generateAndSendReport();
+            setParticipantIDAndEmail();
+            writer.println("Type 'viewchallenges' to see available challenges.");
+        }
+    }
+
+    private void handleViewChallenges() throws SQLException {
+        if (loggedInUsername != null) {
+            ChooseChallenge.viewChallenges(connection, writer, reader, participantID);
+        } else {
+            writer.println("You must login first.");
+        }
+    }
+
+    private void logout() {
+        if (loggedInUsername != null) {
+            if (participantID != null) {
+                generateAndSendReport();
+            }
             loggedInUsername = null;
             participantID = null;
             userEmail = null;
@@ -94,26 +144,15 @@ public class ClientHandler implements Runnable {
             writer.println("You are not currently logged in.");
         }
     }
-    private void logoutRepresentative() {
-        if (loggedInUsername != null) {
-            loggedInUsername = null;
-        }
-    }
 
     private void generateAndSendReport() {
-        if (loggedInUsername != null) {
-            ReportGenerator.generateReport(connection, participantID, writer);
-
-            if (userEmail != null) {
-                String detailedReport = ReportGenerator.getDetailedReportForEmail(connection, participantID);
-                EmailSender.sendReportEmail(userEmail, detailedReport);
-
-                writer.println("A detailed report has been sent to your email: " + userEmail);
-            } else {
-                writer.println("Unable to send detailed report via email. Email address not available.");
-            }
+        ReportGenerator.generateReport(connection, participantID, writer);
+        if (userEmail != null) {
+            String detailedReport = ReportGenerator.getDetailedReportForEmail(connection, participantID);
+            EmailSender.sendReportEmail(userEmail, detailedReport);
+            writer.println("A detailed report has been sent to your email: " + userEmail);
         } else {
-            writer.println("You are not currently logged in.");
+            writer.println("Unable to send detailed report via email. Email address not available.");
         }
     }
 

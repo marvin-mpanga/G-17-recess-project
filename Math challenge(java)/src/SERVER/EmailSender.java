@@ -72,4 +72,6 @@ public class EmailSender {
             throw new MessagingException("Failed to send email: " + e.getMessage(), e);
         }
     }
+
+
 }
