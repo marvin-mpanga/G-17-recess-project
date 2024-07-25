@@ -445,7 +445,7 @@
                 <span>Number of participants</span>
                 <small></small>
             </div>
-            <h2 id="pupil-count">{{ App\Models\Pupil::count() }}</h2>
+            <h2 id="pupil-count">{{ App\Models\Pupil::count() }}</h2> 
             <small></small>
         </div>
         <div class="card-chart success">
@@ -462,8 +462,7 @@
                                 <span>Number of schools</span>
                                 <small></small>
                             </div>
-                            <h2>10</h2>
-
+                            <h2 id="school-count">{{ App\Models\Schools::count() }}</h2>
                             <small></small>
                         </div>
                         <div class="card-chart danger">
@@ -479,7 +478,7 @@
                                 <span>number of challenges</span>
                                 <small></small>
                             </div>
-                            <h2> </h2>
+                            <h2 id="challenge-count">{{ App\Models\Challenge::count() }}</h2>
 
                             <small></small>
                         </div>
@@ -562,13 +561,13 @@
                         </li>
                         <br>
                         <li>
-                            <a href="{{ route('dashboard.manage_schools') }}" class="list-group-item list-group-item-action bg-light" style="font-size: 1.2rem;">
+                            <a href="{{ route('manage_schools') }}" class="list-group-item list-group-item-action bg-light" style="font-size: 1.2rem;">
                                 <span class="las la-school"></span> Manage Schools
                             </a>
                         </li>
                         <br>
                         <li>
-                            <a href="" style="font-size: 1.2rem;">
+                            <a href="{{ route('manage_challenge') }}" style="font-size: 1.2rem;">
                                 <span class="las la-tasks"></span> Manage challenge
                             </a>
                         </li>
@@ -645,6 +644,16 @@ setInterval(function() {
             }
         });
     }, 10000); // update every 10 seconds
+
+//     setInterval(function() {
+//     $.ajax({
+//         url: '/get-school-count', // URL to fetch the updated count
+//         type: 'GET',
+//         success: function(data) {
+//             $('#school-count').text(data.count);
+//         }
+//     });
+// }, 10000);
 
 
     </script>

@@ -4,7 +4,7 @@ namespace App\Models;
  
 use Illuminate\Database\Eloquent\Model;
 
-class School extends Model
+class Schools extends Model
 {
     protected $table = '_schools';
     protected $primaryKey = 'schoolRegNo';
@@ -12,10 +12,6 @@ class School extends Model
         'schoolName',
         'district',
     ];
-
-
-
-
 
 }
 

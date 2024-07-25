@@ -110,3 +110,5 @@ Route::prefix('school-rep')->name('school-rep.')->group(function () {
 
 Route::get('/aboutUs', 'App\Http\Controllers\HomeController@showAboutUs')->name('aboutUs');
 Route::get('/contact', 'App\Http\Controllers\HomeController@showContact')->name('contact');
+
+

@@ -8,6 +8,7 @@ use App\Models\answers;
 use App\Models\Submission;
 use App\Models\User;
 use App\Models\Pupil;
+use App\Models\Schools;
 use Illuminate\Support\Facades\Auth;
 
 class PupilController extends Controller
@@ -75,6 +76,7 @@ public function update(Request $request)
 
     public function showOverview()
     {
+        // $schoolCount = Schools::count();
         return view('auth.dashboard.overview');
 
     }
