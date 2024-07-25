@@ -8,7 +8,7 @@ import java.sql.*;
 public class  Server {
 
     public static void main(String[] args) {
-        int port = 2222; // The port number on which the server listens
+        int port = 8000; // The port number on which the server listens
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server is listening on port " + port);

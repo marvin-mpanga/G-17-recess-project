@@ -6,7 +6,7 @@ public class pupil {
 
     public static void main(String[] args) {
         String hostname = "localhost";
-        int port = 2222; // Port number on which the server listens
+        int port = 8000; // Port number on which the server listens
 
         try (Socket socket = new Socket(hostname, port);
              PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
