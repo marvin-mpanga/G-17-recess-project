@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="85edb126-bd87-4abf-8da9-4cb9df36e978" name="Changes" comment="removed unused method from AttemptChallenge class and also removed some unused parameters" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/Math.Competition/composer.json</pharConfigPath>
+    <execution>
+      <executable path="composer" />
+    </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="challenge_management_final_changes" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;marvin-mpanga&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/marvin-mpanga/G-17-recess-project.git&quot;,
+    &quot;accountId&quot;: &quot;2457c7eb-cac1-4a42-9aa7-ecc594a5def6&quot;
+  }
+}</component>
+  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\wamp64\bin\php\php8.2.13\php.exe" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2je52MhfPSJhGurG9ZailcLUsiS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Client (1).executor": "Run",
+    "Application.Client.executor": "Run",
+    "Application.Server (1).executor": "Run",
+    "Application.Server.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.laravel-idea.search-composer-json": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
+    "git-widget-placeholder": "pupilbranch",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/MARVIN/Desktop",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "swagger",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="85edb126-bd87-4abf-8da9-4cb9df36e978" name="Changes" comment="" />
+      <created>1721734493788</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721734493788</updated>
+      <workItem from="1721752366285" duration="281000" />
+      <workItem from="1721803123680" duration="224000" />
+      <workItem from="1721803367845" duration="30000" />
+      <workItem from="1721855881048" duration="114000" />
+      <workItem from="1721856014247" duration="9026000" />
+      <workItem from="1721866561070" duration="723000" />
+      <workItem from="1721868523656" duration="143000" />
+      <workItem from="1721868832484" duration="3024000" />
+      <workItem from="1721891557793" duration="99000" />
+      <workItem from="1721894960783" duration="11533000" />
+      <workItem from="1721909339712" duration="457000" />
+    </task>
+    <task id="LOCAL-00001" summary="added libraries to the project">
+      <option name="closed" value="true" />
+      <created>1721737540523</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1721737540523</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added gitignore files">
+      <option name="closed" value="true" />
+      <created>1721739004378</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1721739004378</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added project management files">
+      <option name="closed" value="true" />
+      <created>1721742812125</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1721742812125</updated>
+    </task>
+    <task id="LOCAL-00004" summary="removed unnecessary files and improved the structure of the folders">
+      <option name="closed" value="true" />
+      <created>1721743695128</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1721743695128</updated>
+    </task>
+    <task id="LOCAL-00005" summary="deleted mathCompetition folder because is redundant">
+      <option name="closed" value="true" />
+      <created>1721743778160</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1721743778160</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added libraries">
+      <option name="closed" value="true" />
+      <created>1721745106091</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1721745106091</updated>
+    </task>
+    <task id="LOCAL-00007" summary="added xml file">
+      <option name="closed" value="true" />
+      <created>1721745140962</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1721745140962</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added project management files&#10;&#10;(cherry picked from commit a04b8d473de9f65c9c8a44b47c635a381dae60aa)">
+      <option name="closed" value="true" />
+      <created>1721749990354</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1721749990354</updated>
+    </task>
+    <task id="LOCAL-00009" summary="removed ChallengeStatistics class because it was not being used. removed some unused parameters and variables">
+      <option name="closed" value="true" />
+      <created>1721867043536</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1721867043536</updated>
+    </task>
+    <task id="LOCAL-00010" summary="removed ChallengeStatistics class because it was not being used. removed some unused parameters and variables">
+      <option name="closed" value="true" />
+      <created>1721901437146</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1721901437146</updated>
+    </task>
+    <task id="LOCAL-00011" summary="removed unused method from AttemptChallenge class and also removed some unused parameters">
+      <option name="closed" value="true" />
+      <created>1721902140074</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1721902140074</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added libraries to the project" />
+    <MESSAGE value="added gitignore files" />
+    <MESSAGE value="added project management files" />
+    <MESSAGE value="removed unnecessary files and improved the structure of the folders" />
+    <MESSAGE value="deleted mathCompetition folder because is redundant" />
+    <MESSAGE value="added libraries" />
+    <MESSAGE value="added xml file" />
+    <MESSAGE value="added project management files&#10;&#10;(cherry picked from commit a04b8d473de9f65c9c8a44b47c635a381dae60aa)" />
+    <MESSAGE value="removed ChallengeStatistics class because it was not being used. removed some unused parameters and variables" />
+    <MESSAGE value="removed unused method from AttemptChallenge class and also removed some unused parameters" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed unused method from AttemptChallenge class and also removed some unused parameters" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
