@@ -79,7 +79,7 @@ public class ChooseChallenge {
                 } else {
                     writer.println("Invalid challenge name. Please try again.");
                 }
-                writer.println("Enter a challenge name or 'exit' to go back:");
+                writer.println("Enter a challenge name");
                 writer.flush();
             }
         } catch (IOException e) {

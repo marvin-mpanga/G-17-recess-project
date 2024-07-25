@@ -25,6 +25,7 @@ public class ReportGenerator {
             String summaryReport = generateSummaryReport(connection, participantID);
             consoleWriter.println(summaryReport);
             consoleWriter.println("A detailed report has been generated and is ready to be sent via email.");
+            consoleWriter.println("please wait...");
         } catch (SQLException e) {
             consoleWriter.println("Error generating report: " + e.getMessage());
         }
@@ -58,7 +59,7 @@ public class ReportGenerator {
                 int attemptNumber = resultSet.getInt("attemptNumber");
                 int score = resultSet.getInt("score");
 
-                ChallengeSummary challengeSummary = challengeSummaries.computeIfAbsent(challengeName, k -> new ChallengeSummary());
+                ChallengeSummary challengeSummary = challengeSummaries.computeIfAbsent(challengeName, _ -> new ChallengeSummary());
                 challengeSummary.addAttempt(attemptNumber, score);
             }
         }
@@ -80,11 +81,11 @@ public class ReportGenerator {
 
     private static void appendChallengeSummary(StringBuilder summaryBuilder, String challengeName, int attemptCount, int bestScore, int overallMark) {
         summaryBuilder.append(String.format("║ %-21s ║ %-13d ║ %-17d ║ %-11d ║\n",
-                truncate(challengeName, 21), attemptCount, bestScore, overallMark));
+                truncate(challengeName), attemptCount, bestScore, overallMark));
     }
 
-    private static String truncate(String text, int maxLength) {
-        return text.length() > maxLength ? text.substring(0, maxLength - 3) + "..." : text;
+    private static String truncate(String text) {
+        return text.length() > 21 ? text.substring(0, 21 - 3) + "..." : text;
     }
 
     private static String generateDetailedReport(Connection connection, String participantID, BufferedImage participantImage) throws SQLException {
@@ -169,10 +170,10 @@ public class ReportGenerator {
                 boolean isCorrect = resultSet.getBoolean("isCorrect");
                 String questionText = resultSet.getString("questionTxt");
 
-                ChallengeSummary summary = challengeSummaries.computeIfAbsent(challengeName, k -> new ChallengeSummary());
+                ChallengeSummary summary = challengeSummaries.computeIfAbsent(challengeName, _ -> new ChallengeSummary());
                 summary.addAttempt(attemptNumber, score);
 
-                StringBuilder details = challengeDetails.computeIfAbsent(challengeName, k -> new StringBuilder());
+                StringBuilder details = challengeDetails.computeIfAbsent(challengeName, _ -> new StringBuilder());
                 appendQuestionDetails(details, attemptNumber, questionText, isCorrect);
             }
         }

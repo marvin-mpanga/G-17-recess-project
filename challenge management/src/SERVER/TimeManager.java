@@ -6,8 +6,8 @@ import java.time.temporal.ChronoUnit;
 
 public class TimeManager {
     private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private LocalDateTime quizStartTime;
+    private final LocalDateTime endTime;
+    private final LocalDateTime quizStartTime;
 
     public TimeManager(String startDate, String startTime, String endTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
