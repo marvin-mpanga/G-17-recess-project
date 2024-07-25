@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Challenge extends Model
 {
     use HasFactory;
-    protected $table = 'challenge';
+    protected $table = '_challenge';
     protected $primaryKey = 'id';
     protected $fillable = [
         'no_of_questions',
-        'duration',
+        'Duration',
         'startDate',
         'endDate',
     ];

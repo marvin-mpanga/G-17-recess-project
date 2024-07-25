@@ -40,12 +40,13 @@
             margin: 20px;
         }      
         .form-control {
-            opacity: 0.6;
-        }
+            
         .form-control::placeholder {
             color: #666;height: 30px;
             width: 300px;
             font-size: 13px;
+        }
+            opacity: 0.6;
         }
     </style>
 </head>
@@ -55,7 +56,7 @@
         <div class="card">
             <div class="card-header">{{ __('') }}</div>
             <div class="card-body">
-                <form method="POST" action="{{ route('pupil.login.submit') }}" id="loginForm">
+                <form method="POST" action="{{ route('pupil_login.submit') }}" id="loginForm">
                     @csrf
                     <div class="form-group row">
                         <label for="schoolRegNo" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>

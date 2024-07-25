@@ -16,10 +16,6 @@
                             <form method="POST" action="{{ route('upload_schools') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="repId">{{ __('Rep ID') }}</label>
-                                    <input type="text" class="form-control" id="repId" name="repId" required>
-                                </div>
-                                <div class="form-group">
                                     <label for="schoolName">{{ __('School Name') }}</label>
                                     <input type="text" class="form-control" id="schoolName" name="schoolName" required>
                                 </div>
@@ -41,6 +37,36 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">{{ __('Add School') }}</button>
                             </form>
+<script>
+    $(document).ready(function() {
+        $('#schoolName').on('change', function() {
+            var schoolName = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/check-school-name',
+                data: { schoolName: schoolName },
+                success: function(data) {
+                    if (data.exists) {
+                        alert('School name already exists in our database.');
+                    }
+                }
+            });
+        });
+        $('#representativeEmail').on('change', function() {
+            var representativeEmail = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/check-representative-email',
+                data: { representativeEmail: representativeEmail },
+                success: function(data) {
+                    if (data.exists) {
+                        alert('Representative email already exists in our database.');
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 
 
@@ -52,8 +78,8 @@
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         Example School
                                         <span>
-                                            <a href="{{ url('upload_schools/edit') }}" class="btn btn-sm btn-warning">Edit</a>
-                                            <a href="{{ url('upload_schools/delete') }}" class="btn btn-sm btn-danger">Delete</a>
+                                            <a href="{{ url('admin/schools/edit/1') }}" class="btn btn-sm btn-warning">Edit</a>
+                                            <a href="{{ url('admin/schools/delete/1') }}" class="btn btn-sm btn-danger">Delete</a>
                                         </span>
                                     </li>
                                     <!-- Add more school items dynamically -->

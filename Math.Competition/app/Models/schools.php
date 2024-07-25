@@ -6,14 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class School extends Model
 {
-    protected $table = 'school';
+    protected $table = '_schools';
     protected $primaryKey = 'schoolRegNo';
     protected $fillable = [
         'schoolName',
         'district',
-        'repName',
-        'repEmail',
     ];
+
+
+
+
+
 }
 
 

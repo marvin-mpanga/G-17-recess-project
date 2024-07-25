@@ -7,108 +7,53 @@ use App\Models\Challenge;
 use App\Models\answers;
 use App\Models\Submission;
 use App\Models\User;
-use App\Models\Pupil;
 use Illuminate\Support\Facades\Auth;
 
 class PupilController extends Controller
-{   
-
-    public function pupilLogin(Request $request){
-        return redirect()->route('dashboard.overview');
-    }
-    
-    public function pupilRegister(Request $request){
-        
-            // Validate the request data
-            $request->validate([
-                'pupilId' => 'required|string',
-                'username' => 'required|string',
-                'name' => 'required|string',
-                'email' => 'required|email',
-                'D_O_B' => 'required|date',
-                'password' => 'required|string',
-                'renterPassword' => 'required|string',
-            ]);
-        
-            // Create a new pupil record
-            $pupil = Pupil::create([
-                'pupilId' => $request->input('pupilId'),
-                'username' => $request->input('username'),
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'D_O_B' => $request->input('D_O_B'),
-                'password' => bcrypt($request->input('password')),
-            ]);
-        
-            // Return a response
-            return redirect()->route('dashboard.overview')->with('success', 'Registration successful!');
-        }
-        public function store(Request $request)
 {
-    $validatedData = $request->validate([
-        'name' => 'required',
-        'email' => 'required|email',
-        'D_O_B' => 'required|date',
-        'password' => 'required|min:8',
-        'userName' => 'required', // add this line
-    ]);
-
-    $validatedData['password'] = bcrypt($validatedData['password']);
-
-    Pupil::create($validatedData);
-} 
-public function update(Request $request)
-{
-  $pupil = Pupil::find($request->input('pupil_id'));
-  $pupil->name = $request->input('name');
-  $pupil->username = $request->input('username');
-  $pupil->date_of_birth = $request->input('date_of_birth');
-  $pupil->save();
-  return response()->json(['success' => true]);
-}
-
-
-    public function showOverview()
+    public function pupilRegister(Request $request)
     {
-        return view('auth.dashboard.overview');
-
+        // Registration logic here
+        return redirect()->route('pupil.dashboard');
     }
-    public function showAnalytics()
+    public function showPupilDashboard()
     {
-    // ...
-        return view('auth.dashboard.analytics');
-
+        return view('auth.pupil_dashboard');
+    }
+    public function showChallenges()
+    {
+        
+        return view('auth.pupil.challenges');
     }
 
     public function showProgress()
     {
         
-        return view('auth.dashboard.progress');
+        return view('auth.pupil.progress');
     }
 
     public function showSubmissions()
     {
         
-        return view('auth.dashboard.submissions');
+        return view('auth.pupil.submissions');
     }
 
     public function showProfile()
     {
-            return view('auth.dashboard.profile');
-        
-    
+        return view('auth.pupil.profile');
     }
 
    
 
     public function showSettings()
     {
-        return view('auth.dashboard.settings');
+        return view('auth.pupil.settings');
     }
 
     public function showHelp()
     {
-        return view('auth.dashboard.help');
+        return view('auth.pupil.help');
     }
+    
 
 }

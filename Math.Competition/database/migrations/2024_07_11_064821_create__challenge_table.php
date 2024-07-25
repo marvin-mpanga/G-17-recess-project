@@ -13,7 +13,7 @@ class CreateChallengeTable extends Migration
      */
     public function up()
     {
-        Schema::create('challenge', function (Blueprint $table) {
+        Schema::create('_challenge', function (Blueprint $table) {
             $table->bigIncrements('id')->primary();
             $table->integer('no_of_questions', 25);
             $table->time('duration');
@@ -30,6 +30,6 @@ class CreateChallengeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('challenge');
+        Schema::dropIfExists('_challenge');
     }
 }

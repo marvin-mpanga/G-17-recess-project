@@ -57,7 +57,7 @@
         <div class="card">
             <div class="card-header">{{ __('') }}</div>
             <div class="card-body">
-                <form method="POST" action="{{ route('admin.login.submit') }}">
+                <form method="POST" action="{{ route('admin_login.submit') }}">
                     @csrf
                     <div class="form-group row">
                         <label for="adminId" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
@@ -97,7 +97,7 @@
                     <br>
                     <div class="form-group row mb-0">
                         <div class="col-md-8 offset-md-4">
-                        <a href="{{ route('admin.login.submit') }}">
+                        <a href="{{ route('admin_login.submit') }}">
                         <button type="submit" class="btn btn-primary"> {{ __('Login') }} </button>
                         </a>
                         </div>

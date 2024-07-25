@@ -81,5 +81,16 @@ class LoginController extends Controller
 
         return back()->withInput($request->only('email', 'remember'));
     }
+}
 
+
+    public function showPupilLoginForm()
+    {
+        return view('auth.pupil_login');
+    }
+
+    public function showRepLoginForm()
+    {
+        return view('auth.rep_login');
+    }
 }

@@ -13,7 +13,7 @@ class CreateSchoolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('school', function (Blueprint $table) {
+        Schema::create('_schools', function (Blueprint $table) {
             $table->string('schoolRegNo', 20)->primary();
             $table->string('schoolName', 35);
             $table->string('district', 25);
@@ -31,6 +31,6 @@ class CreateSchoolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('school');
+        Schema::dropIfExists('_schools');
     }
 }

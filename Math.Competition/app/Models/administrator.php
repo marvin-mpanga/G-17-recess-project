@@ -10,7 +10,7 @@ class Administrator extends Authenticatable
     use Notifiable;
 
     protected $table = '_administrator';
-    protected $primaryKey = 'admin_id';
+    protected $primaryKey = 'adminID';
 
     protected $fillable = [
         'name',
