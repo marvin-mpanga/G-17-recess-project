@@ -17,10 +17,7 @@ public class AttemptChallenge {
 
     public static void startQuiz(Connection connection, PrintWriter writer, BufferedReader reader, String challengeID, String participantID, TimeManager timeManager) {
         try {
-            if (!participantExists(connection, participantID)) {
-                printError(writer, "Error: Participant not found.");
-                return;
-            }
+
             updateChallengeProgress(connection, participantID, challengeID, "incomplete");
 
             boolean continueAttempting = true;
@@ -39,7 +36,7 @@ public class AttemptChallenge {
                     return;
                 }
 
-                int attemptID = insertAttempt(connection, participantID, challengeID, attemptNumber, 0);
+                int attemptID = insertAttempt(connection, participantID, challengeID, attemptNumber);
 
                 int score;
                 try {
@@ -75,15 +72,7 @@ public class AttemptChallenge {
         }
     }
 
-    private static boolean participantExists(Connection connection, String participantID) throws SQLException {
-        String query = "SELECT 1 FROM participant WHERE ParticipantID = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, participantID);
-            try (ResultSet rs = stmt.executeQuery()) {
-                return rs.next();
-            }
-        }
-    }
+
 
     private static void updateChallengeProgress(Connection connection, String participantID, String challengeID, String status) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_CHALLENGE_PROGRESS)) {
@@ -157,7 +146,7 @@ public class AttemptChallenge {
             } else if (userAnswer.equalsIgnoreCase(correctAnswer)) {
                 score += 3;
                 isCorrect = true;
-                printCorrect(writer, "Correct! You earned 3 marks.");
+                printCorrect(writer);
             } else {
                 score -= 3;
                 printIncorrect(writer, "Incorrect. The correct answer was: " + correctAnswer);
@@ -189,12 +178,12 @@ public class AttemptChallenge {
         return null; // Timeout occurred
     }
 
-    private static int insertAttempt(Connection connection, String participantID, String challengeID, int attemptNumber, int score) throws SQLException {
+    private static int insertAttempt(Connection connection, String participantID, String challengeID, int attemptNumber) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_ATTEMPT, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, participantID);
             statement.setString(2, challengeID);
             statement.setInt(3, attemptNumber);
-            statement.setInt(4, score);
+            statement.setInt(4, 0);
             statement.executeUpdate();
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -254,7 +243,7 @@ public class AttemptChallenge {
 
     private static void printHeader(PrintWriter writer, String message) {
         writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("╔═══════════════════════════════════════════════════════════════════════════╗").reset());
-        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("║ ").fgBright(Ansi.Color.WHITE).bold().a(centerText(message, 75)).fgBright(Ansi.Color.CYAN).a(" ║").reset());
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("║ ").fgBright(Ansi.Color.WHITE).bold().a(centerText(message)).fgBright(Ansi.Color.CYAN).a(" ║").reset());
         writer.println(Ansi.ansi().fgBright(Ansi.Color.CYAN).a("╚═══════════════════════════════════════════════════════════════════════════╝").reset());
         writer.flush();
     }
@@ -279,8 +268,8 @@ public class AttemptChallenge {
         writer.flush();
     }
 
-    private static void printCorrect(PrintWriter writer, String message) {
-        writer.println(Ansi.ansi().fgBright(Ansi.Color.GREEN).bold().a("CORRECT: ").reset().a(message).reset());
+    private static void printCorrect(PrintWriter writer) {
+        writer.println(Ansi.ansi().fgBright(Ansi.Color.GREEN).bold().a("CORRECT: ").reset().a("Correct! You earned 3 marks.").reset());
         writer.flush();
     }
 
@@ -319,8 +308,8 @@ public class AttemptChallenge {
         writer.flush();
     }
 
-    private static String centerText(String text, int width) {
-        int padding = (width - text.length()) / 2;
+    private static String centerText(String text) {
+        int padding = (75 - text.length()) / 2;
         return " ".repeat(padding) + text + " ".repeat(padding);
     }
 
