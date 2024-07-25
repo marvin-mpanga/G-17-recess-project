@@ -36,7 +36,19 @@ public class ClientHandler implements Runnable {
             String command;
             while ((command = reader.readLine()) != null) {
                 switch (command.toLowerCase().trim()) {
-                    case "login":
+                    case "register":
+                        Register.register(connection,writer,reader);
+                        break;
+                    case "loginrepresentative":
+                        loggedInUsername=Representative.login(connection,writer,reader);
+                        if(!loggedInUsername.isEmpty()) {
+                            Representative.confirmParticipant();
+                        }else{
+                            writer.println("you must login first");
+                        }
+                        break;
+
+                    case "loginparticipant":
                         loggedInUsername = Login.login(connection, writer, reader);
                         if (loggedInUsername != null) {
                             setParticipantIDAndEmail();
@@ -50,11 +62,14 @@ public class ClientHandler implements Runnable {
                             writer.println("You must login first.");
                         }
                         break;
-                    case "logout":
-                        logout();
+                    case "logoutrepresentative":
+                        logoutRepresentative();
                         break;
-                    case "exit":
-                        logout();
+                    case "logoutparticipant":
+                        logoutParticipant();
+                        break;
+                    case "exitparticipant":
+                        logoutParticipant();
                         return;
                     default:
                         writer.println("Invalid command. Available commands: login, viewchallenges, logout, exit");
@@ -68,7 +83,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    private void logout() {
+    private void logoutParticipant() {
         if (loggedInUsername != null) {
             generateAndSendReport();
             loggedInUsername = null;
@@ -77,6 +92,11 @@ public class ClientHandler implements Runnable {
             writer.println("You have been logged out.");
         } else {
             writer.println("You are not currently logged in.");
+        }
+    }
+    private void logoutRepresentative() {
+        if (loggedInUsername != null) {
+            loggedInUsername = null;
         }
     }
 

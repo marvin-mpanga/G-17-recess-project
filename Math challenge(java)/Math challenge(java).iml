@@ -10,5 +10,6 @@
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="jakarta.mail.api" level="project" />
     <orderEntry type="library" name="mysql.connector.j" level="project" />
+    <orderEntry type="library" name="fusesource.jansi" level="project" />
   </component>
 </module>
