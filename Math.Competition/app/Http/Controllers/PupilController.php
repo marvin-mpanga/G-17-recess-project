@@ -10,7 +10,11 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class PupilController extends Controller
-{
+{   
+
+    public function pupilLogin(Request $request){
+        return redirect()->route('pupil.dashboard');
+    }
     public function pupilRegister(Request $request)
     {
         // Registration logic here
@@ -19,6 +23,7 @@ class PupilController extends Controller
     public function showPupilDashboard()
     {
         return view('auth.pupil_dashboard');
+
     }
     public function showChallenges()
     {
