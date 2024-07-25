@@ -14,13 +14,17 @@ class CreatePupilTable extends Migration
     public function up()
     {
         Schema::create('pupil', function (Blueprint $table) {
-            $table->string('pupilID', 25)->primary();
-            $table->string('userName', 25);
-            $table->string('firstName', 25);
-            $table->string('lastName', 25);
-            $table->string('email', 50);
-            $table->date('D_O_B');
-            $table->string('schoolRegNo', 25);
+            $table->string('pupilID')->default(DB::raw('UUID()'))->primary();
+            $table->string('userName', 25)->default('default_userName');
+            $table->string('name', 25)->default('default_name');
+            $table->string('email', 50)->default('email');
+            $table->date('D_O_B')->default('2000-01-01');
+            $table->string('schoolRegNo', 25)->default('REG-0000')->foreign();
+            $table->string('password', 255)->default('default_password');
+            $table->dropColumn('profile_picture', 255)->default('default_profile_picture');
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
+            
 
         });
     }

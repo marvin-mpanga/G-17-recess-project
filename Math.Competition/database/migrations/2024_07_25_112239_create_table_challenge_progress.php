@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChallengeTable extends Migration
+class CreateTableChallengeProgress extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateChallengeTable extends Migration
      */
     public function up()
     {
-        Schema::create('_challenge', function (Blueprint $table) {
-            $table->bigIncrements('id')->primary();
-            $table->integer('no_of_questions', 25);
-            $table->time('duration');
-            $table->date('startDate');
-            $table->date('endDate');
+        Schema::create('table_challenge_progress', function (Blueprint $table) {
+            $table->integer('progressId')->primary();
+            $table->string('challenge');
+            $table->integer('participantId');
             $table->timestamps();
+
         });
     }
 
@@ -30,6 +29,6 @@ class CreateChallengeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_challenge');
+        Schema::dropIfExists('table_challenge_progress');
     }
 }

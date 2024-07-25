@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionTable extends Migration
+class CreateTableSubmissions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateQuestionTable extends Migration
      */
     public function up()
     {
-        Schema::create('question', function (Blueprint $table) {
-            $table->increments('id')->primary();
-            $table->string('answerID', 25)->foreign();         
-            $table->text('question text');
-            $table->timestamps();
-
+        Schema::create('table__submissions', function (Blueprint $table) {
+            $table->string('submissionID', 25)->primary();
+            $table->string('average_score', 10);
+            $table->string('answerID', 25)->foreign();
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -28,6 +27,6 @@ class CreateQuestionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('question');
+        Schema::dropIfExists('table__submissions');
     }
 }

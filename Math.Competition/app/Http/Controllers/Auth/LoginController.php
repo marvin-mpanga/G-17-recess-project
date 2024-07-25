@@ -53,19 +53,36 @@ class LoginController extends Controller
     }
 
     // Handle login for Pupil
-    public function pupilLogin(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
 
-        if (Auth::guard('pupil')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-            return redirect()->intended(route('pupil.dashboard'));
-        }
 
-        return back()->withInput($request->only('email', 'remember'));
+public function login(Request $request)
+{
+    $request->validate([
+        'schoolRegNo' => 'required|string',
+        'username' => 'required|string',
+        'email' => 'required|email',
+        'password' => 'required|string',
+    ]);
+
+    $user = User::where('schoolRegNo', $request->input('schoolRegNo'))
+                ->where('username', $request->input('username'))
+                ->where('email', $request->input('email'))
+                ->first();
+
+    if (!$user) {
+        return redirect()->back()->withErrors(['login' => 'User not found. Please register first.']);
     }
+
+    if (Auth::attempt($request->only(['schoolRegNo', 'username', 'email', 'password']))) {
+        // Login successful, redirect to dashboard
+        return redirect()->route('dashboard.overview');
+    }
+
+    // Login failed, redirect back with error message
+    return redirect()->back()->withErrors(['login' => 'Invalid credentials']);
+}
+
+
 
     // Handle login for Representative
     public function repLogin(Request $request)
@@ -81,16 +98,5 @@ class LoginController extends Controller
 
         return back()->withInput($request->only('email', 'remember'));
     }
-}
 
-
-    public function showPupilLoginForm()
-    {
-        return view('auth.pupil_login');
-    }
-
-    public function showRepLoginForm()
-    {
-        return view('auth.rep_login');
-    }
 }

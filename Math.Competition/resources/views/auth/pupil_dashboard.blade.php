@@ -132,14 +132,14 @@ margin-top: 0;
         <div class="bg-light border-right" id="sidebar-wrapper">
             <div class="sidebar-heading"></div>
             <div class="list-group list-group-flush">
-                <a href="{{ route('pupil.dashboard') }}" class="list-group-item list-group-item-action bg-light">Dashboard</a><br><br><br>
-                <a href="{{ route('pupil.profile') }}" class="list-group-item list-group-item-action bg-light">Profile</a><br><br><br>
-                <a href="{{ route('pupil.challenges') }}" class="list-group-item list-group-item-action bg-light">Challenges</a><br><br><br>
-                <a href="{{ route('pupil.progress') }}" class="list-group-item list-group-item-action bg-light">Progress</a><br><br><br>
-                <a href="{{ route('pupil.help') }}" class="list-group-item list-group-item-action bg-light">Help</a><br><br><br>
-                <a href="{{ route('pupil.settings') }}" class="list-group-item list-group-item-action bg-light">Settings</a><br>
+                <a href="{{ route('dashboard.overview') }}" class="list-group-item list-group-item-action bg-light">Dashboard</a><br><br><br>
+                <a href="{{ route('dashboard.profile') }}" class="list-group-item list-group-item-action bg-light">Profile</a><br><br><br>
+                <a href="{{ route('dashboard.analytics') }}" class="list-group-item list-group-item-action bg-light">Analytics</a><br><br><br>
+                <a href="{{ route('dashboard.help') }}" class="list-group-item list-group-item-action bg-light">Help</a><br><br><br>
+                <a href="{{ route('dashboard.settings') }}" class="list-group-item list-group-item-action bg-light">Settings</a><br>
             </div>
         </div>
+        
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper">

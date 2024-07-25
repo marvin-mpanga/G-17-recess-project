@@ -19,8 +19,9 @@ class CreateSchoolsTable extends Migration
             $table->string('district', 25);
             $table->string('repName', 25);
             $table->string('repEmail', 30);
+            $table->string('average_score', 24);
 
-           
+    
         });
     }
 

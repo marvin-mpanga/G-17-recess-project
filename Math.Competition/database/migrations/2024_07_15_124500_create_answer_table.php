@@ -15,8 +15,8 @@ class CreateAnswerTable extends Migration
     {
         Schema::create('answer', function (Blueprint $table) {
             $table->string('answerID', 25)->primary();
-            $table->string('correctAnswer', 'created_at')->nullable();
-            $table->string('questionID', 25)->foreign();
+            $table->string('correctAnswer')->nullable();
+            $table->string('questionID', 25)->index();
         });
     }
 

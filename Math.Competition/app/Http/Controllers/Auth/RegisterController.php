@@ -66,11 +66,32 @@ class RegisterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function pupilRegister(Request $request)
-    {
-        $this->validator($request->all())->validate();
-        $pupil = $this->create($request->all());
-        return redirect()->route('pupil.dashboard');
-    }
+{
+    $request->validate([
+        'fName' => 'required|string',
+        'lName' => 'required|string',
+        'username' => 'required|string',
+        'dob' => 'required|date',
+        'email' => 'required|email',
+        'password' => 'required|string|min:8|confirmed',
+        'password_confirmation' => 'required|string|min:8',
+        'profile_picture' => $initial, // store the initial as the profile picture
+
+    ]);
+
+    $user = new User();
+    $user->fName = $request->input('fName');
+    $user->lName = $request->input('lName');
+    $user->username = $request->input('username');
+    $user->dob = $request->input('dob');
+    $user->email = $request->input('email');
+    $user->password = bcrypt($request->input('password'));
+    $user->save();
+    
+
+    return redirect()->route('dashboard.overview')->with('success', 'Registration successful! Please log in.');
+}
+
 
     /**
      * Show the representative registration form.

@@ -14,8 +14,8 @@ class Pupil extends Authenticatable
 
     protected $fillable = [
         'userName',
-        'firstName',
-        'lastName',
+        'fName',
+        'lName',
         'email',
         'D_O_B',
         'schoolRegNo',

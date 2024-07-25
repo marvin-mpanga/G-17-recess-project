@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label for="school_reg_no">{{ __('School Registration Number') }}</label>
                                 <input type="text" class="form-control" id="school_reg_no" name="school_reg_no" value="{{ $pupil->school_reg_no }}" required>
-                            </div>
+                         </div>
                             <div class="form-group">
                                 <label for="image">{{ __('Profile Image') }}</label>
                                 <input type="file" class="form-control" id="image" name="image">
