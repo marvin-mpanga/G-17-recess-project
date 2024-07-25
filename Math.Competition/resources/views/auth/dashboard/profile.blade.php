@@ -227,6 +227,162 @@
             text-decoration: none;
             font-size: 26px;
         }
+        body {
+    background-color: #f9f9fa
+}
+
+.padding {
+    padding: 3rem !important
+}
+
+.user-card-full {
+    overflow: hidden;
+}
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+    box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+    border: none;
+    margin-bottom: 30px;
+}
+
+.m-r-0 {
+    margin-right: 0px;
+}
+
+.m-l-0 {
+    margin-left: 0px;
+}
+
+.user-card-full .user-profile {
+    border-radius: 5px 0 0 5px;
+}
+
+.bg-c-lite-green {
+    background: teal;
+}
+
+.user-profile {
+    padding: 20px 0;
+}
+
+.card-block {
+    padding: 1.25rem;
+}
+
+.m-b-25 {
+    margin-bottom: 25px;
+}
+
+.img-radius {
+    border-radius: 5px;
+}
+
+
+ 
+h6 {
+    font-size: 14px;
+}
+
+.card .card-block p {
+    line-height: 25px;
+}
+
+@media only screen and (min-width: 1400px){
+p {
+    font-size: 14px;
+}
+}
+
+.card-block {
+    padding: 1.25rem;
+}
+
+.b-b-default {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.m-b-20 {
+    margin-bottom: 20px;
+}
+
+.p-b-5 {
+    padding-bottom: 5px !important;
+}
+
+.card .card-block p {
+    line-height: 25px;
+}
+
+.m-b-10 {
+    margin-bottom: 10px;
+}
+
+.text-muted {
+    color: #919aa3 !important;
+}
+
+.b-b-default {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.f-w-600 {
+    font-weight: 600;
+}
+
+.m-b-20 {
+    margin-bottom: 20px;
+}
+
+.m-t-40 {
+    margin-top: 20px;
+}
+
+.p-b-5 {
+    padding-bottom: 5px !important;
+}
+
+.m-b-10 {
+    margin-bottom: 10px;
+}
+
+.m-t-40 {
+    margin-top: 20px;
+}
+
+.user-card-full .social-link li {
+    display: inline-block;
+}
+
+.user-card-full .social-link li a {
+    font-size: 20px;
+    margin: 0 10px 0 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.profile-pic {
+            width: 200px;
+            height: 200px;
+            background-color: #007bff;
+            color: #ffffff;
+            font-size: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        #profile-picture {
+    float: left;
+  }
+
+        #username-preview {
+    float: right;
+    margin-top: 20px; /* Adjust the margin to your liking */
+  }
+
+
+
 
 
 
@@ -269,120 +425,66 @@
 
             
         </header>
-        <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-20 mt-10">
-                  @if (session('success'))
-                    <div class="alert alert-success">{{session('success')}}</div>
-                  @endif
-                    <div class="card">
-                        <div class="card-header">
-                        <h4 class="card-title">{{ __('Manage Questions') }}</h4>
-                        <p class="card-category">{{ __('upload questions from your desktop ') }}</p>
-                        </div>
-                         <div class="card-body" >   
-
-                         <form action="{{ route('upload_questions') }}" method="POST" enctype="multipart/form-data">
-                          @csrf
-                        <div class="form-group">
-                    <label for="questions">Upload Questions File:</label>
-                    <input type="file" name="import_questions" id="questions" required>
-            </div>
-        <button class="btn btn-primary" type="submit">Upload</button>
+        <main>
+        <div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+<div class="col-xl-3 col-md-12">
+                                                <div class="card user-card-full">
+                                                    <div class="row m-l-0 m-r-0">
+                                                        <div class="col-sm-4 bg-c-lite-green user-profile">
+                                                            <div class="card-block text-center text-white">
+                                                                <div id="profile-picture" class="profile-pic">
+                                                            </div>
+                                                                <h6 class="f-w-600">Hembo Tingor</h6>
+                                                                <p>Web Designer</p>
+                                                                <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-8">
+  <div class="card-block">
+    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+    <form id="update-pupil-form">
+      <div class="row">
+        <div class="col-sm-6">
+          <p class="m-b-10 f-w-600">Pupil ID</p>
+          <input type="text" class="form-control" value="12345" disabled>
+        </div>
+        <div class="col-sm-6">
+          <p class="m-b-10 f-w-600">Name</p>
+          <input type="text" class="form-control" name="name" value="John Doe">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p class="m-b-10 f-w-600">Username</p>
+          <input type="text" class="form-control" name="username" value="johndoe">
+        </div>
+        <div class="col-sm-6">
+          <p class="m-b-10 f-w-600">Date of Birth</p>
+          <input type="date" class="form-control" name="date_of_birth" value="2000-01-01">
+        </div>
+      </div>
+      <button class="btn btn-primary" id="update-pupil-btn">Update</button>
     </form>
-
-    <div class="card-header">
-                        <h4 class="card-title">{{ __('Manage Answers') }}</h4>
-                        <p class="card-category">{{ __('upload answers from your desktop') }}</p>
-                        </div>
-                         <div class="card-body" >   
-
-                         <form action="{{ route('upload_answers') }}" method="POST" enctype="multipart/form-data">
-                          @csrf
-                        <div class="form-group">
-                    <label for="questions">Upload Answers File:</label>
-                    <input type="file" name="import_answers" id="questions" required>
-            </div>
-        <button class="btn btn-primary" type="submit">Upload</button>
-    </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-
-    <div class="container">
-        <div class="col-ml12 mt8">
-            <div class="card">
-                <div class="card-header">
-            <h1 class="col-ml 5 mt 5">Set Challenge Parameters</h1> </div>
-    <div class="card-content">
-
-    <form action="{{ route('manage_challenge') }}" method="POST" class="challenge-card" style="color:green">
-        @csrf
-        <div class="challenge">
-        <div>
-            <div class="card-header">
-            <h4 class="card-title">Start Date</h4>
-            </div>
-            <div class="col-lg-10 col-md-15">
-            <input type="date" name="startDate" id="startDate" required>
-            </div>
-        </div>
-        <div>
-        <div class="card-header">
-            <h4 class="card-title">End Date</h4>
-            </div>
-            <label for="endDate">End Date:</label>
-            <input type="date" name="endDate" id="endDate" required>
-        </div>
-        <div>
-        <div class="card-header">
-            <h4 class="card-title">Duration</h4>
-            </div>
-            <label for="duration">Duration (minutes):</label>
-            <input type="number" name="duration" id="duration" required>
-        </div>
-        <div>
-        <div class="card-header">
-            <h4 class="card-title">Number Of Questions</h4>
-            </div>
-            <label for="no_of_questions">Number of Questions:</label>
-            <input type="number" name="no_of_questions" id="no_of_questions" required>
-        </div>
-        <div>
-        <button type="submit" >Create Challenge</button>
-        </div>
-        </div>
-    </form>
-    </div>
-    </div>
-    </div>
+  </div>
 </div>
 
 
-    <table>
-    <thead>
-        <tr>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Duration</th>
-            <th>Number of Questions</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    
-        
-    </tbody>
-</table>
-</div>
-        </main>
-        
+                                                                <ul class="social-link list-unstyled m-t-40 m-b-10">
+                                                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             </div>
+                                                </div>
+                                            </div>
+    </main>
            
 
     </div>
@@ -414,13 +516,13 @@
                         </li>
                         <br>
                         <li>
-                            <a href="{{ route('dashboard.manage_schools') }}" class="list-group-item list-group-item-action bg-light" style="font-size: 1.2rem;">
+                            <a href="{{ route('upload_schools') }}" class="list-group-item list-group-item-action bg-light" style="font-size: 1.2rem;">
                                 <span class="las la-school"></span> Manage Schools
                             </a>
                         </li>
                         <br>
                         <li>
-                            <a href="{{ route('manage_challenge') }}" id="managechallenge-link" style="font-size: 1.2rem;">
+                            <a href="{{ route('manage_challenge') }}" style="font-size: 1.2rem;">
                                 <span class="las la-tasks"></span> Manage challenge
                             </a>
                         </li>
@@ -447,144 +549,19 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+    <script>
+        window.addEventListener('load', function() {
+            const surname = localStorage.getItem('surname');
+            if (surname) {
+                const initials = surname[0].toUpperCase();
+                updateProfilePicture(initials);
+            }
+        });
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', '%perfomance', ],
-          ['2019',  80,      ],
-          ['2021',  76,      ],
-          ['2022',  93,       ],
-          ['2023',  79,      ]
-        ]);
-
-        var options = {
-          title: 'School perfomance over years',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
-
-      const searchInput = document.getElementById('search-input');
-
-searchInput.addEventListener('keyup', function(e) {
-  const searchTerm = e.target.value.toLowerCase();
-  const dashboardItems = document.querySelectorAll('.dashboard-item'); // adjust the selector as needed
-
-  dashboardItems.forEach(function(item) {
-    const itemName = item.textContent.toLowerCase();
-
-    if (itemName.includes(searchTerm)) {
-      item.style.display = 'block';
-    } else {
-      item.style.display = 'none';
-    }
-  });
-});
-
+        function updateProfilePicture(initials) {
+            const profilePicture = document.getElementById('profile-picture');
+            profilePicture.textContent = initials;
+        }
     </script>
 </body>
 </html>
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Sidebar</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .sidebar {
-            width: 300px;
-            background-color: #f0f0f0;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .card {
-            background-color: #007bff;
-            color: #fff;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            text-align: center;
-            text-decoration: none;
-            display: block;
-            transition: background-color 0.3s ease;
-        }
-        .card:hover {
-            background-color: #0056b3;
-        }
-        .card p {
-            margin: 0;
-        }
-        .card i {
-            margin-right: 10px;
-        }
-        .active-card {
-            background-color: #003d82;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="sidebar">
-            <a class="card" href="{{ route('manage_challenge') }}" id="managechallenge-link">
-                <i class="nc-icon nc-trophy"></i>
-                <p>Manage Challenge</p>
-            </a>
-            
-            <a class="card" href="{{ route('upload_schools') }}" id="schools-link">
-                <i class="nc-icon nc-settings-gear-65"></i>
-                <p>Manage Schools</p>
-            </a>
-        </div>
-    </div>
-
-    <script>
-        const links = document.querySelectorAll('.card');
-
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                links.forEach(l => l.classList.remove('active-card'));
-                link.classList.add('active-card');
-            });
-        });
-
-        // Add event listener to sidebar links to scroll to top
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                window.scrollTo(0, 0);
-            });
-        });
-
-// Add event listener to sidebar links to close sidebar
-links.forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('.sidebar').classList.toggle('closed');
-            });
-        });
-    </script>
-</body>
-</html> -->

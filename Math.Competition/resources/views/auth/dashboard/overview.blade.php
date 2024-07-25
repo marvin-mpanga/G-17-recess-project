@@ -128,7 +128,25 @@
             font-size: 1.5rem;
             border-radius: 50px;
         }
-       
+        .header-icons span{
+            display: inline-block;
+            margin-left: .7rem;
+            font-size: 1.4rem;
+        }
+        .main-content {
+            margin-left: 280px;
+            transition: margin-left 300ms;
+        }
+        .menu-toggle label:hover {
+            background: #efefef;
+        }
+        main{
+            padding: 1.5rem;
+            background: #f1f5f9;
+            min-height: calc(100vh - 70px);
+            margin-top: 70px;
+
+        }  
         .page-header{
             display: flex;
             justify-content: space-between;
@@ -147,8 +165,110 @@
             font-size: 1.2rem;
             margin-right: .6rem;
         }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 3rem;
+            margin-top: 2rem;
+        }
+        .card-single {
+            background: #fff;
+            padding: 1rem;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+        }
+        .card-flex{
+            display: grid;
+            grid-template-columns: 70% auto;
+            align-items: center;
+        }
+        .card-head span{
+            display: block;
+            text-transform: uppercase;
+            color: #555;
+            font-size: .9rem;
+        }
+        .card-head small {
+            font-weight: 600;
+            color: #555;
+        }
+        .card-head h2{
+            font-size: 2.2rem;
+            color: #333;
+        }
+        .card-chart span {
+            font-size: 5rem;
+        }
+        .card-chart.success span{
+            color: seagreen;
+        }
+        .card-chart.danger span{
+            color: tomato;
+        }
+        .card-chart.yellow span{
+            color: orangered;
+        }
+        .jobs-grid {
+            margin-top: 4rem; 
+            display: grid;
+            grid-template-columns: auto 66%;
+            grid-gap: 3rem;
+        }
+        .analytics-card {
+            background: #fff;
+            padding: 1.5rem;
+            width: 400px;
+        }
+        .analytics-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .card {
+    width: 600px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin: 20px;
+}
+
+.card-header {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+
+.card-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card-body li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-body li:last-child {
+    border-bottom: none;
+}
+
+.card-body li span {
+    font-size: 12px;
+    color: #666;
+}
+
         
-      
+       
+    
         span.indicator {
             background: #c9f7f5;
             height: 30px;
@@ -226,8 +346,40 @@
             padding: 20px 26px;
             text-decoration: none;
             font-size: 26px;
-        }
+        } 
+        .leaderboard {
+  width: 300px;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 
+.leaderboard h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.leaderboard ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.leaderboard li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.leaderboard li:last-child {
+  border-bottom: none;
+}
+.hero{
+    width: 100%;
+    min-height: 100vh;
+    background: #eceaff;
+    color: #525252;
+}
 
 
 
@@ -269,123 +421,120 @@
 
             
         </header>
-        <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-20 mt-10">
-                  @if (session('success'))
-                    <div class="alert alert-success">{{session('success')}}</div>
-                  @endif
-                    <div class="card">
-                        <div class="card-header">
-                        <h4 class="card-title">{{ __('Manage Questions') }}</h4>
-                        <p class="card-category">{{ __('upload questions from your desktop ') }}</p>
-                        </div>
-                         <div class="card-body" >   
+        <main>
+            <div class="page-header">
+                <div>
+                    <h1>Dashboard </h1>
+                    <small>Welcome, {{ session('userName') }}!</small>
 
-                         <form action="{{ route('upload_questions') }}" method="POST" enctype="multipart/form-data">
-                          @csrf
-                        <div class="form-group">
-                    <label for="questions">Upload Questions File:</label>
-                    <input type="file" name="import_questions" id="questions" required>
-            </div>
-        <button class="btn btn-primary" type="submit">Upload</button>
-    </form>
-
-    <div class="card-header">
-                        <h4 class="card-title">{{ __('Manage Answers') }}</h4>
-                        <p class="card-category">{{ __('upload answers from your desktop') }}</p>
-                        </div>
-                         <div class="card-body" >   
-
-                         <form action="{{ route('upload_answers') }}" method="POST" enctype="multipart/form-data">
-                          @csrf
-                        <div class="form-group">
-                    <label for="questions">Upload Answers File:</label>
-                    <input type="file" name="import_answers" id="questions" required>
-            </div>
-        <button class="btn btn-primary" type="submit">Upload</button>
-    </form>
-                    </div>
+                </div>
+            
+                <div class="header-actions">
+                    
+                    <button>
+                        <span class="las la-tools"></span> 
+                        Settings
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
+
+            <div class="cards">
+                <div class="card-single">
+                    <div class="card-flex">
+                        <div class="card-info">
+                            <div class="card-head">
+                                <span>number of participants</span>
+                                <small></small>
+                            </div>
+                            <h2>50 </h2>
+
+                            <small></small>
+                        </div>
+                        <div class="card-chart success">
+                            <span class="las la-users"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-single">
+                    <div class="card-flex">
+                        <div class="card-info">
+                            <div class="card-head">
+                                <span>Number of schools</span>
+                                <small></small>
+                            </div>
+                            <h2>10</h2>
+
+                            <small></small>
+                        </div>
+                        <div class="card-chart danger">
+                            <span class="las la-school" ></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-single">
+                    <div class="card-flex">
+                        <div class="card-info">
+                            <div class="card-head">
+                                <span>number of challenges</span>
+                                <small></small>
+                            </div>
+                            <h2> </h2>
+
+                            <small></small>
+                        </div>
+                        <div class="card-chart yellow">
+                            <span class="las la-angle-double-right"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="jobs-grid">
+            <div class="leaderboard">
+  <h2><i class="las la-trophy"></i>Top Pupils</h2>
+  <ol>
+    <li>John Doe (92)</li>
+    <li>Jane Smith (89)</li>
+    <li>Bob Johnson (88)</li>
+  </ol>
 </div>
 
-    
 
-    <div class="container">
-        <div class="col-ml12 mt8">
-            <div class="card">
-                <div class="card-header">
-            <h1 class="col-ml 5 mt 5">Set Challenge Parameters</h1> </div>
-    <div class="card-content">
 
-    <form action="{{ route('manage_challenge') }}" method="POST" class="challenge-card" style="color:green">
-        @csrf
-        <div class="challenge">
-        <div>
-            <div class="card-header">
-            <h4 class="card-title">Start Date</h4>
-            </div>
-            <div class="col-lg-10 col-md-15">
-            <input type="date" name="startDate" id="startDate" required>
-            </div>
-        </div>
-        <div>
-        <div class="card-header">
-            <h4 class="card-title">End Date</h4>
-            </div>
-            <label for="endDate">End Date:</label>
-            <input type="date" name="endDate" id="endDate" required>
-        </div>
-        <div>
-        <div class="card-header">
-            <h4 class="card-title">Duration</h4>
-            </div>
-            <label for="duration">Duration (minutes):</label>
-            <input type="number" name="duration" id="duration" required>
-        </div>
-        <div>
-        <div class="card-header">
-            <h4 class="card-title">Number Of Questions</h4>
-            </div>
-            <label for="no_of_questions">Number of Questions:</label>
-            <input type="number" name="no_of_questions" id="no_of_questions" required>
-        </div>
-        <div>
-        <button type="submit" >Create Challenge</button>
-        </div>
-        </div>
-    </form>
+               <div class="analytics-card">
+               <div class="card-header">Recent Activities</div>
+    <div class="card-body">
+        <ul>
+            <li>
+                <div>John Doe logged in</div>
+                <span>2 hours ago</span>
+            </li>
+            <li>
+                <div>Jane Smith created a new question</div>
+                <span>1 hour ago</span>
+            </li>
+            <li>
+                <div>Bob Johnson answered a question</div>
+                <span>30 minutes ago</span>
+            </li>
+            <li>
+                <div>Alice Brown commented on a question</div>
+                <span>15 minutes ago</span>
+            </li>
+            <li>
+                <div>Mike Davis logged out</div>
+                <span>5 minutes ago</span>
+            </li>
+        </ul>
     </div>
-    </div>
-    </div>
-</div>
-
-
-    <table>
-    <thead>
-        <tr>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Duration</th>
-            <th>Number of Questions</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    
-        
-    </tbody>
-</table>
-</div>
+                </div>
+            </div>
         </main>
-        
-           
-
     </div>
+    
 
     <div class="sidebar">
         <div class="sidebar-brand">
@@ -420,7 +569,7 @@
                         </li>
                         <br>
                         <li>
-                            <a href="{{ route('manage_challenge') }}" id="managechallenge-link" style="font-size: 1.2rem;">
+                            <a href="" style="font-size: 1.2rem;">
                                 <span class="las la-tasks"></span> Manage challenge
                             </a>
                         </li>
@@ -492,99 +641,3 @@ searchInput.addEventListener('keyup', function(e) {
     </script>
 </body>
 </html>
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Sidebar</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .sidebar {
-            width: 300px;
-            background-color: #f0f0f0;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .card {
-            background-color: #007bff;
-            color: #fff;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            text-align: center;
-            text-decoration: none;
-            display: block;
-            transition: background-color 0.3s ease;
-        }
-        .card:hover {
-            background-color: #0056b3;
-        }
-        .card p {
-            margin: 0;
-        }
-        .card i {
-            margin-right: 10px;
-        }
-        .active-card {
-            background-color: #003d82;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="sidebar">
-            <a class="card" href="{{ route('manage_challenge') }}" id="managechallenge-link">
-                <i class="nc-icon nc-trophy"></i>
-                <p>Manage Challenge</p>
-            </a>
-            
-            <a class="card" href="{{ route('upload_schools') }}" id="schools-link">
-                <i class="nc-icon nc-settings-gear-65"></i>
-                <p>Manage Schools</p>
-            </a>
-        </div>
-    </div>
-
-    <script>
-        const links = document.querySelectorAll('.card');
-
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                links.forEach(l => l.classList.remove('active-card'));
-                link.classList.add('active-card');
-            });
-        });
-
-        // Add event listener to sidebar links to scroll to top
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                window.scrollTo(0, 0);
-            });
-        });
-
-// Add event listener to sidebar links to close sidebar
-links.forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('.sidebar').classList.toggle('closed');
-            });
-        });
-    </script>
-</body>
-</html> -->

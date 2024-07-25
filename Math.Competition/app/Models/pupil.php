@@ -10,7 +10,7 @@ class Pupil extends Authenticatable
     use Notifiable;
 
     protected $table = 'pupil';
-    protected $primaryKey = 'pupilID';
+    protected $primaryKey = 'pupil_id';
 
     protected $fillable = [
         'userName',

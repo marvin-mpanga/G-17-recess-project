@@ -14,10 +14,10 @@ class CreateQuestionTable extends Migration
     public function up()
     {
         Schema::create('question', function (Blueprint $table) {
-            $table->increments('id')->primary();
-            $table->string('answerID', 25)->foreign();         
-            $table->text('question text');
-            $table->timestamps();
+            $table->increments('questonId')->primary();
+            $table->string('answerId', 25)->foreign();         
+            $table->string('question_text', 25);
+           
 
         });
     }
