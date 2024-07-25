@@ -1,11 +1,9 @@
-
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.*;
 
-public class  Server {
+public class Server {
 
     public static void main(String[] args) {
         int port = 8000; // The port number on which the server listens
@@ -28,6 +26,7 @@ public class  Server {
 class ClientHandler extends Thread {
 
     private final Socket socket;
+    private String schoolRegistrationNumber; // Store the schoolRegistrationNumber of the logged-in representative
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
@@ -100,6 +99,10 @@ class ClientHandler extends Thread {
             output.println("Login failed: Invalid name or password.");
             return;
         }
+
+        // Retrieve the schoolRegistrationNumber for the logged-in representative
+        schoolRegistrationNumber = getSchoolRegistrationNumberByRepName(repName);
+
         output.println("Login successful");
 
         while (true) {
@@ -124,12 +127,9 @@ class ClientHandler extends Thread {
             String username = verificationParts[2];
 
             if (response.equalsIgnoreCase("YES")) {
-                verifyPupilRecord(username, true);
-                output.println("Pupil record for " + username + " verified successfully.");
-
+                verifyPupilRecord(username, true, output);
             } else if (response.equalsIgnoreCase("NO")) {
-                verifyPupilRecord(username, false);
-                output.println("Pupil record verification for " + username + " denied.");
+                verifyPupilRecord(username, false, output);
             } else {
                 output.println("Invalid command. Use YES/NO followed by username.");
             }
@@ -205,7 +205,10 @@ class ClientHandler extends Thread {
             String currentLine;
 
             while ((currentLine = reader.readLine()) != null) {
-                output.println(currentLine);
+                String[] parts = currentLine.split(",");
+                if (parts[5].equals(schoolRegistrationNumber)) {
+                    output.println(currentLine);
+                }
             }
 
             output.println("end of list");
@@ -215,7 +218,7 @@ class ClientHandler extends Thread {
         }
     }
 
-    private void verifyPupilRecord(String username, boolean isVerified) throws SQLException {
+    private void verifyPupilRecord(String username, boolean isVerified, PrintWriter output) throws SQLException {
         String filePath = "pupil_records.txt";
         File tempFile = new File("temp_pupil_records.txt");
 
@@ -228,12 +231,18 @@ class ClientHandler extends Thread {
                 String[] fields = currentLine.split(",");
                 if (fields[0].equalsIgnoreCase(username)) {
                     found = true;
-                    if (isVerified) {
-                        saveParticipantToDatabase(fields[1], fields[2], fields[3], fields[5]);
-                        EmailSender.sendVerificationStatusEmail(fields[3], true);
+                    if (fields[5].equals(schoolRegistrationNumber)) {
+                        if (isVerified) {
+                            saveParticipantToDatabase(fields[1], fields[2], fields[3], fields[5]);
+                            EmailSender.sendVerificationStatusEmail(fields[3], true);
+                            output.println("Pupil record for " + username + " verified successfully.");
+                        } else {
+                            saveRejectedToDatabase(fields[1], fields[2], fields[3], fields[5]);
+                            EmailSender.sendVerificationStatusEmail(fields[3], false);
+                            output.println("Pupil record verification for " + username + " denied.");
+                        }
                     } else {
-                        saveRejectedToDatabase(fields[1], fields[2], fields[3], fields[5]);
-                        EmailSender.sendVerificationStatusEmail(fields[3], false);
+                        output.println("You are not authorized to verify this pupil's record.");
                     }
                 } else {
                     writer.println(currentLine);
@@ -241,7 +250,7 @@ class ClientHandler extends Thread {
             }
 
             if (!found) {
-                System.err.println("No record for this username: " + username);
+                output.println("No record found for this username: " + username);
                 return;
             }
 
@@ -304,6 +313,25 @@ class ClientHandler extends Thread {
 
             if (rs.next()) {
                 return rs.getString("repEmail");
+            }
+        }
+
+        return null;
+    }
+
+    private String getSchoolRegistrationNumberByRepName(String repName) throws SQLException {
+        String dbURL = "jdbc:mysql://localhost:3306/math_challenge";
+        String user = "root";
+        String pass = "";
+
+        try (Connection conn = DriverManager.getConnection(dbURL, user, pass);
+             PreparedStatement stmt = conn.prepareStatement("SELECT schoolRegistrationNumber FROM school_representative WHERE name = ?")) {
+
+            stmt.setString(1, repName);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("schoolRegistrationNumber");
             }
         }
 
