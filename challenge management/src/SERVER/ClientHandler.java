@@ -1,7 +1,5 @@
 package SERVER;
 
-import org.fusesource.jansi.AnsiConsole;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,7 +37,7 @@ public class ClientHandler implements Runnable {
             while ((command = reader.readLine()) != null) {
                 switch (command.toLowerCase().trim()) {
                     case "login":
-                        loggedInUsername = Login.login(socket, connection, writer, reader);
+                        loggedInUsername = Login.login(connection, writer, reader);
                         if (loggedInUsername != null) {
                             setParticipantIDAndEmail();
                             writer.println("Type 'viewchallenges' to see available challenges.");
@@ -117,7 +115,6 @@ public class ClientHandler implements Runnable {
             if (reader != null) reader.close();
             if (writer != null) writer.close();
             if (socket != null) socket.close();
-            AnsiConsole.systemUninstall();
         } catch (IOException e) {
             System.err.println("Error closing client resources: " + e.getMessage());
         }
