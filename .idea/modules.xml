@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/G-17-recess-project.iml" filepath="$PROJECT_DIR$/.idea/G-17-recess-project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Math challenge(java)/Math challenge(java).iml" filepath="$PROJECT_DIR$/Math challenge(java)/Math challenge(java).iml" />
       <module fileurl="file://$PROJECT_DIR$/MathCompetition/MathCompetition.iml" filepath="$PROJECT_DIR$/MathCompetition/MathCompetition.iml" />
       <module fileurl="file://$PROJECT_DIR$/challenge management/challenge management.iml" filepath="$PROJECT_DIR$/challenge management/challenge management.iml" />
       <module fileurl="file://$PROJECT_DIR$/participant registration/participant registration.iml" filepath="$PROJECT_DIR$/participant registration/participant registration.iml" />

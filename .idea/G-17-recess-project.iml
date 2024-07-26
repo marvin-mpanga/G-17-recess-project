@@ -9,9 +9,14 @@
       <sourceFolder url="file://$MODULE_DIR$/Math.Competition/tests" isTestSource="true" packagePrefix="Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/Math.Competition/tests/Feature" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/Math.Competition/tests/Unit" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/Math challenge(java)/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="mysql.connector.j" level="project" />
+    <orderEntry type="library" name="fusesource.jansi" level="project" />
+    <orderEntry type="library" name="jakarta.activation.api" level="project" />
+    <orderEntry type="library" name="jakarta.mail.api" level="project" />
+    <orderEntry type="library" name="eclipse.angus.mail" level="project" />
   </component>
 </module>
