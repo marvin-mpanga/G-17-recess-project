@@ -7,7 +7,7 @@ use App\Models\Challenge;
 use App\Models\answers;
 use App\Models\Submission;
 use App\Models\User;
-use App\Models\Pupil;
+use App\Models\Participant;
 use App\Models\Schools;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,12 +17,14 @@ class PupilController extends Controller
     public function pupilLogin(Request $request){
         return redirect()->route('dashboard.overview');
     }
+    public function repLogin(Request $request){
+        return redirect()->route('dashboard.overview');
+    }
     
     public function pupilRegister(Request $request){
         
             // Validate the request data
             $request->validate([
-                'pupilId' => 'required|string',
                 'username' => 'required|string',
                 'fName' => 'required|string',
                 'lName' => 'required|string',
@@ -33,8 +35,7 @@ class PupilController extends Controller
             ]);
         
             // Create a new pupil record
-            $pupil = Pupil::create([
-                'pupilId' => $request->input('pupilId'),
+            $pupil = Participant::create([
                 'username' => $request->input('username'),
                 'lName' => $request->input('lName'),
                 'fName' => $request->input('fName'),
@@ -61,17 +62,9 @@ class PupilController extends Controller
 
     $validatedData['password'] = bcrypt($validatedData['password']);
 
-    Pupil::create($validatedData);
+    Participant::create($validatedData);
 } 
-public function update(Request $request)
-{
-  $pupil = Pupil::find($request->input('pupil_id'));
-  $pupil->name = $request->input('name');
-  $pupil->username = $request->input('username');
-  $pupil->date_of_birth = $request->input('date_of_birth');
-  $pupil->save();
-  return response()->json(['success' => true]);
-}
+
 
 
     public function showOverview()
@@ -121,6 +114,14 @@ public function update(Request $request)
     {
         return view('auth.dashboard.manage_schools');
     }
+
+    public function showBestParticipant()
+    {
+        $bestParticipant = Participant::orderBy('score', 'desc')->first();
+
+        return view('best-participant', compact('bestParticipant'));
+    }
+
     
 
 }

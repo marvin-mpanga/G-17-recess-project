@@ -8,20 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 class question_response extends Model
 {
     use HasFactory;
-    protected $table = 'table_question_response';
+    
+    protected $table = 'question_response';
 
     protected $fillable = [
-        'responsiveId',
-        'attemptId',
+        'responseId',
         'questionId',
+        'attemptId',
         'isCorrect',
-        'timetaken',
+        'startTime',
+        'endTime',
     ];
 
     public $timestamps = true;
 
-    protected $primaryKey = 'responsiveId';
+    // Optional: Define relationships
+    public function question()
+    {
+        return $this->belongsTo(Question::class, 'questionId');
+    }
 
-    protected $keyType = 'string';
+    public function attempt()
+    {
+        return $this->belongsTo(Attempt::class, 'attemptId');
+    }
+
 
 }

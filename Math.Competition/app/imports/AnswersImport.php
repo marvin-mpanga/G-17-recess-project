@@ -2,19 +2,38 @@
 namespace App\Imports;
 
 use App\Models\Answer;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Collections\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class AnswersImport implements ToModel, WithHeadingRow
+class AnswerImport implements ToCollection, WithHeadingRow
 {
-    public function model(array $row)
-    {
+    public function collection(Collection $rows){
+
+        foreach ($rows as $row) 
+        {
+            $answer = Answer::where('answer_text', $row['answer_text'])->first();
+            
+            if($answer)
+            {
+                $answer->update([
+                    'answer_text' => $row['answer_text'],
+                    'question_id' => $row['question_id'],
+                ]);
+                
+            }
+            else{ 
+            Answer::create([
+                'question_id' => $row['question_id'],
+                'answer_text' => $row['answer_text'],
+                'answer_id' => $row['answer_id'],
+            ]);
+        }
+    }
         return new Answer([
-            'answer_no' => $row['answer_no'],
             'question_id' => $row['question_id'],
-            'challenge_id' => $row['challenge_id'],
             'answer_text' => $row['answer_text'],
-            'score' => $row['score'],
+            'answer_id' => $row['answer_id'],
         ]);
     }
 }

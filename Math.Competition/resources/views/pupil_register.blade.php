@@ -75,7 +75,7 @@
                 <form method="POST" action="{{ route('pupil.register.submit') }}" id="registerForm">
                     @csrf
                     <div class="form-group">
-                        <div class="left-column">
+                        <!-- <div class="left-column">
                             <label for="pupilId"> <span class="text-danger"></span></label>
                             <input id="pupilId" type="text" class="form-control @error('pupilId') is-invalid @enderror" name="pupilId" value="{{ old('pupilId') }}" required autocomplete="pupilId" autofocus placeholder="Please enter your pupil ID">
                             @error('pupilId')
@@ -83,7 +83,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> -->
                         <div class="right-column">
                             <label for="username"><span class="text-danger"></span></label>
                             <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" placeholder="Please enter your username">

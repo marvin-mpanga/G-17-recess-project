@@ -36,7 +36,7 @@
             box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
         }
         .form-control {
-            height: 40px;
+            height: 50px;
             width: 400px;
             font-size: 18px;
         }

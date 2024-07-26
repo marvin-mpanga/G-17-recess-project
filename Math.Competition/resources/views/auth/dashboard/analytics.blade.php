@@ -647,19 +647,19 @@
                         </li>
                         <br>
                         <li>
-                            <a href="{{ route('dashboard.manage_schools') }}" class="list-group-item list-group-item-action bg-light" style="font-size: 1.5rem;">
+                            <a href="{{ route('upload_schools') }}" class="list-group-item list-group-item-action bg-light" style="font-size: 1.5rem;">
                                 <span class="las la-school"></span> Manage Schools
                             </a>
                         </li>
                         <br>
                         <li>
-                            <a href="" style="font-size: 1.5rem;">
+                            <a href="{{ route('manage_challenge') }}" style="font-size: 1.5rem;">
                                 <span class="las la-tasks"></span> Manage challenge
                             </a>
                         </li>
                         <br>
                         <li>
-                            <a href="" style="font-size: 1.5rem;">
+                            <a href="{{ route('dashboard.analytics') }}" style="font-size: 1.5rem;">
                                 <span class="las la-chart-bar"></span>Analytics
                             </a>
                         </li>

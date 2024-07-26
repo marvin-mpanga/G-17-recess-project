@@ -16,7 +16,8 @@
                         {{ __('Home') }}
                     </a>
                 </li>
-
+<div class="collapse navbar-collapse justify-content-end" id="navbar">
+            <ul class="navbar-nav">
             <li class="nav-item @if($activePage == 'welcome') active @endif">
                     <a href="{{ route('aboutUs') }}" class ="nav-link" >
                         {{ __('AboutUs') }}

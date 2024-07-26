@@ -8,12 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class challenge_progress extends Model
 {
     use HasFactory;
-    protected $table = 'table_challenge_progress';
+    protected $table = 'challenge_progress';
 
     protected $fillable = [
-        'progressId',
-        'challenge',
+        'challenge_id',
+        'challengeId',
         'participantId',
     ];
+
+    public $timestamps = true;
+
+    // Optional: Define relationships
+    public function challenge()
+    {
+        return $this->belongsTo(Challenge::class, 'challengeId');
+    }
+
+    public function participant()
+    {
+        return $this->belongsTo(Participant::class, 'participantId');
+    }
+
 
 }

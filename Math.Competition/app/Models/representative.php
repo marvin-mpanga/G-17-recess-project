@@ -7,20 +7,21 @@ use Illuminate\Notifications\Notifiable;
 
 class Representative extends Authenticatable
 {
-    use Notifiable;
-
-    protected $table = '_representative';
-    protected $primaryKey = 'repId';
+    protected $table = 'representative';
 
     protected $fillable = [
+        'RepId',
         'schoolRegNo',
         'repName',
+        'repEmail',
         'password',
-        'email',
     ];
 
+    public $timestamps = true;
+
+    // Optional: Hide the password attribute
     protected $hidden = [
         'password',
-        'remember_token',
     ];
+
 }

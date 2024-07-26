@@ -445,7 +445,7 @@
                 <span>Number of participants</span>
                 <small></small>
             </div>
-            <h2 id="pupil-count">{{ App\Models\Pupil::count() }}</h2> 
+            <h2 id="pupil-count">{{ App\Models\Participant::count() }}</h2> 
             <small></small>
         </div>
         <div class="card-chart success">
@@ -462,7 +462,7 @@
                                 <span>Number of schools</span>
                                 <small></small>
                             </div>
-                            <h2 id="school-count">{{ App\Models\Schools::count() }}</h2>
+                            <h2> {{ App\Models\School::count() }}</h2>
                             <small></small>
                         </div>
                         <div class="card-chart danger">
@@ -478,7 +478,7 @@
                                 <span>number of challenges</span>
                                 <small></small>
                             </div>
-                            <h2 id="challenge-count">{{ App\Models\Challenge::count() }}</h2>
+                            <h2>20</h2>
 
                             <small></small>
                         </div>
@@ -492,17 +492,20 @@
 
             <div class="jobs-grid">
             <div class="leaderboard">
-  <h2><i class="las la-trophy"></i>Top Pupils</h2>
+  <h2><i class="las la-trophy"></i>leaderBoard</h2>
   <ol>
-    <li>John Doe (92)</li>
-    <li>Jane Smith (89)</li>
-    <li>Bob Johnson (88)</li>
+  <li>{{ $bestParticipant->name }} ({{ $bestParticipant->score }})</li>
+
+    <li></li>
+    <li></li>
   </ol>
 </div>
 
 
 
                <div class="analytics-card">
+
+               
                <div class="card-header">Recent Activities</div>
     <div class="card-body">
         <ul>
@@ -561,7 +564,7 @@
                         </li>
                         <br>
                         <li>
-                            <a href="{{ route('manage_schools') }}" class="list-group-item list-group-item-action bg-light" style="font-size: 1.2rem;">
+                            <a href="{{ route('upload_schools') }}" class="list-group-item list-group-item-action bg-light" style="font-size: 1.2rem;">
                                 <span class="las la-school"></span> Manage Schools
                             </a>
                         </li>
@@ -578,12 +581,7 @@
                             </a>
                         </li>
                         <br>
-                        <li>
-                            <a href="{{ route('dashboard.profile') }}" class="list-group-item list-group-item-action bg-light" style="font-size: 1.2rem;">
-                                <span class="las la-question"></span> Profile
-                            </a>
-                        </li>
-                        <br>
+                        
                         <li>
                             <a href="" style="font-size: 1.2rem;">
                                 <span class="las la-question"></span> Help
@@ -638,9 +636,9 @@ searchInput.addEventListener('keyup', function(e) {
 setInterval(function() {
         $.ajax({
             type: 'GET',
-            url: '/pupil-count',
+            url: '/participant-count',
             success: function(data) {
-                $('#pupil-count').text(data.count);
+                $('#participant-count').text(data.count);
             }
         });
     }, 10000); // update every 10 seconds

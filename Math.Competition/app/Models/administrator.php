@@ -9,16 +9,19 @@ class Administrator extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = '_administrator';
-    protected $primaryKey = 'adminID';
+    protected $table = 'administrator';
 
     protected $fillable = [
-        'name',
+        'adminId',
+        'adminName',
         'password',
     ];
 
+    public $timestamps = true;
+
+    // Optional: Hide the password attribute
     protected $hidden = [
         'password',
-        'remember_token',
     ];
+
 }

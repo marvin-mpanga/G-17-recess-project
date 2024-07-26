@@ -57,7 +57,7 @@
             <div class="card-body">
                 <form method="POST" action="{{ route('pupil.login.submit') }}" id="loginForm">
                     @csrf
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                         <label for="schoolRegNo" class="col-md-4 col-form-label text-md-right">{{ __('') }} <span class="text-danger"></span></label>
                         <div class="col-md-6">
                             <input id="schoolRegNo" type="text" class="form-control @error('schoolRegNo') is-invalid @enderror" name="schoolRegNo" value="{{ old('schoolRegNo') }}" required autocomplete="schoolRegNo" autofocus placeholder="Please enter your school registration number">
@@ -66,7 +66,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> -->
                     </div>
                     <br>
                     <br>

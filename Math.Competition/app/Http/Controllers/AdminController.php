@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Challenge;
-
-use App\Imports\QuestionsImport;
-use App\Imports\AnswersImport;
+use App\Models\School;
+use App\Models\Question;
+use App\Models\Answer;
+use App\Imports\QuestionImport;
+use App\Imports\AnswerImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Collections\ToCollection;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -27,105 +30,88 @@ class AdminController extends Controller
     return view('admin_dashboard');
     }
 
-    public function adminProfile(){
-        $admin = Auth::guard('admin')->user();
-    if ($admin) {
-        return view('admin_profile', compact('admin'));
-    } else {
-        return redirect()->route('admin_login');
+    public function manageChallenge() {
+        return view('manage_challenge')->with('challenges');
     }
 
-}
-
-public function editInfo()
-{
-    $admin = Auth::user();
-    return view('admin.edit-info', compact('admin'));
-}
-
-public function updateInfo(Request $request)
-{
-    $admin = Auth::user();
-    $admin->update($request->all());
-    return redirect()->back()->with('success', 'Info updated successfully!');
-}
-
-
-
-public function updateProfile(Request $request)
-{
-    $admin = Auth::guard('admin')->user();
-    $admin->name = $request->input('name');
-    $admin->email = $request->input('email');
-    $admin->password = bcrypt($request->input('password'));
-    $admin->save();
-    return back()->with('success', 'Profile updated successfully!');}
-
-
-    public function adminOverview() {
-        $challenges = Challenge::all();
-        return view('admin_overview', compact('challenges'));
-    }
-
-    public function uploadSchools() {
+    public function uploadSchools()
+    {
         return view('upload_schools');
     }
 
-
-    public function showUploadForm()
+    public function storeSchool(Request $request)
     {
-        return view('upload_questions');
-    }
-
-    public function uploadQuestions(Request $request)
-    {
-        $request->validate([
-            'questions' => 'required|file|mimes:xls,xlsx'
+        $validatedData = $request->validate([
+            'school_regno' => 'required',
+            'school_name' => 'required',
+            'district' => 'required',
         ]);
 
-        Excel::import(new QuestionsImport, $request->file('questions'));
+        School::create($validatedData);
+
+        return redirect()->back()->with('success', 'School uploaded successfully!');
+    }
+
+
+    // public function storeSchool(Request $request)
+    // {
+        
+
+    //     return redirect()->route('upload_schools')->with('success', 'School added successfully.');
+    // }
+    //     public function uploadQuestions()
+    // {
+    //     $Questions= Question::all();
+    //     $Answers= Answer::all();
+    //     return view('upload_questions');
+       
+    // }
+
+    public function showUploadForm(Request $request)
+    {
+        $request->validate([
+            'import_questions' => 'required|file|mimes:xls,xlsx'
+        ]);
+
+        Excel::import(new QuestionImport, $request->file('import_questions'));
 
         return redirect()->back()->with('success', 'Questions uploaded successfully.');
     }
-
-    public function uploadAnswers(Request $request)
+    
+    public function showAnswerForm(Request $request)
     {
         $request->validate([
-            'answers' => 'required|file|mimes:xls,xlsx'
+            'import_answers' => 'required|file|mimes:xls,xlsx'
         ]);
 
-        Excel::import(new AnswersImport, $request->file('answers'));
+        Excel::import(new AnswerImport, $request->file('import_answers'));
 
         return redirect()->back()->with('success', 'Answers uploaded successfully.');
     }
 
-    public function uploadDocs(Request $request) {
-    
-    }
+    public function setChallengeParameter(Request $request)
+{
+    // Validate the request data
+    $request->validate([
+        'startDate' => 'required|date',
+        'endDate' => 'required|date',
+        'duration' => 'required|integer',
+        'no_of_questions' => 'required|integer',
+    ]);
 
-    public function overallStats() {
+    // Create a new challenge instance
+    $challenge = new Challenge();
 
-        return view('overall_stats');
-    }
-    
-    public function showChallengeForm()
-    {
-        return view('challenge_form');
-    }
+    // Assign the request data to the challenge instance
+    $challenge->startDate = $request->input('startDate');
+    $challenge->endDate = $request->input('endDate');
+    $challenge->duration = $request->input('duration');
+    $challenge->no_of_questions = $request->input('no_of_questions');
 
-    public function createChallenge(Request $request)
-    {
-        $request->validate([
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-            'duration' => 'required|integer',
-            'num_questions' => 'required|integer',
-        ]);
+    // Save the challenge instance to the database
+    $challenge->save();
 
-        Challenge::create($request->all());
-
-        return back()->with('success', 'Challenge created successfully.');
-    }
-
-
+    // Return a success message or redirect to a success page
+    return redirect()->route('manage_challenge')->with('success', 'Challenge parameters set successfully!');
+   }
 }

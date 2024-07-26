@@ -1,18 +1,17 @@
 <?php
 
 namespace App\Models;
- 
+
 use Illuminate\Database\Eloquent\Model;
 
-class Schools extends Model
+class School extends Model
 {
-    protected $table = '_schools';
-    protected $primaryKey = 'schoolRegNo';
+    protected $table = 'school';
+
     protected $fillable = [
+        'schoolRegNo',
         'schoolName',
         'district',
     ];
-
 }
-
-
+ 

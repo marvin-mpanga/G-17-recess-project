@@ -8,12 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class Challenge extends Model
 {
     use HasFactory;
-    protected $table = '_challenge';
-    protected $primaryKey = 'id';
+    protected $table = 'challenge';
+
     protected $fillable = [
-        'no_of_questions',
-        'Duration',
-        'startDate',
-        'endDate',
+        'challengeId',
+        'challengeName',
+        'challengeDate',
+        'startTime',
+        'endTime',
+        'adminId',
     ];
+
+    public $timestamps = true;
+
+    // Optional: Define relationships
+    public function administrator()
+    {
+        return $this->belongsTo(Administrator::class, 'adminId');
+    }
+
+    public function attempts()
+    {
+        return $this->hasMany(Attempt::class, 'challengeId');
+    }
+
 }
