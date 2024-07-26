@@ -86,23 +86,38 @@ public class ClientHandler implements Runnable {
         if (Registration.isValidRepresentative(loginDetails[0], loginDetails[1], connection)) {
             writer.println("Login successful");
             loggedInUsername = loginDetails[0];
-            handleViewApplicants();
+            try {
+                handleViewApplicants();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             writer.println("Login failed: Invalid name or password.");
         }
     }
 
-    private void handleViewApplicants() throws IOException {
+    private void handleViewApplicants() throws IOException, SQLException {
         writer.println("Enter 'viewApplicants' to view the applicants");
         if (reader.readLine().equalsIgnoreCase("viewApplicants")) {
-            Registration.viewApplicants(writer);
-            handleVerification();
+            String repSchoolNumber = Registration.getRepresentativeSchoolNumber(loggedInUsername, connection);
+            if (repSchoolNumber != null) {
+                boolean applicantsFound = Registration.viewApplicants(writer, repSchoolNumber);
+                if (applicantsFound) {
+                    handleVerification();
+                } else {
+                    writer.println("No applicants to verify. Logging out.");
+                }
+            } else {
+                writer.println("Error: Unable to retrieve school registration number for the representative.");
+            }
         } else {
             writer.println("Invalid command.");
         }
+        logout();
     }
 
     private void handleVerification() throws IOException {
+        writer.println("Enter 'verify YES/NO username' to verify applicants or 'exit' to finish.");
         String command;
         while ((command = reader.readLine()) != null) {
             if (command.startsWith("verify")) {
@@ -113,9 +128,10 @@ public class ClientHandler implements Runnable {
                 writer.println("Invalid command. Use 'verify YES/NO username' or 'exit'.");
             }
         }
+        writer.println("Verification process completed. Logging out.");
     }
 
-    private void handleParticipantLogin() throws SQLException {
+    private void handleParticipantLogin() {
         loggedInUsername = Login.login(connection, writer, reader);
         if (loggedInUsername != null) {
             setParticipantIDAndEmail();
