@@ -33,3 +33,4 @@ class Challenge extends Model
     }
 
 }
+

@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use Illuminate\App\Http\Request;
+use App\Http\Controllers\UploadController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,19 +70,14 @@ Route::get('/upload/schools', 'App\Http\Controllers\AdminController@uploadSchool
 Route::get('/upload/questions', 'App\Http\Controllers\AdminController@uploadQuestions')->name('upload_questions');
 Route::get('/upload/answers', 'App\Http\Controllers\AdminController@uploadAnswers')->name('upload_answers');
 //upload of qtn
-//Route::post('/upload/questions', 'App\Http\Controllers\AdminController@showUploadForm')->name('showUploadForm');
+Route::post('/upload/questions', 'App\Http\Controllers\AdminController@showUploadForm')->name('showUploadForm');
 //upload of school
-//Route::post('/store/schools', 'App\Http\Controllers\AdminController@storeSchool')->name('store_schools');
+Route::post('/store/schools', 'App\Http\Controllers\AdminController@storeSchool')->name('store_schools');
+
 //upload of answer
-//Route::post('/upload/answers', 'App\Http\Controllers\AdminController@showAnswerForm')->name('showAnswerForm');
+Route::post('/upload/answers', 'App\Http\Controllers\AdminController@showAnswerForm')->name('showAnswerForm');
 //challenge routes
 Route::post('/store/challenge', 'App\Http\Controllers\AdminController@setChallengeParameter')->name('store_challenge');
 
 Route::get('/aboutUs', 'App\Http\Controllers\HomeController@showAboutUs')->name('aboutUs');
 Route::get('/contact', 'App\Http\Controllers\HomeController@showContact')->name('contact');
-
-Route::get('/schools', [SchoolController::class, 'index'])->name('school.index');
-Route::get('/fetch_schools', [SchoolController::class, 'fetchSchools']);
-Route::post('/add_school', [SchoolController::class, 'addSchool']);
-
-Route::get('/best-participant', [PupilController::class, 'showBestParticipant']);

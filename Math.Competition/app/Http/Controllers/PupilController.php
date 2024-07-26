@@ -9,6 +9,7 @@ use App\Models\Submission;
 use App\Models\User;
 use App\Models\Participant;
 use App\Models\Schools;
+use App\Models\Perfomance;
 use Illuminate\Support\Facades\Auth;
 
 class PupilController extends Controller
@@ -74,11 +75,11 @@ class PupilController extends Controller
 
     }
     public function showAnalytics()
-    {
-    // ...
-        return view('auth.dashboard.analytics');
+{
+    
+    return view('auth.dashboard.analytics');
+}
 
-    }
 
     public function showProgress()
     {
@@ -115,12 +116,12 @@ class PupilController extends Controller
         return view('auth.dashboard.manage_schools');
     }
 
-    public function showBestParticipant()
-    {
-        $bestParticipant = Participant::orderBy('score', 'desc')->first();
+    // public function showBestParticipant()
+    // {
+    //     $bestParticipant = Participant::orderBy('score', 'desc')->first();
 
-        return view('best-participant', compact('bestParticipant'));
-    }
+    //     return view('best-participant', compact('bestParticipant'));
+    // }
 
     
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableSubmissions extends Migration
+class CreatePerfomanceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateTableSubmissions extends Migration
      */
     public function up()
     {
-        Schema::create('table__submissions', function (Blueprint $table) {
-            $table->string('submissionID', 25)->primary();
-            $table->string('average_score', 10);
-            $table->string('answerID', 25)->foreign();
+        Schema::create('perfomance', function (Blueprint $table) {
+            $table->id();
+            $table->string('SchoolId', 10);
+            $table->string('perfomance', 100);
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ class CreateTableSubmissions extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table__submissions');
+        Schema::dropIfExists('perfomance');
     }
 }

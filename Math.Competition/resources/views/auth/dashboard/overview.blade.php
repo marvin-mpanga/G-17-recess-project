@@ -478,7 +478,7 @@
                                 <span>number of challenges</span>
                                 <small></small>
                             </div>
-                            <h2>20</h2>
+                            <h2>{{ App\Models\Challenge::count() }}</h2>
 
                             <small></small>
                         </div>
@@ -492,12 +492,11 @@
 
             <div class="jobs-grid">
             <div class="leaderboard">
-  <h2><i class="las la-trophy"></i>leaderBoard</h2>
+  <h2><i class="las la-trophy"></i>Top Pupils</h2>
   <ol>
-  <li>{{ $bestParticipant->name }} ({{ $bestParticipant->score }})</li>
-
-    <li></li>
-    <li></li>
+    <li>John Doe (92)</li>
+    <li>Jane Smith (89)</li>
+    <li>Bob Johnson (88)</li>
   </ol>
 </div>
 

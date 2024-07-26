@@ -217,6 +217,7 @@
         .analytics-card {
             background: #fff;
             padding: 1.5rem;
+            width: 700px;
         }
         .analytics-head {
             display: flex;
@@ -354,6 +355,17 @@
             text-decoration: none;
             font-size: 26px;
         } 
+        #worst-schools-list {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 200px;
+    z-index: 1;
+}
+
+
+
 
         
 
@@ -400,10 +412,7 @@
                 </div>
             
                 <div class="header-actions">
-                    <button>
-                       <span class="las la-file-export"></span> 
-                       Export
-                    </button>
+                    
                     <button>
                         <span class="las la-tools"></span> 
                         Settings
@@ -434,7 +443,7 @@
                         <div class="card-info">
                             <div class="card-head">
                                 <span>List of worst perfoming schools</span>
-                                <small></small>
+</small>
                             </div>
                             <h2> </h2>
 
@@ -474,147 +483,11 @@
                        <small>Trend alert: Passing rate has been declining since 2022, with a 14% drop in 2023.</small>
                     </div>
                     <div class="analytics-btn">
-                        <button>Generate Report</button>
                     </div>
                 </div>
 
 
 
-                <div class="jobs">
-                    <h2>Past Challenges <small> See all here <span class="las la-arrow-right"></span></small></h2>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div>
-                                       <span class="indicator"></span>
-                                    </div>
-                                </td>
-                                <td> 
-                                    <div>
-                                    2023
-                                    </div>
-                                </td>
-                                <td> 
-                                    <div>
-                                          Set By:  
-                                   </div>    
-                                </td>
-                                <td> 
-                                    <div>
-                                        Tr.Wyatt Jones
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        Posted 1year ago
-                                    </div>    
-                                </td>
-                                <td>
-                                    <div>
-                                         <button> Download</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div>
-                                        <span class="indicator even"></span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                     2022
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                     Set by:
-                                    </div>
-                                </td>
-                                <td> 
-                                    <div>
-                                       Tr. Sarah Dk.
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        Posted 2years ago
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <button> Download</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div>
-                                       <span class="indicator"></span>
-                                    </div>
-                                </td>
-                                <td> 
-                                    <div>
-                                    2021
-                                    </div>
-                                </td>
-                                <td> 
-                                    <div>
-                                        Set by:
-                                </div>    
-                                </td>
-                                <td> 
-                                    <div>
-                                        Tr. Robinah Singh
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        Posted 3years ago
-                                    </div>    
-                                </td>
-                                <td>
-                                    <div>
-                                         <button> Download</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div>
-                                        <span class="indicator even"></span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                     2019
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                     Set by:
-                                    </div>
-                                </td>
-                                <td> 
-                                    <div>
-                                      Tr. Jared Simpsons
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        Posted 5years ago
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <button>Download</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </main>
     </div>
@@ -674,30 +547,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', '%perfomance', ],
-          ['2019',  80,      ],
-          ['2021',  76,      ],
-          ['2022',  93,       ],
-          ['2023',  79,      ]
-        ]);
-
-        var options = {
-          title: 'School perfomance over years',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
+    
     </script>
 </body>
 </html>

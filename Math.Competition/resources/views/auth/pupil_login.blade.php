@@ -35,11 +35,10 @@
             transform: translate(-50%, -50%);
             box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
         }
-        .form-control {
-            height: 50px;
-            width: 400px;
-            font-size: 18px;
-        }
+        height: 150px; /* Increase the height of the input field */
+    font-size: 24px; /* Increase the font size of the input text */
+    padding: 10px; /* Add some padding to make it look better */
+
         .form-control::placeholder {
             color: #666;
             opacity: 0.6;

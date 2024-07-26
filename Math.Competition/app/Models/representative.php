@@ -10,7 +10,7 @@ class Representative extends Authenticatable
     protected $table = 'representative';
 
     protected $fillable = [
-        'RepId',
+        'repId',
         'schoolRegNo',
         'repName',
         'repEmail',
@@ -25,3 +25,4 @@ class Representative extends Authenticatable
     ];
 
 }
+ 

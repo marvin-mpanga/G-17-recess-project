@@ -23,7 +23,7 @@
                         </div>
                          <div class="card-body" >   
 
-                         <form action="{{ route('upload_questions') }}" method="POST" enctype="multipart/form-data">
+                         <form action="{{ route('upload') }}" method=" POST" enctype="multipart/form-data">
                           @csrf
                         <div class="form-group">
                     <label for="questions">Upload Questions File:</label>
@@ -38,7 +38,7 @@
                         </div>
                          <div class="card-body" >   
 
-                         <form action="{{ route('upload_answers') }}" method="POST" enctype="multipart/form-data">
+                         <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
                           @csrf
                         <div class="form-group">
                     <label for="questions">Upload Answers File:</label>

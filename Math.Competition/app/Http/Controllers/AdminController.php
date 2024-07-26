@@ -67,28 +67,7 @@ class AdminController extends Controller
        
     // }
 
-    public function showUploadForm(Request $request)
-    {
-        $request->validate([
-            'import_questions' => 'required|file|mimes:xls,xlsx'
-        ]);
-
-        Excel::import(new QuestionImport, $request->file('import_questions'));
-
-        return redirect()->back()->with('success', 'Questions uploaded successfully.');
-    }
     
-    public function showAnswerForm(Request $request)
-    {
-        $request->validate([
-            'import_answers' => 'required|file|mimes:xls,xlsx'
-        ]);
-
-        Excel::import(new AnswerImport, $request->file('import_answers'));
-
-        return redirect()->back()->with('success', 'Answers uploaded successfully.');
-    }
-
     public function setChallengeParameter(Request $request)
 {
     // Validate the request data
