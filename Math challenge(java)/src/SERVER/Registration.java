@@ -22,13 +22,14 @@ public class Registration {
         String schoolRegistrationNumber = registrationDetails[5];
         String imageFile = registrationDetails[6];
 
+       //check whether the registration number entered is correct
         if (!isValidSchoolRegistrationNumber(schoolRegistrationNumber, connection)) {
             writer.println("Invalid schoolRegistrationNumber. Please try again.");
             return;
         }
 
         if (isRejected(schoolRegistrationNumber, connection)) {
-            writer.println("Registration denied: cannot register under this school.");
+            writer.println("Registration denied: cannot register under this school because you tried registering earlier under the same rejected school.");
             return;
         }
 
