@@ -8,7 +8,7 @@ import java.sql.*;
 public class Server {
 
     public static void main(String[] args) {
-        int port = 2222; // The port number on which the server listens
+        int port = 1234; // The port number on which the server listens
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server is listening on port " + port);
@@ -84,7 +84,7 @@ class ClientHandler extends Thread {
         // Send email to the school representative
         String repEmail = getRepresentativeEmailBySchoolNumber(schoolRegistrationNumber);
         if (repEmail != null) {
-            EmailSender.sendVerificationRequestEmail(repEmail, firstname);
+            EmailSender_Registration.sendVerificationRequestEmail(repEmail, firstname);
         }
     }
 
@@ -230,10 +230,10 @@ class ClientHandler extends Thread {
                     found = true;
                     if (isVerified) {
                         saveParticipantToDatabase(fields[1], fields[2], fields[3], fields[5]);
-                        EmailSender.sendVerificationStatusEmail(fields[3], true);
+                        EmailSender_Registration.sendVerificationStatusEmail(fields[3], true);
                     } else {
                         saveRejectedToDatabase(fields[1], fields[2], fields[3], fields[5]);
-                        EmailSender.sendVerificationStatusEmail(fields[3], false);
+                        EmailSender_Registration.sendVerificationStatusEmail(fields[3], false);
                     }
                 } else {
                     writer.println(currentLine);

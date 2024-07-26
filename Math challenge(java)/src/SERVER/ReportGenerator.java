@@ -59,7 +59,7 @@ public class ReportGenerator {
                 int attemptNumber = resultSet.getInt("attemptNumber");
                 int score = resultSet.getInt("score");
 
-                ChallengeSummary challengeSummary = challengeSummaries.computeIfAbsent(challengeName, _ -> new ChallengeSummary());
+                ChallengeSummary challengeSummary = challengeSummaries.computeIfAbsent(challengeName, k -> new ChallengeSummary());
                 challengeSummary.addAttempt(attemptNumber, score);
             }
         }
@@ -170,10 +170,10 @@ public class ReportGenerator {
                 boolean isCorrect = resultSet.getBoolean("isCorrect");
                 String questionText = resultSet.getString("questionTxt");
 
-                ChallengeSummary summary = challengeSummaries.computeIfAbsent(challengeName, _ -> new ChallengeSummary());
+                ChallengeSummary summary = challengeSummaries.computeIfAbsent(challengeName, k -> new ChallengeSummary());
                 summary.addAttempt(attemptNumber, score);
 
-                StringBuilder details = challengeDetails.computeIfAbsent(challengeName, _ -> new StringBuilder());
+                StringBuilder details = challengeDetails.computeIfAbsent(challengeName, k-> new StringBuilder());
                 appendQuestionDetails(details, attemptNumber, questionText, isCorrect);
             }
         }
